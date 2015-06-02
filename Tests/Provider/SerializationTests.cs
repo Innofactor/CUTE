@@ -12,7 +12,7 @@
 
         [Fact(DisplayName = "Serialize + Deserialize")]
         [Trait("Module", "Serialization")]
-        public void Test_Serialize_Deserialize()
+        public void Serialize_Deserialize()
         {
             // Arrange
             var inputProvider = new WrappedProvider(Substitute.For<IServiceProvider>());
@@ -28,7 +28,7 @@
         [Trait("Module", "Serialization")]
         [Trait("Module", "Provider")]
         [Trait("Module", "Call")]
-        public void Test_Serialize_Deserialize_Check_Calls()
+        public void Serialize_Deserialize_Check_Calls()
         {
             // Arrange
             var inputProvider = new WrappedProvider(Substitute.For<IServiceProvider>());
@@ -47,7 +47,7 @@
         [Trait("Module", "Serialization")]
         [Trait("Module", "Provider")]
         [Trait("Module", "Context")]
-        public void Test_Serialize_Deserialize_Check_Context()
+        public void Serialize_Deserialize_Check_Context()
         {
             // Arrange
             var inputProvider = new WrappedProvider(Substitute.For<IServiceProvider>());
@@ -66,7 +66,7 @@
         [Fact(DisplayName = "Serialize + Deserialize & Check Original Provider")]
         [Trait("Module", "Serialization")]
         [Trait("Module", "Provider")]
-        public void Test_Serialize_Deserialize_Check_Original_Provider()
+        public void Serialize_Deserialize_Check_Original_Provider()
         {
             // Arrange
             var inputProvider = new WrappedProvider(Substitute.For<IServiceProvider>());
@@ -80,7 +80,7 @@
 
         [Fact(DisplayName = "Serialize To String")]
         [Trait("Module", "Serialization")]
-        public void Test_Serialize_To_String()
+        public void Serialize_To_String()
         {
             // Arrange
             var provider = new WrappedProvider(Substitute.For<IServiceProvider>());
@@ -94,7 +94,7 @@
 
         [Fact(DisplayName = "Serialize To XML")]
         [Trait("Module", "Serialization")]
-        public void Test_Serialize_To_XML()
+        public void Serialize_To_XML()
         {
             // Arrange
             var provider = new WrappedProvider(Substitute.For<IServiceProvider>());
