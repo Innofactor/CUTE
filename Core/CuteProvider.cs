@@ -88,7 +88,7 @@
             if (serviceType == typeof(IPluginExecutionContext))
             {
                 // Sign that provider was deserialized
-                if (this.Original == null)
+                if (!this.IsOnline)
                 {
                     return this.Context;
                 }
@@ -99,7 +99,14 @@
                 return new CuteFactory(this);
             }
 
-            return this.Original.GetService(serviceType);
+            if (this.IsOnline)
+            {
+                return this.Original.GetService(serviceType);
+            }
+            else
+            {
+                return new object();
+            }
         }
 
         /// <summary>

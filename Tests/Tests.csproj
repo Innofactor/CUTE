@@ -73,11 +73,13 @@
     <Compile Include="Service\BareInputTests.cs" />
     <Compile Include="CuteFactoryTests.cs" />
     <Compile Include="Provider\BareInputTests.cs" />
-    <Compile Include="Provider\IProviderTests.cs" />
+    <Compile Include="Provider\ProviderTests.cs" />
     <Compile Include="Provider\SerializedInputTests.cs" />
     <Compile Include="CuteContextTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider\WrappedInputTests.cs" />
+    <Compile Include="Service\ServiceTests.cs" />
+    <Compile Include="Service\WrappedInputTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -2,7 +2,9 @@
 {
     using System;
     using Cinteros.Unit.Test.Extensions.Core;
+    using Microsoft.Xrm.Sdk;
     using NSubstitute;
+    using Xunit;
 
     public class SerializedInputTests : ProviderTests
     {
@@ -10,39 +12,71 @@
 
         public SerializedInputTests()
         {
+            // Arrange
+            var originalProvider = Substitute.For<IServiceProvider>();
+            originalProvider.GetService(typeof(ITracingService)).Returns(Substitute.For<ITracingService>());
+            originalProvider.GetService(typeof(IPluginExecutionContext)).Returns(Substitute.For<IPluginExecutionContext>());
 
+            var wrappedProvider = new CuteProvider(originalProvider);
+            this.Provider = new CuteProvider(wrappedProvider.ToString());
         }
 
         #endregion Public Constructors
 
         #region Public Methods
 
-        public void Get_Context()
+        [Fact(DisplayName = "Check Online Status")]
+        [Trait("Module", "Provider")]
+        [Trait("Provider", "Serialized Input")]
+        public override void Check_Online_Status()
         {
-            throw new NotImplementedException();
+            // Assert
+            Assert.False(this.Provider.IsOnline);
         }
 
-        public void Get_OriginalProvider()
+        [Fact(DisplayName = "Get Context")]
+        [Trait("Module", "Provider")]
+        [Trait("Module", "Context")]
+        [Trait("Provider", "Serialized Input")]
+        public override void Get_Context()
         {
-            throw new NotImplementedException();
+            // Act
+            var context = this.Provider.GetService(typeof(IPluginExecutionContext));
+
+            // Assert
+            Assert.IsAssignableFrom<IPluginExecutionContext>(context);
+            Assert.IsType<CuteContext>(context);
         }
 
-        public void Get_TracingService()
+        [Fact(DisplayName = "Get OriginalProvider")]
+        [Trait("Module", "Provider")]
+        [Trait("Provider", "Serialized Input")]
+        public override void Get_OriginalProvider()
         {
-            throw new NotImplementedException();
+            base.Get_OriginalProvider();
         }
 
-        public void Get_WrappedFactory()
+        [Fact(DisplayName = "Get TracingService")]
+        [Trait("Module", "Provider")]
+        [Trait("Provider", "Serialized Input")]
+        public override void Get_TracingService()
         {
-            throw new NotImplementedException();
+            // Act
+            var service = this.Provider.GetService(typeof(ITracingService));
+
+            // Assert
+            Assert.NotNull(service);
+        }
+
+        [Fact(DisplayName = "Get WrappedFactory")]
+        [Trait("Module", "Provider")]
+        [Trait("Module", "Factory")]
+        [Trait("Provider", "Serialized Input")]
+        public override void Get_WrappedFactory()
+        {
+            base.Get_WrappedFactory();
         }
 
         #endregion Public Methods
-
-
-        public override void Check_Online_Status()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
