@@ -6,16 +6,19 @@
     using NSubstitute;
     using Xunit;
 
-    public class BareInputTests
+    public class BareInputTests : ProviderTests
     {
-        private CuteProvider provider;
+        #region Public Constructors
+
         public BareInputTests()
         {
             // Arrange
-            this.provider = new CuteProvider(Substitute.For<IServiceProvider>());
-            this.provider.GetService(typeof(IPluginExecutionContext)).Returns(Substitute.For<IPluginExecutionContext>());
-            this.provider.GetService(typeof(ITracingService)).Returns(Substitute.For<ITracingService>());
+            this.Provider = new CuteProvider(Substitute.For<IServiceProvider>());
+            this.Provider.GetService(typeof(IPluginExecutionContext)).Returns(Substitute.For<IPluginExecutionContext>());
+            this.Provider.GetService(typeof(ITracingService)).Returns(Substitute.For<ITracingService>());
         }
+
+        #endregion Public Constructors
 
         #region Public Methods
 
@@ -23,49 +26,34 @@
         [Trait("Module", "Provider")]
         [Trait("Module", "Context")]
         [Trait("Provider", "Bare Input")]
-        public void Get_Context()
+        public override void Get_Context()
         {
-            // Act
-            var context = this.provider.GetService(typeof(IPluginExecutionContext));
-
-            // Assert
-            Assert.IsAssignableFrom<IPluginExecutionContext>(context);
-            Assert.IsNotType<CuteContext>(context);
+            base.Get_Context();
         }
 
         [Fact(DisplayName = "Get OriginalProvider")]
         [Trait("Module", "Provider")]
         [Trait("Provider", "Bare Input")]
-        public void Get_OriginalProvider()
+        public override void Get_OriginalProvider()
         {
-            // Assert
-            Assert.IsNotType<CuteProvider>(this.provider.Original);
+            base.Get_OriginalProvider();
         }
 
         [Fact(DisplayName = "Get TracingService")]
         [Trait("Module", "Provider")]
         [Trait("Provider", "Bare Input")]
-        public void Get_TracingService()
+        public override void Get_TracingService()
         {
-            // Act
-            var service = this.provider.GetService(typeof(ITracingService));
-
-            // Assert
-            Assert.IsAssignableFrom<ITracingService>(service);
+            base.Get_TracingService();
         }
 
         [Fact(DisplayName = "Get WrappedFactory")]
         [Trait("Module", "Provider")]
         [Trait("Module", "Factory")]
         [Trait("Provider", "Bare Input")]
-        public void Get_WrappedFactory()
+        public override void Get_WrappedFactory()
         {
-            // Act
-            var factory = provider.GetService(typeof(IOrganizationServiceFactory));
-
-            // Assert
-            Assert.IsAssignableFrom<IOrganizationServiceFactory>(factory);
-            Assert.IsType<CuteFactory>(factory);
+            base.Get_WrappedFactory();
         }
 
         #endregion Public Methods

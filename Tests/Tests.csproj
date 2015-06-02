@@ -68,13 +68,15 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Background\SerializationTests.cs" />
     <Compile Include="CuteServiceTests.cs" />
     <Compile Include="CuteFactoryTests.cs" />
     <Compile Include="Provider\BareInputTests.cs" />
-    <Compile Include="Provider\SerializationTests.cs" />
-    <Compile Include="Provider\WrappedInputTests.cs" />
+    <Compile Include="Provider\IProviderTests.cs" />
+    <Compile Include="Provider\SerializedInputTests.cs" />
     <Compile Include="CuteContextTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Provider\WrappedInputTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -85,9 +87,7 @@
       <Name>Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Factory\" />
-  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

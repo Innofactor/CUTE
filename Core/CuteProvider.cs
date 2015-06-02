@@ -49,7 +49,7 @@
         #region Public Properties
 
         /// <summary>
-        /// Types used by <see cref="InputDataContainer"/> and all subsidiary objects
+        /// Types used by <see cref="CuteProvider"/> and all subsidiary objects
         /// </summary>
         public static Type[] Types
         {
