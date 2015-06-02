@@ -14,9 +14,10 @@
         #region Private Fields
 
         private Guid expectedResultCreate;
+        private Entity expectedResultRetrieve;
+        private EntityCollection expectedResultRetrieveMultiple;
         private CuteProvider provider;
         private IOrganizationService service;
-        private Entity expectedResultRetrieve;
 
         #endregion Private Fields
 
@@ -34,10 +35,16 @@
             {
                 Id = Guid.NewGuid()
             };
+            this.expectedResultRetrieveMultiple = new EntityCollection();
+            this.expectedResultRetrieveMultiple.Entities.Add(new Entity());
+            this.expectedResultRetrieveMultiple.Entities.Add(new Entity());
+            this.expectedResultRetrieveMultiple.Entities.Add(new Entity());
+            this.expectedResultRetrieveMultiple.Entities.Add(new Entity());
+            this.expectedResultRetrieveMultiple.Entities.Add(new Entity());
 
             originalService.Create(Arg.Any<Entity>()).Returns(this.expectedResultCreate);
             originalService.Retrieve(Arg.Any<string>(), Arg.Any<Guid>(), Arg.Any<ColumnSet>()).Returns(this.expectedResultRetrieve);
-
+            originalService.RetrieveMultiple(Arg.Any<QueryBase>()).Returns(this.expectedResultRetrieveMultiple);
 
             originalFactory.CreateOrganizationService(Arg.Any<Guid?>()).Returns(originalService);
 
@@ -81,6 +88,35 @@
             Assert.NotEqual<Guid>(Guid.Empty, result.Id);
             Assert.Equal<Guid>(this.expectedResultRetrieve.Id, result.Id);
             Assert.Equal(1, this.provider.Calls.Where(x => x.MessageName == MessageName.Retrieve).Count());
+        }
+
+        [Fact(DisplayName = "Invoke RetrieveMultiple & Check Cache")]
+        [Trait("Module", "Service")]
+        [Trait("Provider", "Bare Input")]
+        public void Invoke_RetrieveMultiple_Check_Cache()
+        {
+            // Act
+            var result = this.service.RetrieveMultiple(new QueryExpression());
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<EntityCollection>(result);
+            Assert.Equal(this.expectedResultRetrieveMultiple.Entities.Count, result.Entities.Count);
+            Assert.Equal(1, this.provider.Calls.Where(x => x.MessageName == MessageName.RetrieveMultiple).Count());
+        }
+
+        [Fact(DisplayName = "Invoke Execute & Check Cache")]
+        [Trait("Module", "Service")]
+        [Trait("Provider", "Bare Input")]
+        public void Invoke_Execute_Check_Cache()
+        {
+            // Act
+            var result = this.service.Execute(new OrganizationRequest());
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<OrganizationResponse>(result);
+            Assert.Equal(1, this.provider.Calls.Where(x => x.MessageName == MessageName.Execute).Count());
         }
 
         #endregion Public Methods

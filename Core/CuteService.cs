@@ -162,11 +162,20 @@
         /// <exception cref="NotImplementedException"></exception>
         public EntityCollection RetrieveMultiple(QueryBase query)
         {
-            throw new NotImplementedException();
+            if (this.provider.IsOnline)
+            {
+                var result = this.service.RetrieveMultiple(query);
 
-            var call = new CuteCall(MessageName.RetrieveMultiple, new[] { query });
+                this.provider.Calls.Add(new CuteCall(MessageName.RetrieveMultiple, new[] { query }, result));
 
-            return this.provider.Calls.Where(x => x.Equals(call)).Select(x => (EntityCollection)x.Output).FirstOrDefault();
+                return result;
+            }
+            else
+            {
+                var call = new CuteCall(MessageName.RetrieveMultiple, new[] { query });
+
+                return this.provider.Calls.Where(x => x.Equals(call)).Select(x => (EntityCollection)x.Output).FirstOrDefault();
+            }
         }
 
         /// <summary>
