@@ -1,7 +1,9 @@
 ﻿namespace Cinteros.Unit.Test.Extensions.Tests.Service
 {
     using System;
+    using System.Linq;
     using Cinteros.Unit.Test.Extensions.Core;
+    using Cinteros.Unit.Test.Extensions.Core.Background;
     using Microsoft.Xrm.Sdk;
     using Microsoft.Xrm.Sdk.Query;
     using NSubstitute;
@@ -14,6 +16,7 @@
         private Guid expectedResultCreate;
         private CuteProvider provider;
         private IOrganizationService service;
+        private Entity expectedResultRetrieve;
 
         #endregion Private Fields
 
@@ -27,8 +30,14 @@
             var originalService = Substitute.For<IOrganizationService>();
 
             this.expectedResultCreate = Guid.NewGuid();
+            this.expectedResultRetrieve = new Entity()
+            {
+                Id = Guid.NewGuid()
+            };
 
             originalService.Create(Arg.Any<Entity>()).Returns(this.expectedResultCreate);
+            originalService.Retrieve(Arg.Any<string>(), Arg.Any<Guid>(), Arg.Any<ColumnSet>()).Returns(this.expectedResultRetrieve);
+
 
             originalFactory.CreateOrganizationService(Arg.Any<Guid?>()).Returns(originalService);
 
@@ -42,19 +51,6 @@
 
         #region Public Methods
 
-        [Fact(DisplayName = "Invoke Create")]
-        [Trait("Module", "Service")]
-        [Trait("Provider", "Bare Input")]
-        public void Invoke_Create()
-        {
-            // Act
-            var result = this.service.Create(new Entity());
-
-            // Assert
-            Assert.NotEqual<Guid>(Guid.Empty, result);
-            Assert.Equal<Guid>(this.expectedResultCreate, result);
-        }
-
         [Fact(DisplayName = "Invoke Create & Check Cache")]
         [Trait("Module", "Service")]
         [Trait("Provider", "Bare Input")]
@@ -64,20 +60,27 @@
             var result = service.Create(new Entity());
 
             // Assert
+            Assert.NotNull(result);
+            Assert.IsType<Guid>(result);
             Assert.NotEqual<Guid>(Guid.Empty, result);
-            Assert.Equal(1, this.provider.Calls.Count);
+            Assert.Equal<Guid>(this.expectedResultCreate, result);
+            Assert.Equal(1, this.provider.Calls.Where(x => x.MessageName == MessageName.Create).Count());
         }
 
-        [Fact(DisplayName = "Invoke Retrieve")]
+        [Fact(DisplayName = "Invoke Retrieve & Check Cache")]
         [Trait("Module", "Service")]
         [Trait("Provider", "Bare Input")]
-        public void Invoke_Retrieve()
+        public void Invoke_Retrieve_Check_Cache()
         {
             // Act
             var result = this.service.Retrieve(string.Empty, Guid.Empty, new ColumnSet());
 
             // Assert
             Assert.NotNull(result);
+            Assert.IsType<Entity>(result);
+            Assert.NotEqual<Guid>(Guid.Empty, result.Id);
+            Assert.Equal<Guid>(this.expectedResultRetrieve.Id, result.Id);
+            Assert.Equal(1, this.provider.Calls.Where(x => x.MessageName == MessageName.Retrieve).Count());
         }
 
         #endregion Public Methods

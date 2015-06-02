@@ -74,11 +74,7 @@
             {
                 var result = this.service.Create(entity);
 
-                this.provider.Calls.Add(new CuteCall(MessageName.Create)
-                {
-                    Input = new[] { entity },
-                    Output = result
-                });
+                this.provider.Calls.Add(new CuteCall(MessageName.Create, new[] { entity }, result));
 
                 return result;
             }
@@ -138,12 +134,25 @@
         /// <exception cref="NotImplementedException"></exception>
         public Entity Retrieve(string entityName, Guid id, ColumnSet columnSet)
         {
-            throw new NotImplementedException();
-
-            return this.provider.Calls.Where(x =>
+            if (this.provider.IsOnline)
             {
-                return (x.MessageName == MessageName.Retrieve) && (Guid)x.Input[0] == id && (ColumnSet)x.Input[1] == columnSet;
-            }).Select(x => (Entity)x.Output).FirstOrDefault();
+                var result = this.service.Retrieve(entityName, id, columnSet);
+
+                this.provider.Calls.Add(new CuteCall(MessageName.Retrieve) 
+                {
+                    Input = new object[] { entityName, entityName, id, columnSet }, 
+                    Output = result
+                });
+
+                return result;
+            }
+            else
+            {
+                return this.provider.Calls.Where(x =>
+                {
+                    return (x.MessageName == MessageName.Retrieve) && (Guid)x.Input[0] == id && (ColumnSet)x.Input[1] == columnSet;
+                }).Select(x => (Entity)x.Output).FirstOrDefault();
+            }
         }
 
         /// <summary>
@@ -155,10 +164,7 @@
         {
             throw new NotImplementedException();
 
-            var call = new CuteCall(MessageName.RetrieveMultiple)
-            {
-                Input = new[] { query }
-            };
+            var call = new CuteCall(MessageName.RetrieveMultiple, new[] { query });
 
             return this.provider.Calls.Where(x => x.Equals(call)).Select(x => (EntityCollection)x.Output).FirstOrDefault();
         }

@@ -17,6 +17,19 @@
             this.MessageName = messageName;
         }
 
+        public CuteCall(string messageName, object[] input)
+        {
+            this.MessageName = messageName;
+            this.Input = input;
+        }
+
+        public CuteCall(string messageName, object[] input, object output)
+        {
+            this.MessageName = messageName;
+            this.Input = input;
+            this.Output = output;
+        }
+
         #endregion Public Constructors
 
         #region Public Properties
