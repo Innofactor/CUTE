@@ -6,9 +6,15 @@
 
     public abstract class ProviderTests
     {
+        #region Protected Fields
+
         protected CuteProvider Provider;
 
-        #region Private Methods
+        #endregion Protected Fields
+
+        #region Public Methods
+
+        public abstract void Check_Online_Status();
 
         public virtual void Get_Context()
         {
@@ -45,6 +51,6 @@
             Assert.IsType<CuteFactory>(factory);
         }
 
-        #endregion Private Methods
+        #endregion Public Methods
     }
 }

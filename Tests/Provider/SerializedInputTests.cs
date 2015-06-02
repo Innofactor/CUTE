@@ -39,5 +39,10 @@
 
         #endregion Public Methods
 
+
+        public override void Check_Online_Status()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

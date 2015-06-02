@@ -124,5 +124,16 @@
         }
 
         #endregion Public Methods
+
+        /// <summary>
+        /// Gets value shouwing could calls be made to real CRM itself, or not
+        /// </summary>
+        public bool IsOnline 
+        {
+            get
+            {
+                return (this.Original != null);
+            }
+        }
     }
 }

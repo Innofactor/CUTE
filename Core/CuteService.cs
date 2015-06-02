@@ -14,22 +14,38 @@
     {
         #region Private Fields
 
-        private List<CuteCall> _calls;
         private CuteProvider provider;
+        private IOrganizationService service;
+
+        #endregion Private Fields
+
+        #region Public Constructors
+
+        public CuteService(CuteProvider provider, Guid? userId)
+        {
+            this.provider = provider;
+            this.UserId = userId;
+
+            // Sign that provider was deserialized
+            if (this.provider.IsOnline)
+            {
+                var factory = (IOrganizationServiceFactory)provider.Original.GetService(typeof(IOrganizationServiceFactory));
+                
+                this.service = factory.CreateOrganizationService(userId);
+            }
+        }
+
+        #endregion Public Constructors
+
+        #region Public Properties
+
         public Guid? UserId
         {
             get;
             private set;
         }
 
-        public CuteService(CuteProvider provider, Guid? userId)
-        {
-            // TODO: Complete member initialization
-            this.provider = provider;
-            this.UserId = userId;
-        }
-
-        #endregion Private Fields
+        #endregion Public Properties
 
         #region Public Methods
 
@@ -42,6 +58,8 @@
         /// <exception cref="NotImplementedException"></exception>
         public void Associate(string entityName, Guid entityId, Relationship relationship, EntityReferenceCollection relatedEntities)
         {
+            throw new NotImplementedException();
+
             return;
         }
 
@@ -52,7 +70,9 @@
         /// <exception cref="NotImplementedException"></exception>
         public Guid Create(Entity entity)
         {
-            return this._calls.Where(x =>
+            throw new NotImplementedException();
+
+            return this.provider.Calls.Where(x =>
             {
                 return x.MessageName == MessageName.Create && (Entity)x.Input[0] == entity;
             }).Select(x => (Guid)x.Output).FirstOrDefault();
@@ -65,6 +85,8 @@
         /// <exception cref="NotImplementedException"></exception>
         public void Delete(string entityName, Guid id)
         {
+            throw new NotImplementedException();
+
             return;
         }
 
@@ -77,6 +99,8 @@
         /// <exception cref="NotImplementedException"></exception>
         public void Disassociate(string entityName, Guid entityId, Relationship relationship, EntityReferenceCollection relatedEntities)
         {
+            throw new NotImplementedException();
+
             return;
         }
 
@@ -87,6 +111,8 @@
         /// <exception cref="NotImplementedException"></exception>
         public OrganizationResponse Execute(OrganizationRequest request)
         {
+            throw new NotImplementedException();
+
             return new OrganizationResponse();
         }
 
@@ -99,7 +125,9 @@
         /// <exception cref="NotImplementedException"></exception>
         public Entity Retrieve(string entityName, Guid id, ColumnSet columnSet)
         {
-            return this._calls.Where(x =>
+            throw new NotImplementedException();
+
+            return this.provider.Calls.Where(x =>
             {
                 return (x.MessageName == MessageName.Retrieve) && (Guid)x.Input[0] == id && (ColumnSet)x.Input[1] == columnSet;
             }).Select(x => (Entity)x.Output).FirstOrDefault();
@@ -112,12 +140,14 @@
         /// <exception cref="NotImplementedException"></exception>
         public EntityCollection RetrieveMultiple(QueryBase query)
         {
+            throw new NotImplementedException();
+
             var call = new CuteCall(MessageName.RetrieveMultiple)
             {
                 Input = new[] { query }
             };
 
-            return this._calls.Where(x => x.Equals(call)).Select(x => (EntityCollection)x.Output).FirstOrDefault();
+            return this.provider.Calls.Where(x => x.Equals(call)).Select(x => (EntityCollection)x.Output).FirstOrDefault();
         }
 
         /// <summary>
@@ -126,6 +156,8 @@
         /// <exception cref="NotImplementedException"></exception>
         public void Update(Entity entity)
         {
+            throw new NotImplementedException();
+
             return;
         }
 

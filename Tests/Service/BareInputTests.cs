@@ -1,4 +1,4 @@
-﻿namespace Cinteros.Unit.Test.Extensions.Tests
+﻿namespace Cinteros.Unit.Test.Extensions.Tests.Service
 {
     using System;
     using System.Collections.Generic;
@@ -10,25 +10,23 @@
     using NSubstitute;
     using Xunit;
 
-    public class CuteServiceTests
+    public class BareInputTests
     {
-        [Fact(DisplayName = "Get UserId")]
+        [Fact(DisplayName = "Invoke Create")]
         [Trait("Module", "Service")]
-        public void Get_UserId()
+        [Trait("Provider", "Bare Input")]
+        public void Invoke_Create()
         {
             // Arrange
             var provider = new CuteProvider(Substitute.For<IServiceProvider>());
             var factory = (IOrganizationServiceFactory)provider.GetService(typeof(IOrganizationServiceFactory));
+            var service = factory.CreateOrganizationService(Guid.Empty);
 
             // Act
-            var userId = new Guid();
-            var service = factory.CreateOrganizationService(userId);
-            // Act
-            
+            var result = service.Create(new Entity());
 
             // Assert
-
-
+            Assert.NotEqual<Guid>(Guid.Empty, result);
         }
     }
 }

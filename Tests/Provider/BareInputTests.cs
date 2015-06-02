@@ -22,6 +22,15 @@
 
         #region Public Methods
 
+        [Fact(DisplayName = "Check Online Status")]
+        [Trait("Module", "Provider")]
+        [Trait("Provider", "Bare Input")]
+        public override void Check_Online_Status()
+        {
+            // Assert
+            Assert.True(this.Provider.IsOnline);
+        }
+
         [Fact(DisplayName = "Get Context")]
         [Trait("Module", "Provider")]
         [Trait("Module", "Context")]
