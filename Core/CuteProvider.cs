@@ -8,24 +8,24 @@
     using Microsoft.Xrm.Sdk.Query;
 
     [DataContract]
-    public class WrappedProvider : IServiceProvider
+    public class CuteProvider : IServiceProvider
     {
         #region Public Constructors
 
-        public WrappedProvider(string data)
+        public CuteProvider(string data)
             : this()
         {
-            var saved = Serialization.Inflate<WrappedProvider>(data, WrappedProvider.Types);
+            var saved = Serialization.Inflate<CuteProvider>(data, CuteProvider.Types);
             this.Context = saved.Context;
             this.Calls = saved.Calls;
         }
 
-        public WrappedProvider(IServiceProvider provider)
+        public CuteProvider(IServiceProvider provider)
             : this()
         {
-            if (provider.GetType() == typeof(WrappedProvider))
+            if (provider.GetType() == typeof(CuteProvider))
             {
-                this.Original = ((WrappedProvider)provider).Original;
+                this.Original = ((CuteProvider)provider).Original;
             }
             else
             {
@@ -37,7 +37,7 @@
 
         #region Private Constructors
 
-        private WrappedProvider()
+        private CuteProvider()
         {
             this.Context = new CuteContext();
             this.Calls = new Collection<CuteCall>();
@@ -86,12 +86,16 @@
         {
             if (serviceType == typeof(IPluginExecutionContext))
             {
-                return new CuteContext();
+                // Sign that provider was deserialized
+                if (this.Original == null)
+                {
+                    return this.Context;
+                }
             }
 
             if (serviceType == typeof(IOrganizationServiceFactory))
             {
-                return new CuteFactory();
+                return new CuteFactory(this);
             }
 
             return this.Original.GetService(serviceType);
@@ -103,7 +107,7 @@
         /// <returns></returns>
         public override string ToString()
         {
-            return Serialization.Deflate<WrappedProvider>(this, WrappedProvider.Types);
+            return Serialization.Deflate<CuteProvider>(this, CuteProvider.Types);
         }
 
         /// <summary>
@@ -113,7 +117,7 @@
         public XmlDocument ToXml()
         {
             var document = new XmlDocument();
-            document.LoadXml(Serialization.Serialize<WrappedProvider>(this, WrappedProvider.Types));
+            document.LoadXml(Serialization.Serialize<CuteProvider>(this, CuteProvider.Types));
 
             return document;
         }

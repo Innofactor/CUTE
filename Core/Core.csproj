@@ -44,6 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Background\MessageName.cs" />
+    <Compile Include="CuteService.cs" />
     <Compile Include="Serialization.cs" />
     <Compile Include="CuteCall.cs" />
     <Compile Include="CuteContext.cs" />

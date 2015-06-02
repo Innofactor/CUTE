@@ -3,6 +3,7 @@
     using System;
     using System.Xml;
     using Cinteros.Unit.Test.Extensions.Core;
+    using Microsoft.Xrm.Sdk;
     using NSubstitute;
     using Xunit;
 
@@ -15,13 +16,13 @@
         public void Serialize_Deserialize()
         {
             // Arrange
-            var inputProvider = new WrappedProvider(Substitute.For<IServiceProvider>());
+            var inputProvider = new CuteProvider(Substitute.For<IServiceProvider>());
 
             // Act
-            var outputProvider = new WrappedProvider(inputProvider.ToString());
+            var outputProvider = new CuteProvider(inputProvider.ToString());
 
             // Assert
-            Assert.True(outputProvider is WrappedProvider);
+            Assert.IsType<CuteProvider>(outputProvider);
         }
 
         [Fact(DisplayName = "Serialize + Deserialize & Check Calls")]
@@ -31,12 +32,12 @@
         public void Serialize_Deserialize_Check_Calls()
         {
             // Arrange
-            var inputProvider = new WrappedProvider(Substitute.For<IServiceProvider>());
+            var inputProvider = new CuteProvider(Substitute.For<IServiceProvider>());
             inputProvider.Calls.Add(new CuteCall("Create"));
             inputProvider.Calls.Add(new CuteCall("Update"));
 
             // Act
-            var outputProvider = new WrappedProvider(inputProvider.ToString());
+            var outputProvider = new CuteProvider(inputProvider.ToString());
 
             // Assert
             Assert.NotNull(outputProvider.Calls);
@@ -50,17 +51,26 @@
         public void Serialize_Deserialize_Check_Context()
         {
             // Arrange
-            var inputProvider = new WrappedProvider(Substitute.For<IServiceProvider>());
+            var inputProvider = new CuteProvider(Substitute.For<IServiceProvider>());
             inputProvider.Context.PrimaryEntityName = "account";
             inputProvider.Context.MessageName = "Create";
 
             // Act
-            var outputProvider = new WrappedProvider(inputProvider.ToString());
+            var outputProvider = new CuteProvider(inputProvider.ToString());
+            var outputContext = (IPluginExecutionContext)outputProvider.GetService(typeof(IPluginExecutionContext));
 
             // Assert
             Assert.NotNull(outputProvider.Context);
+            Assert.NotNull(outputContext);
+            
+            Assert.IsType<CuteContext>(outputProvider.Context);
+            Assert.IsType<CuteContext>(outputContext);
+
             Assert.Equal("account", outputProvider.Context.PrimaryEntityName);
             Assert.Equal("Create", outputProvider.Context.MessageName);
+
+            Assert.Equal("account", outputContext.PrimaryEntityName);
+            Assert.Equal("Create", outputContext.MessageName);
         }
 
         [Fact(DisplayName = "Serialize + Deserialize & Check Original Provider")]
@@ -69,13 +79,13 @@
         public void Serialize_Deserialize_Check_Original_Provider()
         {
             // Arrange
-            var inputProvider = new WrappedProvider(Substitute.For<IServiceProvider>());
+            var inputProvider = new CuteProvider(Substitute.For<IServiceProvider>());
 
             // Act
-            var outputProvider = new WrappedProvider(inputProvider.ToString());
+            var outputProvider = new CuteProvider(inputProvider.ToString());
 
             // Assert
-            Assert.Equal(null, outputProvider.Original);
+            Assert.Null(outputProvider.Original);
         }
 
         [Fact(DisplayName = "Serialize To String")]
@@ -83,13 +93,13 @@
         public void Serialize_To_String()
         {
             // Arrange
-            var provider = new WrappedProvider(Substitute.For<IServiceProvider>());
+            var provider = new CuteProvider(Substitute.For<IServiceProvider>());
 
             // Act
             var result = provider.ToString();
 
             // Assert
-            Assert.True(result is string);
+            Assert.IsType<string>(result);
         }
 
         [Fact(DisplayName = "Serialize To XML")]
@@ -97,13 +107,13 @@
         public void Serialize_To_XML()
         {
             // Arrange
-            var provider = new WrappedProvider(Substitute.For<IServiceProvider>());
+            var provider = new CuteProvider(Substitute.For<IServiceProvider>());
 
             // Act
             var result = provider.ToXml();
 
             // Assert
-            Assert.True(result is XmlDocument);
+            Assert.IsType<XmlDocument>(result);
         }
 
         #endregion Public Methods

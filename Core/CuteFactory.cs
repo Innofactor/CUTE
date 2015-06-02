@@ -5,11 +5,26 @@
 
     public class CuteFactory : IOrganizationServiceFactory
     {
+        #region Private Fields
+
+        private CuteProvider provider;
+
+        #endregion Private Fields
+
+        #region Public Constructors
+
+        public CuteFactory(CuteProvider provider)
+        {
+            this.provider = provider;
+        }
+
+        #endregion Public Constructors
+
         #region Public Methods
 
         IOrganizationService IOrganizationServiceFactory.CreateOrganizationService(Guid? userId)
         {
-            throw new NotImplementedException();
+            return new CuteService();
         }
 
         #endregion Public Methods

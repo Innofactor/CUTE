@@ -15,13 +15,15 @@
         [Trait("Provider", "Wrapped Input")]
         public void Get_OriginalProvider()
         {
-            // Arrange Act
+            // Arrange
             var originalProvider = Substitute.For<IServiceProvider>();
-            var wrappedProvider = new WrappedProvider(originalProvider);
-            var provider = new WrappedProvider(wrappedProvider);
+            var wrappedProvider = new CuteProvider(originalProvider);
+
+            // Act
+            var provider = new CuteProvider(wrappedProvider);
 
             // Assert
-            Assert.Equal(false, provider.Original is WrappedProvider);
+            Assert.False(provider.Original is CuteProvider);
         }
 
         [Fact(DisplayName = "Get TracingService")]
@@ -33,50 +35,54 @@
             var originalProvider = Substitute.For<IServiceProvider>();
             originalProvider.GetService(typeof(ITracingService)).Returns(Substitute.For<ITracingService>());
 
-            var wrappedProvider = new WrappedProvider(originalProvider);
-            var provider = new WrappedProvider(wrappedProvider);
+            var wrappedProvider = new CuteProvider(originalProvider);
+            var provider = new CuteProvider(wrappedProvider);
 
             // Act
             var service = provider.GetService(typeof(ITracingService));
 
             // Assert
-            Assert.Equal(true, service is ITracingService);
+            Assert.IsType<ITracingService>(service);
         }
 
-        [Fact(DisplayName = "Get WrappedContext")]
+        [Fact(DisplayName = "Get Context")]
         [Trait("Module", "Provider")]
+        [Trait("Module", "Context")]
         [Trait("Provider", "Wrapped Input")]
-        public void Get_WrappedContext()
+        public void Get_Context()
         {
             // Arrange
             var originalProvider = Substitute.For<IServiceProvider>();
-            var wrappedProvider = new WrappedProvider(originalProvider);
-            var provider = new WrappedProvider(wrappedProvider);
+            originalProvider.GetService(typeof(IPluginExecutionContext)).Returns(Substitute.For<IPluginExecutionContext>());
+            
+            var wrappedProvider = new CuteProvider(originalProvider);
+            var provider = new CuteProvider(wrappedProvider);
 
             // Act
             var context = provider.GetService(typeof(IPluginExecutionContext));
 
             // Assert
-            Assert.Equal(true, context is IPluginExecutionContext);
-            Assert.Equal(true, context is CuteContext);
+            Assert.IsType<IPluginExecutionContext>(context);
+            Assert.False(context is CuteContext);
         }
 
         [Fact(DisplayName = "Get WrappedFactory")]
         [Trait("Module", "Provider")]
+        [Trait("Module", "Factory")]
         [Trait("Provider", "Wrapped Input")]
         public void Get_WrappedFactory()
         {
             // Arrange
             var originalProvider = Substitute.For<IServiceProvider>();
-            var wrappedProvider = new WrappedProvider(originalProvider);
-            var provider = new WrappedProvider(wrappedProvider);
+            var wrappedProvider = new CuteProvider(originalProvider);
+            var provider = new CuteProvider(wrappedProvider);
 
             // Act
             var factory = provider.GetService(typeof(IOrganizationServiceFactory));
 
             // Assert
-            Assert.Equal(true, factory is IOrganizationServiceFactory);
-            Assert.Equal(true, factory is CuteFactory);
+            Assert.IsType<IOrganizationServiceFactory>(factory);
+            Assert.IsType<CuteFactory>(factory);
         }
 
         #endregion Public Methods

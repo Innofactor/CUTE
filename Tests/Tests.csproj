@@ -68,6 +68,8 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Factory\BareInputTests.cs" />
+    <Compile Include="Factory\WrappedInputTests.cs" />
     <Compile Include="Provider\BareInputTests.cs" />
     <Compile Include="Provider\SerializationTests.cs" />
     <Compile Include="Provider\WrappedInputTests.cs" />
