@@ -46,7 +46,7 @@
   <ItemGroup>
     <Compile Include="Background\MessageName.cs" />
     <Compile Include="CuteService.cs" />
-    <Compile Include="Serialization.cs" />
+    <Compile Include="Background\Serialization.cs" />
     <Compile Include="CuteCall.cs" />
     <Compile Include="CuteContext.cs" />
     <Compile Include="CuteFactory.cs" />

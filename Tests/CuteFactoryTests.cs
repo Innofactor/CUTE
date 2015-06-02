@@ -6,31 +6,28 @@
     using NSubstitute;
     using Xunit;
 
-    public class WrappedInputTests
+    public class CuteFactoryTests
     {
         #region Public Methods
 
         [Fact(DisplayName = "Get OrganizationService")]
         [Trait("Module", "Factory")]
-        [Trait("Provider", "Wrapped Input")]
+        [Trait("Provider", "Bare Input")]
         public void Get_OrganizationService()
         {
             // Arrange
-            var originalProvider = Substitute.For<IServiceProvider>();
-            originalProvider.GetService(typeof(ITracingService)).Returns(Substitute.For<ITracingService>());
-
-            var wrappedProvider = new CuteProvider(originalProvider);
-            var provider = new CuteProvider(wrappedProvider);
-
+            var provider = new CuteProvider(Substitute.For<IServiceProvider>());
             var factory = (IOrganizationServiceFactory)provider.GetService(typeof(IOrganizationServiceFactory));
 
             // Act
-            var service = factory.CreateOrganizationService(new Guid());
+            var userId = new Guid();
+            var service = factory.CreateOrganizationService(userId);
 
             // Assert
             Assert.NotNull(service);
             Assert.IsAssignableFrom<IOrganizationService>(service);
             Assert.IsType<CuteService>(service);
+            Assert.Equal(userId, ((CuteService)service).UserId);
         }
 
         #endregion Public Methods

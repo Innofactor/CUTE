@@ -69,8 +69,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CuteServiceTests.cs" />
-    <Compile Include="Factory\BareInputTests.cs" />
-    <Compile Include="Factory\WrappedInputTests.cs" />
+    <Compile Include="CuteFactoryTests.cs" />
     <Compile Include="Provider\BareInputTests.cs" />
     <Compile Include="Provider\SerializationTests.cs" />
     <Compile Include="Provider\WrappedInputTests.cs" />
@@ -85,6 +84,9 @@
       <Project>{fd6f9f6d-d9e8-4a07-b69a-e00f488d8033}</Project>
       <Name>Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Factory\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

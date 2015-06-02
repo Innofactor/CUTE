@@ -15,6 +15,19 @@
         #region Private Fields
 
         private List<CuteCall> _calls;
+        private CuteProvider provider;
+        public Guid? UserId
+        {
+            get;
+            private set;
+        }
+
+        public CuteService(CuteProvider provider, Guid? userId)
+        {
+            // TODO: Complete member initialization
+            this.provider = provider;
+            this.UserId = userId;
+        }
 
         #endregion Private Fields
 

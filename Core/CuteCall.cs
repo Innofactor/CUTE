@@ -1,6 +1,7 @@
 ﻿namespace Cinteros.Unit.Test.Extensions.Core
 {
     using System.Runtime.Serialization;
+    using Cinteros.Unit.Test.Extensions.Core.Backgroud;
     using Microsoft.Xrm.Sdk.Query;
 
     /// <summary>

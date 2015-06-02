@@ -4,6 +4,7 @@
     using System.Collections.ObjectModel;
     using System.Runtime.Serialization;
     using System.Xml;
+    using Cinteros.Unit.Test.Extensions.Core.Backgroud;
     using Microsoft.Xrm.Sdk;
     using Microsoft.Xrm.Sdk.Query;
 

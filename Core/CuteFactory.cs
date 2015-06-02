@@ -24,7 +24,7 @@
 
         IOrganizationService IOrganizationServiceFactory.CreateOrganizationService(Guid? userId)
         {
-            return new CuteService();
+            return new CuteService(this.provider, userId);
         }
 
         #endregion Public Methods
