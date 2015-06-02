@@ -17,6 +17,7 @@
         {
             var saved = Serialization.Inflate<WrappedProvider>(data, WrappedProvider.Types);
             this.Context = saved.Context;
+            this.Calls = saved.Calls;
         }
 
         public WrappedProvider(IServiceProvider provider)
