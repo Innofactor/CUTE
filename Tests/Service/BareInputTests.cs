@@ -14,11 +14,11 @@
         #region Private Fields
 
         private Guid expectedResultCreate;
+        private OrganizationResponse expectedResultExecute;
         private Entity expectedResultRetrieve;
         private EntityCollection expectedResultRetrieveMultiple;
         private CuteProvider provider;
         private IOrganizationService service;
-        private OrganizationResponse expectedResultExecute;
 
         #endregion Private Fields
 
@@ -67,6 +67,15 @@
 
         #region Public Methods
 
+        [Fact(DisplayName = "Invoke Associate")]
+        [Trait("Module", "Service")]
+        [Trait("Provider", "Bare Input")]
+        public void Invoke_Associate()
+        {
+            // Act
+            this.service.Associate(string.Empty, Guid.Empty, new Relationship(), new EntityReferenceCollection());
+        }
+
         [Fact(DisplayName = "Invoke Create & Check Cache")]
         [Trait("Module", "Service")]
         [Trait("Provider", "Bare Input")]
@@ -81,6 +90,39 @@
             Assert.NotEqual<Guid>(Guid.Empty, result);
             Assert.Equal<Guid>(this.expectedResultCreate, result);
             Assert.Equal(1, this.provider.Calls.Where(x => x.MessageName == MessageName.Create).Count());
+        }
+
+        [Fact(DisplayName = "Invoke Delete")]
+        [Trait("Module", "Service")]
+        [Trait("Provider", "Bare Input")]
+        public void Invoke_Delete()
+        {
+            // Act
+            this.service.Delete(string.Empty, Guid.Empty);
+        }
+
+        [Fact(DisplayName = "Invoke Disassociate")]
+        [Trait("Module", "Service")]
+        [Trait("Provider", "Bare Input")]
+        public void Invoke_Disassociate()
+        {
+            // Act
+            this.service.Disassociate(string.Empty, Guid.Empty, new Relationship(), new EntityReferenceCollection());
+        }
+
+        [Fact(DisplayName = "Invoke Execute & Check Cache")]
+        [Trait("Module", "Service")]
+        [Trait("Provider", "Bare Input")]
+        public void Invoke_Execute_Check_Cache()
+        {
+            // Act
+            var result = this.service.Execute(new OrganizationRequest());
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<OrganizationResponse>(result);
+            Assert.Equal(this.expectedResultExecute.ResponseName, result.ResponseName);
+            Assert.Equal(1, this.provider.Calls.Where(x => x.MessageName == MessageName.Execute).Count());
         }
 
         [Fact(DisplayName = "Invoke Retrieve & Check Cache")]
@@ -114,19 +156,13 @@
             Assert.Equal(1, this.provider.Calls.Where(x => x.MessageName == MessageName.RetrieveMultiple).Count());
         }
 
-        [Fact(DisplayName = "Invoke Execute & Check Cache")]
+        [Fact(DisplayName = "Invoke Update")]
         [Trait("Module", "Service")]
         [Trait("Provider", "Bare Input")]
-        public void Invoke_Execute_Check_Cache()
+        public void Invoke_Update()
         {
             // Act
-            var result = this.service.Execute(new OrganizationRequest());
-
-            // Assert
-            Assert.NotNull(result);
-            Assert.IsType<OrganizationResponse>(result);
-            Assert.Equal(this.expectedResultExecute.ResponseName, result.ResponseName);
-            Assert.Equal(1, this.provider.Calls.Where(x => x.MessageName == MessageName.Execute).Count());
+            this.service.Update(new Entity());
         }
 
         #endregion Public Methods

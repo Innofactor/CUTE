@@ -58,9 +58,10 @@
         /// <exception cref="NotImplementedException"></exception>
         public void Associate(string entityName, Guid entityId, Relationship relationship, EntityReferenceCollection relatedEntities)
         {
-            throw new NotImplementedException();
-
-            return;
+            if (this.provider.IsOnline)
+            {
+                this.service.Associate(entityName, entityId, relationship, relatedEntities);
+            }
         }
 
         /// <summary>
@@ -94,9 +95,10 @@
         /// <exception cref="NotImplementedException"></exception>
         public void Delete(string entityName, Guid id)
         {
-            throw new NotImplementedException();
-
-            return;
+            if (this.provider.IsOnline)
+            {
+                this.service.Delete(entityName, id);
+            }
         }
 
         /// <summary>
@@ -108,9 +110,10 @@
         /// <exception cref="NotImplementedException"></exception>
         public void Disassociate(string entityName, Guid entityId, Relationship relationship, EntityReferenceCollection relatedEntities)
         {
-            throw new NotImplementedException();
-
-            return;
+            if (this.provider.IsOnline)
+            {
+                this.service.Disassociate(entityName, entityId, relationship, relatedEntities);
+            }
         }
 
         /// <summary>
@@ -195,9 +198,10 @@
         /// <exception cref="NotImplementedException"></exception>
         public void Update(Entity entity)
         {
-            throw new NotImplementedException();
-
-            return;
+            if (this.provider.IsOnline)
+            {
+                this.service.Update(entity);
+            }
         }
 
         #endregion Public Methods
