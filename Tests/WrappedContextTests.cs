@@ -1,13 +1,12 @@
 ﻿namespace Cinteros.Unit.Test.Extensions.Tests
 {
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Xunit;
 
-    [TestClass]
     public class WrappedContextTests
     {
         #region Public Methods
 
-        [TestMethod, TestCategory("Unit Testing Framework")]
+        [Fact]
         public void TestMethod1()
         {
         }

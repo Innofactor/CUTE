@@ -27,6 +27,7 @@
         [Fact(DisplayName = "Serialize + Deserialize & Check Calls")]
         [Trait("Module", "Serialization")]
         [Trait("Module", "Provider")]
+        [Trait("Module", "Call")]
         public void Test_Serialize_Deserialize_Check_Calls()
         {
             // Arrange
@@ -45,6 +46,7 @@
         [Fact(DisplayName = "Serialize + Deserialize & Check Context")]
         [Trait("Module", "Serialization")]
         [Trait("Module", "Provider")]
+        [Trait("Module", "Context")]
         public void Test_Serialize_Deserialize_Check_Context()
         {
             // Arrange

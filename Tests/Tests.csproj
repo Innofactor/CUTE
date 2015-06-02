@@ -72,9 +72,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Provider\BareProviderTests.cs" />
+    <Compile Include="Provider\BareInputTests.cs" />
     <Compile Include="Provider\SerializationTests.cs" />
-    <Compile Include="Provider\WrappedProviderTests.cs" />
+    <Compile Include="Provider\WrappedInputTests.cs" />
     <Compile Include="WrappedFactoryTests.cs" />
     <Compile Include="WrappedContextTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

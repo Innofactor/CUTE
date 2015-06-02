@@ -6,17 +6,19 @@
     using NSubstitute;
     using Xunit;
 
-    public class BareProviderTests
+    public class WrappedInputTests
     {
         #region Public Methods
 
         [Fact(DisplayName = "Get OriginalProvider")]
         [Trait("Module", "Provider")]
-        [Trait("Provider", "Bare Input")]
+        [Trait("Provider", "Wrapped Input")]
         public void Test_Get_OriginalProvider()
         {
             // Arrange Act
-            var provider = new WrappedProvider(Substitute.For<IServiceProvider>());
+            var originalProvider = Substitute.For<IServiceProvider>();
+            var wrappedProvider = new WrappedProvider(originalProvider);
+            var provider = new WrappedProvider(wrappedProvider);
 
             // Assert
             Assert.Equal(false, provider.Original is WrappedProvider);
@@ -24,13 +26,15 @@
 
         [Fact(DisplayName = "Get TracingService")]
         [Trait("Module", "Provider")]
-        [Trait("Provider", "Bare Input")]
+        [Trait("Provider", "Wrapped Input")]
         public void Test_Get_TracingService()
         {
             // Arrange
-            var input = Substitute.For<IServiceProvider>();
-            input.GetService(typeof(ITracingService)).Returns(Substitute.For<ITracingService>());
-            var provider = new WrappedProvider(input);
+            var originalProvider = Substitute.For<IServiceProvider>();
+            originalProvider.GetService(typeof(ITracingService)).Returns(Substitute.For<ITracingService>());
+
+            var wrappedProvider = new WrappedProvider(originalProvider);
+            var provider = new WrappedProvider(wrappedProvider);
 
             // Act
             var service = provider.GetService(typeof(ITracingService));
@@ -41,11 +45,13 @@
 
         [Fact(DisplayName = "Get WrappedContext")]
         [Trait("Module", "Provider")]
-        [Trait("Provider", "Bare Input")]
+        [Trait("Provider", "Wrapped Input")]
         public void Test_Get_WrappedContext()
         {
             // Arrange
-            var provider = new WrappedProvider(Substitute.For<IServiceProvider>());
+            var originalProvider = Substitute.For<IServiceProvider>();
+            var wrappedProvider = new WrappedProvider(originalProvider);
+            var provider = new WrappedProvider(wrappedProvider);
 
             // Act
             var context = provider.GetService(typeof(IPluginExecutionContext));
@@ -57,11 +63,13 @@
 
         [Fact(DisplayName = "Get WrappedFactory")]
         [Trait("Module", "Provider")]
-        [Trait("Provider", "Bare Input")]
+        [Trait("Provider", "Wrapped Input")]
         public void Test_Get_WrappedFactory()
         {
             // Arrange
-            var provider = new WrappedProvider(Substitute.For<IServiceProvider>());
+            var originalProvider = Substitute.For<IServiceProvider>();
+            var wrappedProvider = new WrappedProvider(originalProvider);
+            var provider = new WrappedProvider(wrappedProvider);
 
             // Act
             var factory = provider.GetService(typeof(IOrganizationServiceFactory));
