@@ -74,6 +74,12 @@
             {
                 var result = this.service.Create(entity);
 
+                this.provider.Calls.Add(new CuteCall(MessageName.Create)
+                {
+                    Input = new[] { entity },
+                    Output = result
+                });
+
                 return result;
             }
             else

@@ -64,7 +64,7 @@
 
             // Assert
             Assert.NotEqual<Guid>(Guid.Empty, result);
-            Assert.Equal(2, this.provider.Calls.Count);
+            Assert.Equal(1, this.provider.Calls.Count);
         }
 
         #endregion Public Methods
