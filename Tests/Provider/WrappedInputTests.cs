@@ -8,6 +8,18 @@
 
     public class WrappedInputTests
     {
+        private CuteProvider wrappedProvider;
+
+        public WrappedInputTests()
+        {
+            // Arrange
+            var originalProvider = Substitute.For<IServiceProvider>();
+            originalProvider.GetService(typeof(ITracingService)).Returns(Substitute.For<ITracingService>());
+            originalProvider.GetService(typeof(IPluginExecutionContext)).Returns(Substitute.For<IPluginExecutionContext>());
+
+            this.wrappedProvider = new CuteProvider(originalProvider);
+        }
+
         #region Public Methods
 
         [Fact(DisplayName = "Get OriginalProvider")]
@@ -15,12 +27,8 @@
         [Trait("Provider", "Wrapped Input")]
         public void Get_OriginalProvider()
         {
-            // Arrange
-            var originalProvider = Substitute.For<IServiceProvider>();
-            var wrappedProvider = new CuteProvider(originalProvider);
-
             // Act
-            var provider = new CuteProvider(wrappedProvider);
+            var provider = new CuteProvider(this.wrappedProvider);
 
             // Assert
             Assert.False(provider.Original is CuteProvider);
@@ -32,11 +40,7 @@
         public void Get_TracingService()
         {
             // Arrange
-            var originalProvider = Substitute.For<IServiceProvider>();
-            originalProvider.GetService(typeof(ITracingService)).Returns(Substitute.For<ITracingService>());
-
-            var wrappedProvider = new CuteProvider(originalProvider);
-            var provider = new CuteProvider(wrappedProvider);
+            var provider = new CuteProvider(this.wrappedProvider);
 
             // Act
             var service = provider.GetService(typeof(ITracingService));
@@ -52,11 +56,7 @@
         public void Get_Context()
         {
             // Arrange
-            var originalProvider = Substitute.For<IServiceProvider>();
-            originalProvider.GetService(typeof(IPluginExecutionContext)).Returns(Substitute.For<IPluginExecutionContext>());
-            
-            var wrappedProvider = new CuteProvider(originalProvider);
-            var provider = new CuteProvider(wrappedProvider);
+            var provider = new CuteProvider(this.wrappedProvider);
 
             // Act
             var context = provider.GetService(typeof(IPluginExecutionContext));
@@ -73,9 +73,7 @@
         public void Get_WrappedFactory()
         {
             // Arrange
-            var originalProvider = Substitute.For<IServiceProvider>();
-            var wrappedProvider = new CuteProvider(originalProvider);
-            var provider = new CuteProvider(wrappedProvider);
+            var provider = new CuteProvider(this.wrappedProvider);
 
             // Act
             var factory = provider.GetService(typeof(IOrganizationServiceFactory));

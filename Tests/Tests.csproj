@@ -68,12 +68,12 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="CuteServiceTests.cs" />
     <Compile Include="Factory\BareInputTests.cs" />
     <Compile Include="Factory\WrappedInputTests.cs" />
     <Compile Include="Provider\BareInputTests.cs" />
     <Compile Include="Provider\SerializationTests.cs" />
     <Compile Include="Provider\WrappedInputTests.cs" />
-    <Compile Include="CuteFactoryTests.cs" />
     <Compile Include="CuteContextTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

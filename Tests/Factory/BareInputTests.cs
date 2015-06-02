@@ -25,6 +25,7 @@
             // Assert
             Assert.NotNull(service);
             Assert.IsAssignableFrom<IOrganizationService>(service);
+            Assert.IsType<CuteService>(service);
         }
 
         #endregion Public Methods
