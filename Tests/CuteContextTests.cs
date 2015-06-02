@@ -2,7 +2,7 @@
 {
     using Xunit;
 
-    public class WrappedContextTests
+    public class CuteContextTests
     {
         #region Public Methods
 

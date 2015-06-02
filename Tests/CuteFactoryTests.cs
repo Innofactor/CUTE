@@ -2,7 +2,7 @@
 {
     using Xunit;
 
-    public class WrappedFactoryTests
+    public class CuteFactoryTests
     {
         #region Public Methods
 
