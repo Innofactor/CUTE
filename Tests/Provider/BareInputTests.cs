@@ -24,7 +24,7 @@
             var context = provider.GetService(typeof(IPluginExecutionContext));
 
             // Assert
-            Assert.IsType<IPluginExecutionContext>(context);
+            Assert.IsAssignableFrom<IPluginExecutionContext>(context);
             Assert.IsNotType<CuteContext>(context);
         }
 
@@ -54,7 +54,7 @@
             var service = provider.GetService(typeof(ITracingService));
 
             // Assert
-            Assert.IsType<ITracingService>(service);
+            Assert.IsAssignableFrom<ITracingService>(service);
         }
 
         [Fact(DisplayName = "Get WrappedFactory")]
@@ -70,7 +70,7 @@
             var factory = provider.GetService(typeof(IOrganizationServiceFactory));
 
             // Assert
-            Assert.IsType<IOrganizationServiceFactory>(factory);
+            Assert.IsAssignableFrom<IOrganizationServiceFactory>(factory);
             Assert.IsType<CuteFactory>(factory);
         }
 
