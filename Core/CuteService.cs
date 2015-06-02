@@ -120,9 +120,20 @@
         /// <exception cref="NotImplementedException"></exception>
         public OrganizationResponse Execute(OrganizationRequest request)
         {
-            throw new NotImplementedException();
+            if (this.provider.IsOnline)
+            {
+                var result = this.service.Execute(request);
 
-            return new OrganizationResponse();
+                this.provider.Calls.Add(new CuteCall(MessageName.Execute, new[] { request }, result));
+                
+                return result;
+            }
+            else
+            {
+                var call = new CuteCall(MessageName.Execute, new[] { request });
+
+                return this.provider.Calls.Where(x => x.Equals(call)).Select(x => (OrganizationResponse)x.Output).FirstOrDefault();
+            }
         }
 
         /// <summary>

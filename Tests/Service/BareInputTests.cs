@@ -18,6 +18,7 @@
         private EntityCollection expectedResultRetrieveMultiple;
         private CuteProvider provider;
         private IOrganizationService service;
+        private OrganizationResponse expectedResultExecute;
 
         #endregion Private Fields
 
@@ -31,10 +32,12 @@
             var originalService = Substitute.For<IOrganizationService>();
 
             this.expectedResultCreate = Guid.NewGuid();
+
             this.expectedResultRetrieve = new Entity()
             {
                 Id = Guid.NewGuid()
             };
+
             this.expectedResultRetrieveMultiple = new EntityCollection();
             this.expectedResultRetrieveMultiple.Entities.Add(new Entity());
             this.expectedResultRetrieveMultiple.Entities.Add(new Entity());
@@ -42,9 +45,15 @@
             this.expectedResultRetrieveMultiple.Entities.Add(new Entity());
             this.expectedResultRetrieveMultiple.Entities.Add(new Entity());
 
+            this.expectedResultExecute = new OrganizationResponse()
+            {
+                ResponseName = "Test"
+            };
+
             originalService.Create(Arg.Any<Entity>()).Returns(this.expectedResultCreate);
             originalService.Retrieve(Arg.Any<string>(), Arg.Any<Guid>(), Arg.Any<ColumnSet>()).Returns(this.expectedResultRetrieve);
             originalService.RetrieveMultiple(Arg.Any<QueryBase>()).Returns(this.expectedResultRetrieveMultiple);
+            originalService.Execute(Arg.Any<OrganizationRequest>()).Returns(this.expectedResultExecute);
 
             originalFactory.CreateOrganizationService(Arg.Any<Guid?>()).Returns(originalService);
 
@@ -116,6 +125,7 @@
             // Assert
             Assert.NotNull(result);
             Assert.IsType<OrganizationResponse>(result);
+            Assert.Equal(this.expectedResultExecute.ResponseName, result.ResponseName);
             Assert.Equal(1, this.provider.Calls.Where(x => x.MessageName == MessageName.Execute).Count());
         }
 
