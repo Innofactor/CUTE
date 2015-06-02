@@ -3,6 +3,7 @@
     using System;
     using Cinteros.Unit.Test.Extensions.Core;
     using Microsoft.Xrm.Sdk;
+    using Microsoft.Xrm.Sdk.Query;
     using NSubstitute;
     using Xunit;
 
@@ -65,6 +66,18 @@
             // Assert
             Assert.NotEqual<Guid>(Guid.Empty, result);
             Assert.Equal(1, this.provider.Calls.Count);
+        }
+
+        [Fact(DisplayName = "Invoke Retrieve")]
+        [Trait("Module", "Service")]
+        [Trait("Provider", "Bare Input")]
+        public void Invoke_Retrieve()
+        {
+            // Act
+            var result = this.service.Retrieve(string.Empty, Guid.Empty, new ColumnSet());
+
+            // Assert
+            Assert.NotNull(result);
         }
 
         #endregion Public Methods
