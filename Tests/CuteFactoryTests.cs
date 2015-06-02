@@ -16,11 +16,19 @@
         public void Get_OrganizationService()
         {
             // Arrange
-            var provider = new CuteProvider(Substitute.For<IServiceProvider>());
+            var originalProvider = Substitute.For<IServiceProvider>();
+            var originalFactory = Substitute.For<IOrganizationServiceFactory>();
+            var originalService = Substitute.For<IOrganizationService>();
+
+            originalFactory.CreateOrganizationService(Arg.Any<Guid?>()).Returns(originalService);
+
+            originalProvider.GetService(typeof(IOrganizationServiceFactory)).Returns(originalFactory);
+
+            var provider = new CuteProvider(originalProvider);
             var factory = (IOrganizationServiceFactory)provider.GetService(typeof(IOrganizationServiceFactory));
 
             // Act
-            var userId = new Guid();
+            var userId = Guid.NewGuid();
             var service = factory.CreateOrganizationService(userId);
 
             // Assert

@@ -70,12 +70,19 @@
         /// <exception cref="NotImplementedException"></exception>
         public Guid Create(Entity entity)
         {
-            throw new NotImplementedException();
-
-            return this.provider.Calls.Where(x =>
+            if (this.provider.IsOnline)
             {
-                return x.MessageName == MessageName.Create && (Entity)x.Input[0] == entity;
-            }).Select(x => (Guid)x.Output).FirstOrDefault();
+                var result = this.service.Create(entity);
+
+                return result;
+            }
+            else
+            {
+                return this.provider.Calls.Where(x =>
+                {
+                    return x.MessageName == MessageName.Create && (Entity)x.Input[0] == entity;
+                }).Select(x => (Guid)x.Output).FirstOrDefault();
+            }
         }
 
         /// <summary>
