@@ -1,18 +1,16 @@
 ﻿namespace Cinteros.Unit.Test.Extensions.Tests.Service
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using Cinteros.Unit.Test.Extensions.Core;
-    using Cinteros.Unit.Test.Extensions.Core.Background;
+    using Cinteros.Unit.Test.Extensions.Core.Background.Shortcuts;
     using Microsoft.Xrm.Sdk;
     using Microsoft.Xrm.Sdk.Query;
     using Xunit;
 
     public class NoInputTests : CoreTests
     {
+        #region Public Constructors
+
         public NoInputTests()
         {
             // Creating provider from scratch
@@ -25,6 +23,8 @@
 
             this.Service = ((IOrganizationServiceFactory)this.Provider.GetService(typeof(IOrganizationServiceFactory))).CreateOrganizationService(Guid.Empty);
         }
+
+        #endregion Public Constructors
 
         #region Public Methods
 

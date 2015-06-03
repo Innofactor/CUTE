@@ -3,7 +3,7 @@
     using System;
     using System.Linq;
     using Cinteros.Unit.Test.Extensions.Core;
-    using Cinteros.Unit.Test.Extensions.Core.Background;
+    using Cinteros.Unit.Test.Extensions.Core.Background.Shortcuts;
     using Microsoft.Xrm.Sdk;
     using Microsoft.Xrm.Sdk.Query;
     using NSubstitute;

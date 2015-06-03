@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Cinteros.Unit.Test.Extensions.Core.Background
+﻿namespace Cinteros.Unit.Test.Extensions.Core.Background.Shortcuts
 {
     public struct MessageName
     {
+        #region Public Fields
+
         public const string AddItem = "AddItem";
         public const string AddMember = "AddMember";
         public const string AddMembers = "AddMembers";
@@ -47,5 +43,7 @@ namespace Cinteros.Unit.Test.Extensions.Core.Background
         public const string SetStateDynamicEntity = "SetStateDynamicEntity";
         public const string Update = "Update";
         public const string Win = "Win";
+
+        #endregion Public Fields
     }
 }

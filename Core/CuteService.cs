@@ -1,9 +1,8 @@
 ﻿namespace Cinteros.Unit.Test.Extensions.Core
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using Cinteros.Unit.Test.Extensions.Core.Background;
+    using Cinteros.Unit.Test.Extensions.Core.Background.Shortcuts;
     using Microsoft.Xrm.Sdk;
     using Microsoft.Xrm.Sdk.Query;
 
@@ -30,7 +29,7 @@
             if (this.provider.IsOnline)
             {
                 var factory = (IOrganizationServiceFactory)provider.Original.GetService(typeof(IOrganizationServiceFactory));
-                
+
                 this.service = factory.CreateOrganizationService(userId);
             }
         }
@@ -71,7 +70,7 @@
         /// <exception cref="NotImplementedException"></exception>
         public Guid Create(Entity entity)
         {
-            var call = new CuteCall(MessageName.Create, new object[] { entity }); 
+            var call = new CuteCall(MessageName.Create, new object[] { entity });
 
             if (this.provider.IsOnline)
             {
@@ -127,7 +126,7 @@
                 var result = this.service.Execute(request);
 
                 this.provider.Calls.Add(new CuteCall(MessageName.Execute, new[] { request }, result));
-                
+
                 return result;
             }
             else
@@ -147,7 +146,7 @@
         /// <exception cref="NotImplementedException"></exception>
         public Entity Retrieve(string entityName, Guid id, ColumnSet columnSet)
         {
-            var call = new CuteCall(MessageName.Retrieve, new object[] { entityName, id, columnSet }); 
+            var call = new CuteCall(MessageName.Retrieve, new object[] { entityName, id, columnSet });
 
             if (this.provider.IsOnline)
             {

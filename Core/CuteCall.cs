@@ -3,7 +3,7 @@
     using System;
     using System.Runtime.Serialization;
     using Cinteros.Unit.Test.Extensions.Core.Backgroud;
-    using Cinteros.Unit.Test.Extensions.Core.Background;
+    using Cinteros.Unit.Test.Extensions.Core.Background.Shortcuts;
     using Microsoft.Xrm.Sdk.Query;
 
     /// <summary>
