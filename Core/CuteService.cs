@@ -2,7 +2,7 @@
 {
     using System;
     using System.Linq;
-    using Cinteros.Unit.Test.Extensions.Core.Background.Shortcuts;
+    using Cinteros.Unit.Test.Extensions.Core.Background;
     using Microsoft.Xrm.Sdk;
     using Microsoft.Xrm.Sdk.Query;
 

@@ -1,4 +1,4 @@
-﻿namespace Cinteros.Unit.Test.Extensions.Core.Backgroud
+﻿namespace Cinteros.Unit.Test.Extensions.Core.Background
 {
     using System;
     using System.IO;

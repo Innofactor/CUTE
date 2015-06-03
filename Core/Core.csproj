@@ -44,8 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Background\Shortcuts\Cute.cs" />
-    <Compile Include="Background\Shortcuts\MessageName.cs" />
+    <Compile Include="Background\MessageName.cs" />
+    <Compile Include="Shortcut\CuteCreate.cs" />
     <Compile Include="CuteService.cs" />
     <Compile Include="Background\Serialization.cs" />
     <Compile Include="CuteCall.cs" />
@@ -53,6 +53,9 @@
     <Compile Include="CuteFactory.cs" />
     <Compile Include="CuteProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shortcut\CuteExecute.cs" />
+    <Compile Include="Shortcut\CuteRetrieve.cs" />
+    <Compile Include="Shortcut\CuteRetrieveMultiple.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
