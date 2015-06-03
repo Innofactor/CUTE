@@ -7,59 +7,13 @@
     using NSubstitute;
     using Xunit;
 
-    public class SerializedInputTests : IServiceTests
+    public class SerializedInputTests : ServiceTests
     {
-        #region Private Fields
-
-        private Guid expectedResultCreate;
-
-        private OrganizationResponse expectedResultExecute;
-
-        private Entity expectedResultRetrieve;
-
-        private EntityCollection expectedResultRetrieveMultiple;
-
-        #endregion Private Fields
-
         #region Public Constructors
 
         public SerializedInputTests()
+            : base ()
         {
-            var originalProvider = Substitute.For<IServiceProvider>();
-            var originalFactory = Substitute.For<IOrganizationServiceFactory>();
-            var originalService = Substitute.For<IOrganizationService>();
-
-            this.expectedResultCreate = Guid.NewGuid();
-
-            this.expectedResultRetrieve = new Entity()
-            {
-                Id = Guid.NewGuid()
-            };
-
-            this.expectedResultRetrieveMultiple = new EntityCollection();
-            this.expectedResultRetrieveMultiple.Entities.Add(new Entity());
-            this.expectedResultRetrieveMultiple.Entities.Add(new Entity());
-            this.expectedResultRetrieveMultiple.Entities.Add(new Entity());
-            this.expectedResultRetrieveMultiple.Entities.Add(new Entity());
-            this.expectedResultRetrieveMultiple.Entities.Add(new Entity());
-
-            this.expectedResultExecute = new OrganizationResponse()
-            {
-                ResponseName = "Test"
-            };
-
-            originalService.Create(Arg.Any<Entity>()).Returns(this.expectedResultCreate);
-            originalService.Retrieve(Arg.Any<string>(), Arg.Any<Guid>(), Arg.Any<ColumnSet>()).Returns(this.expectedResultRetrieve);
-            originalService.RetrieveMultiple(Arg.Any<QueryBase>()).Returns(this.expectedResultRetrieveMultiple);
-            originalService.Execute(Arg.Any<OrganizationRequest>()).Returns(this.expectedResultExecute);
-
-            originalFactory.CreateOrganizationService(Arg.Any<Guid?>()).Returns(originalService);
-
-            originalProvider.GetService(typeof(IOrganizationServiceFactory)).Returns(originalFactory);
-
-            this.Provider = new CuteProvider(originalProvider);
-            this.Service = ((IOrganizationServiceFactory)this.Provider.GetService(typeof(IOrganizationServiceFactory))).CreateOrganizationService(Guid.Empty);
-
             this.Service.Create(new Entity());
             this.Service.Retrieve(string.Empty, Guid.Empty, new ColumnSet());
             this.Service.RetrieveMultiple(new QueryExpression());
@@ -71,86 +25,70 @@
 
         #endregion Public Constructors
 
-        #region Public Properties
-
-        public CuteProvider Provider
-        {
-            get;
-            private set;
-        }
-
-        public IOrganizationService Service
-        {
-            get;
-            private set;
-        }
-
-        #endregion Public Properties
-
         #region Public Methods
 
         [Fact(DisplayName = "Invoke Associate")]
         [Trait("Module", "Service")]
         [Trait("Provider", "Serialized Input")]
-        public void Invoke_Associate()
+        public new void Invoke_Associate()
         {
-            throw new NotImplementedException();
+            base.Invoke_Associate();
         }
 
         [Fact(DisplayName = "Invoke Create & Check Cache")]
         [Trait("Module", "Service")]
         [Trait("Provider", "Serialized Input")]
-        public void Invoke_Create_Check_Cache()
+        public new void Invoke_Create_Check_Cache()
         {
-            throw new NotImplementedException();
+            base.Invoke_Create_Check_Cache();
         }
 
         [Fact(DisplayName = "Invoke Delete")]
         [Trait("Module", "Service")]
         [Trait("Provider", "Serialized Input")]
-        public void Invoke_Delete()
+        public new void Invoke_Delete()
         {
-            throw new NotImplementedException();
+            base.Invoke_Delete();
         }
 
         [Fact(DisplayName = "Invoke Disassociate")]
         [Trait("Module", "Service")]
         [Trait("Provider", "Serialized Input")]
-        public void Invoke_Disassociate()
+        public new void Invoke_Disassociate()
         {
-            throw new NotImplementedException();
+            base.Invoke_Disassociate();
         }
 
         [Fact(DisplayName = "Invoke Execute & Check Cache")]
         [Trait("Module", "Service")]
         [Trait("Provider", "Serialized Input")]
-        public void Invoke_Execute_Check_Cache()
+        public new void Invoke_Execute_Check_Cache()
         {
-            throw new NotImplementedException();
+            base.Invoke_Execute_Check_Cache();
         }
 
         [Fact(DisplayName = "Invoke Retrieve & Check Cache")]
         [Trait("Module", "Service")]
         [Trait("Provider", "Serialized Input")]
-        public void Invoke_Retrieve_Check_Cache()
+        public new void Invoke_Retrieve_Check_Cache()
         {
-            throw new NotImplementedException();
+            base.Invoke_Retrieve_Check_Cache();
         }
 
         [Fact(DisplayName = "Invoke RetrieveMultiple & Check Cache")]
         [Trait("Module", "Service")]
         [Trait("Provider", "Serialized Input")]
-        public void Invoke_RetrieveMultiple_Check_Cache()
+        public new void Invoke_RetrieveMultiple_Check_Cache()
         {
-            throw new NotImplementedException();
+            base.Invoke_RetrieveMultiple_Check_Cache();
         }
 
         [Fact(DisplayName = "Invoke Update")]
         [Trait("Module", "Service")]
         [Trait("Provider", "Serialized Input")]
-        public void Invoke_Update()
+        public new void Invoke_Update()
         {
-            throw new NotImplementedException();
+            base.Invoke_Update();
         }
 
         #endregion Public Methods

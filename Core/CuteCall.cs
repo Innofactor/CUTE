@@ -1,7 +1,9 @@
 ﻿namespace Cinteros.Unit.Test.Extensions.Core
 {
+    using System;
     using System.Runtime.Serialization;
     using Cinteros.Unit.Test.Extensions.Core.Backgroud;
+    using Cinteros.Unit.Test.Extensions.Core.Background;
     using Microsoft.Xrm.Sdk.Query;
 
     /// <summary>
@@ -14,18 +16,18 @@
 
         public CuteCall(string messageName)
         {
-            this.MessageName = messageName;
+            this.Message = messageName;
         }
 
         public CuteCall(string messageName, object[] input)
         {
-            this.MessageName = messageName;
+            this.Message = messageName;
             this.Input = input;
         }
 
         public CuteCall(string messageName, object[] input, object output)
         {
-            this.MessageName = messageName;
+            this.Message = messageName;
             this.Input = input;
             this.Output = output;
         }
@@ -48,7 +50,7 @@
         /// Gets or sets name of the call's message
         /// </summary>
         [DataMember]
-        public string MessageName
+        public string Message
         {
             get;
             private set;
@@ -77,26 +79,52 @@
         {
             var call = (CuteCall)obj;
 
-            if (call.MessageName != this.MessageName)
+            if (call.Message != this.Message)
             {
                 return false;
             }
 
-            if (this.MessageName == "RetrieveMultiple")
+            switch (this.Message)
             {
-                if (this.Input[0] is QueryExpression)
-                {
-                    var thisOne = (QueryExpression)this.Input[0];
-                    var thatOne = (QueryExpression)call.Input[0];
+                case MessageName.Retrieve:
+                    {
+                        if ((string)this.Input[0] != (string)call.Input[0])
+                        {
+                            return false;
+                        }
 
-                    thisOne.PageInfo = null;
-                    thatOne.PageInfo = null;
+                        if ((Guid)this.Input[1] != (Guid)call.Input[1])
+                        {
+                            return false;
+                        }
 
-                    return Serialization.Hash<QueryExpression>(thatOne) == Serialization.Hash<QueryExpression>(thisOne);
-                }
+                        var thisOne = (ColumnSet)this.Input[2];
+                        var thatOne = (ColumnSet)call.Input[2];
+
+                        thisOne.ExtensionData = null;
+                        thatOne.ExtensionData = null;
+
+                        return Serialization.Hash<ColumnSet>(thatOne) == Serialization.Hash<ColumnSet>(thisOne);
+                    }
+
+                case MessageName.RetrieveMultiple:
+                    {
+                        if (this.Input[0] is QueryExpression)
+                        {
+                            var thisOne = (QueryExpression)this.Input[0];
+                            var thatOne = (QueryExpression)call.Input[0];
+
+                            thisOne.PageInfo = null;
+                            thatOne.PageInfo = null;
+
+                            return Serialization.Hash<QueryExpression>(thatOne) == Serialization.Hash<QueryExpression>(thisOne);
+                        }
+                    }
+
+                    break;
             }
 
-            return Serialization.Hash<object[]>(call.Input) == Serialization.Hash<object[]>(this.Input);
+            return Serialization.Hash<object[]>(call.Input, CuteProvider.Types) == Serialization.Hash<object[]>(this.Input, CuteProvider.Types);
         }
 
         /// <summary>

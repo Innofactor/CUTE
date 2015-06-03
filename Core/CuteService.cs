@@ -71,20 +71,19 @@
         /// <exception cref="NotImplementedException"></exception>
         public Guid Create(Entity entity)
         {
+            var call = new CuteCall(MessageName.Create, new object[] { entity }); 
+
             if (this.provider.IsOnline)
             {
-                var result = this.service.Create(entity);
+                call.Output = this.service.Create(entity);
 
-                this.provider.Calls.Add(new CuteCall(MessageName.Create, new[] { entity }, result));
+                this.provider.Calls.Add(call);
 
-                return result;
+                return (Guid)call.Output;
             }
             else
             {
-                return this.provider.Calls.Where(x =>
-                {
-                    return x.MessageName == MessageName.Create && (Entity)x.Input[0] == entity;
-                }).Select(x => (Guid)x.Output).FirstOrDefault();
+                return this.provider.Calls.Where(x => x.Equals(call)).Select(x => (Guid)x.Output).FirstOrDefault();
             }
         }
 
@@ -148,24 +147,19 @@
         /// <exception cref="NotImplementedException"></exception>
         public Entity Retrieve(string entityName, Guid id, ColumnSet columnSet)
         {
+            var call = new CuteCall(MessageName.Retrieve, new object[] { entityName, id, columnSet }); 
+
             if (this.provider.IsOnline)
             {
-                var result = this.service.Retrieve(entityName, id, columnSet);
+                call.Output = this.service.Retrieve(entityName, id, columnSet);
 
-                this.provider.Calls.Add(new CuteCall(MessageName.Retrieve) 
-                {
-                    Input = new object[] { entityName, entityName, id, columnSet }, 
-                    Output = result
-                });
+                this.provider.Calls.Add(call);
 
-                return result;
+                return (Entity)call.Output;
             }
             else
             {
-                return this.provider.Calls.Where(x =>
-                {
-                    return (x.MessageName == MessageName.Retrieve) && (Guid)x.Input[0] == id && (ColumnSet)x.Input[1] == columnSet;
-                }).Select(x => (Entity)x.Output).FirstOrDefault();
+                return this.provider.Calls.Where(x => x.Equals(call)).Select(x => (Entity)x.Output).FirstOrDefault();
             }
         }
 
@@ -176,18 +170,18 @@
         /// <exception cref="NotImplementedException"></exception>
         public EntityCollection RetrieveMultiple(QueryBase query)
         {
+            var call = new CuteCall(MessageName.RetrieveMultiple, new[] { query });
+
             if (this.provider.IsOnline)
             {
-                var result = this.service.RetrieveMultiple(query);
+                call.Output = this.service.RetrieveMultiple(query);
 
-                this.provider.Calls.Add(new CuteCall(MessageName.RetrieveMultiple, new[] { query }, result));
+                this.provider.Calls.Add(call);
 
-                return result;
+                return (EntityCollection)call.Output;
             }
             else
             {
-                var call = new CuteCall(MessageName.RetrieveMultiple, new[] { query });
-
                 return this.provider.Calls.Where(x => x.Equals(call)).Select(x => (EntityCollection)x.Output).FirstOrDefault();
             }
         }

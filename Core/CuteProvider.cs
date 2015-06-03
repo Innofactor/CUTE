@@ -55,7 +55,16 @@
         {
             get
             {
-                return new[] { typeof(object), typeof(Entity), typeof(EntityCollection), typeof(QueryExpression) };
+                return new[] 
+                { 
+                    typeof(object), 
+                    typeof(Entity), 
+                    typeof(EntityCollection), 
+                    typeof(QueryExpression), 
+                    typeof(ColumnSet), 
+                    typeof(OrganizationRequest),
+                    typeof(OrganizationResponse)
+                };
             }
         }
 
@@ -71,6 +80,17 @@
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// Gets value shouwing could calls be made to real CRM itself, or not
+        /// </summary>
+        public bool IsOnline
+        {
+            get
+            {
+                return (this.Original != null);
+            }
         }
 
         public IServiceProvider Original
@@ -131,16 +151,5 @@
         }
 
         #endregion Public Methods
-
-        /// <summary>
-        /// Gets value shouwing could calls be made to real CRM itself, or not
-        /// </summary>
-        public bool IsOnline 
-        {
-            get
-            {
-                return (this.Original != null);
-            }
-        }
     }
 }
