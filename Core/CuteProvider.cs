@@ -34,17 +34,13 @@
             }
         }
 
-        #endregion Public Constructors
-
-        #region Private Constructors
-
-        private CuteProvider()
+        public CuteProvider()
         {
             this.Context = new CuteContext();
             this.Calls = new Collection<CuteCall>();
         }
 
-        #endregion Private Constructors
+        #endregion Public Constructors
 
         #region Public Properties
 
@@ -55,13 +51,13 @@
         {
             get
             {
-                return new[] 
-                { 
-                    typeof(object), 
-                    typeof(Entity), 
-                    typeof(EntityCollection), 
-                    typeof(QueryExpression), 
-                    typeof(ColumnSet), 
+                return new[]
+                {
+                    typeof(object),
+                    typeof(Entity),
+                    typeof(EntityCollection),
+                    typeof(QueryExpression),
+                    typeof(ColumnSet),
                     typeof(OrganizationRequest),
                     typeof(OrganizationResponse)
                 };

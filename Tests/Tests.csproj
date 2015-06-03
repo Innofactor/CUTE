@@ -70,6 +70,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Background\SerializationTests.cs" />
+    <Compile Include="Provider\NoInputTests.cs" />
     <Compile Include="Service\BareInputTests.cs" />
     <Compile Include="CuteFactoryTests.cs" />
     <Compile Include="Provider\BareInputTests.cs" />
