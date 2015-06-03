@@ -73,7 +73,7 @@
     <Compile Include="Service\BareInputTests.cs" />
     <Compile Include="CuteFactoryTests.cs" />
     <Compile Include="Provider\BareInputTests.cs" />
-    <Compile Include="Provider\ProviderTests.cs" />
+    <Compile Include="Provider\IProviderTests.cs" />
     <Compile Include="Provider\SerializedInputTests.cs" />
     <Compile Include="CuteContextTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

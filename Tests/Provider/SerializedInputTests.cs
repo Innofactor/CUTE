@@ -10,7 +10,11 @@
     {
         #region Private Fields
 
-        private CuteProvider provider;
+        public CuteProvider Provider
+        {
+            get;
+            private set;
+        }
 
         #endregion Private Fields
 
@@ -24,7 +28,7 @@
             originalProvider.GetService(typeof(IPluginExecutionContext)).Returns(Substitute.For<IPluginExecutionContext>());
 
             var wrappedProvider = new CuteProvider(originalProvider);
-            this.provider = new CuteProvider(wrappedProvider.ToString());
+            this.Provider = new CuteProvider(wrappedProvider.ToString());
         }
 
         #endregion Public Constructors
@@ -37,7 +41,7 @@
         public void Check_Online_Status()
         {
             // Assert
-            Assert.False(this.provider.IsOnline);
+            Assert.False(this.Provider.IsOnline);
         }
 
         [Fact(DisplayName = "Get Context")]
@@ -47,7 +51,7 @@
         public void Get_Context()
         {
             // Act
-            var context = this.provider.GetService(typeof(IPluginExecutionContext));
+            var context = this.Provider.GetService(typeof(IPluginExecutionContext));
 
             // Assert
             Assert.IsAssignableFrom<IPluginExecutionContext>(context);
@@ -60,7 +64,7 @@
         public void Get_OriginalProvider()
         {
             // Assert
-            Assert.IsNotType<CuteProvider>(this.provider.Original);
+            Assert.IsNotType<CuteProvider>(this.Provider.Original);
         }
 
         [Fact(DisplayName = "Get TracingService")]
@@ -69,7 +73,7 @@
         public void Get_TracingService()
         {
             // Act
-            var service = this.provider.GetService(typeof(ITracingService));
+            var service = this.Provider.GetService(typeof(ITracingService));
 
             // Assert
             Assert.NotNull(service);
@@ -82,7 +86,7 @@
         public void Get_WrappedFactory()
         {
             // Act
-            var factory = provider.GetService(typeof(IOrganizationServiceFactory));
+            var factory = Provider.GetService(typeof(IOrganizationServiceFactory));
 
             // Assert
             Assert.IsAssignableFrom<IOrganizationServiceFactory>(factory);

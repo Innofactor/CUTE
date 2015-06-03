@@ -1,7 +1,18 @@
 ﻿namespace Cinteros.Unit.Test.Extensions.Tests.Provider
 {
+    using Cinteros.Unit.Test.Extensions.Core;
+
     public interface IProviderTests
     {
+        #region Public Properties
+
+        CuteProvider Provider
+        {
+            get;
+        }
+
+        #endregion Public Properties
+
         #region Public Methods
 
         void Check_Online_Status();
