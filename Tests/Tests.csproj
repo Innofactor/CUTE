@@ -78,6 +78,7 @@
     <Compile Include="Provider\SerializedInputTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider\WrappedInputTests.cs" />
+    <Compile Include="Service\NoInputTests.cs" />
     <Compile Include="Service\SerializedInputTests.cs" />
     <Compile Include="Service\CoreTests.cs" />
     <Compile Include="Service\WrappedInputTests.cs" />
