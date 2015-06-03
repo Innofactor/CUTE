@@ -6,7 +6,7 @@
     using NSubstitute;
     using Xunit;
 
-    public class SerializedInputTests : IProviderTests
+    public class SerializedInputTests : ProviderTests
     {
         #region Private Fields
 

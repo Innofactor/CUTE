@@ -6,26 +6,13 @@
     using NSubstitute;
     using Xunit;
 
-    public class BareInputTests : IProviderTests
+    public class BareInputTests : ProviderTests
     {
-        #region Protected Fields
-
-        public CuteProvider Provider
-        {
-            get;
-            private set;
-        }
-
-        #endregion Protected Fields
-
         #region Public Constructors
 
         public BareInputTests()
+            : base()
         {
-            // Arrange
-            this.Provider = new CuteProvider(Substitute.For<IServiceProvider>());
-            this.Provider.GetService(typeof(IPluginExecutionContext)).Returns(Substitute.For<IPluginExecutionContext>());
-            this.Provider.GetService(typeof(ITracingService)).Returns(Substitute.For<ITracingService>());
         }
 
         #endregion Public Constructors
@@ -35,7 +22,7 @@
         [Fact(DisplayName = "Check Online Status")]
         [Trait("Module", "Provider")]
         [Trait("Provider", "Bare Input")]
-        public void Check_Online_Status()
+        public override void Check_Online_Status()
         {
             // Assert
             Assert.True(this.Provider.IsOnline);
@@ -45,20 +32,15 @@
         [Trait("Module", "Provider")]
         [Trait("Module", "Context")]
         [Trait("Provider", "Bare Input")]
-        public void Get_Context()
+        public new void Get_Context()
         {
-            // Act
-            var context = this.Provider.GetService(typeof(IPluginExecutionContext));
-
-            // Assert
-            Assert.IsAssignableFrom<IPluginExecutionContext>(context);
-            Assert.IsNotType<CuteContext>(context);
+            base.Get_Context();
         }
 
         [Fact(DisplayName = "Get OriginalProvider")]
         [Trait("Module", "Provider")]
         [Trait("Provider", "Bare Input")]
-        public void Get_OriginalProvider()
+        public override void Get_OriginalProvider()
         {
             // Assert
             Assert.IsNotType<CuteProvider>(this.Provider.Original);
@@ -67,7 +49,7 @@
         [Fact(DisplayName = "Get TracingService")]
         [Trait("Module", "Provider")]
         [Trait("Provider", "Bare Input")]
-        public void Get_TracingService()
+        public new void Get_TracingService()
         {
             // Act
             var service = this.Provider.GetService(typeof(ITracingService));
@@ -80,14 +62,9 @@
         [Trait("Module", "Provider")]
         [Trait("Module", "Factory")]
         [Trait("Provider", "Bare Input")]
-        public void Get_WrappedFactory()
+        public new void Get_WrappedFactory()
         {
-            // Act
-            var factory = Provider.GetService(typeof(IOrganizationServiceFactory));
-
-            // Assert
-            Assert.IsAssignableFrom<IOrganizationServiceFactory>(factory);
-            Assert.IsType<CuteFactory>(factory);
+            base.Get_WrappedFactory();
         }
 
         #endregion Public Methods

@@ -1,44 +1,27 @@
 ﻿namespace Cinteros.Unit.Test.Extensions.Tests.Provider
 {
-    using System;
     using Cinteros.Unit.Test.Extensions.Core;
     using Microsoft.Xrm.Sdk;
-    using NSubstitute;
     using Xunit;
 
-    public class WrappedInputTests : IProviderTests
+    public class WrappedInputTests : ProviderTests
     {
         #region Public Constructors
 
         public WrappedInputTests()
+            : base()
         {
-            // Arrange
-            var originalProvider = Substitute.For<IServiceProvider>();
-            originalProvider.GetService(typeof(ITracingService)).Returns(Substitute.For<ITracingService>());
-            originalProvider.GetService(typeof(IPluginExecutionContext)).Returns(Substitute.For<IPluginExecutionContext>());
-
-            var wrappedProvider = new CuteProvider(originalProvider);
-            this.Provider = new CuteProvider(wrappedProvider);
+            this.Provider = new CuteProvider(this.Provider);
         }
 
         #endregion Public Constructors
-
-        #region Public Properties
-
-        public CuteProvider Provider
-        {
-            get;
-            private set;
-        }
-
-        #endregion Public Properties
 
         #region Public Methods
 
         [Fact(DisplayName = "Check Online Status")]
         [Trait("Module", "Provider")]
         [Trait("Provider", "Wrapped Input")]
-        public void Check_Online_Status()
+        public override void Check_Online_Status()
         {
             // Assert
             Assert.True(this.Provider.IsOnline);
@@ -48,20 +31,15 @@
         [Trait("Module", "Provider")]
         [Trait("Module", "Context")]
         [Trait("Provider", "Wrapped Input")]
-        public void Get_Context()
+        public new void Get_Context()
         {
-            // Act
-            var context = this.Provider.GetService(typeof(IPluginExecutionContext));
-
-            // Assert
-            Assert.IsAssignableFrom<IPluginExecutionContext>(context);
-            Assert.IsNotType<CuteContext>(context);
+            base.Get_Context();
         }
 
         [Fact(DisplayName = "Get OriginalProvider")]
         [Trait("Module", "Provider")]
         [Trait("Provider", "Wrapped Input")]
-        public void Get_OriginalProvider()
+        public new void Get_OriginalProvider()
         {
             // Assert
             Assert.IsNotType<CuteProvider>(this.Provider.Original);
@@ -70,7 +48,7 @@
         [Fact(DisplayName = "Get TracingService")]
         [Trait("Module", "Provider")]
         [Trait("Provider", "Wrapped Input")]
-        public void Get_TracingService()
+        public new void Get_TracingService()
         {
             // Act
             var service = this.Provider.GetService(typeof(ITracingService));
@@ -83,14 +61,9 @@
         [Trait("Module", "Provider")]
         [Trait("Module", "Factory")]
         [Trait("Provider", "Wrapped Input")]
-        public void Get_WrappedFactory()
+        public new void Get_WrappedFactory()
         {
-            // Act
-            var factory = Provider.GetService(typeof(IOrganizationServiceFactory));
-
-            // Assert
-            Assert.IsAssignableFrom<IOrganizationServiceFactory>(factory);
-            Assert.IsType<CuteFactory>(factory);
+            base.Get_WrappedFactory();
         }
 
         #endregion Public Methods
