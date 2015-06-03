@@ -6,7 +6,7 @@
     using NSubstitute;
     using Xunit;
 
-    public class BareInputTests : ProviderTests
+    public class BareInputTests : CoreTests
     {
         #region Public Constructors
 

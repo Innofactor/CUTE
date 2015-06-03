@@ -9,7 +9,7 @@
     using NSubstitute;
     using Xunit;
 
-    public class ServiceTests
+    public class CoreTests
     {
         #region Protected Fields
 
@@ -25,7 +25,7 @@
 
         #region Public Constructors
 
-        public ServiceTests()
+        public CoreTests()
         {
             var originalProvider = Substitute.For<IServiceProvider>();
             var originalFactory = Substitute.For<IOrganizationServiceFactory>();

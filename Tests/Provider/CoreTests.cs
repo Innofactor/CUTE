@@ -6,11 +6,11 @@
     using NSubstitute;
     using Xunit;
 
-    public class ProviderTests
+    public class CoreTests
     {
         #region Public Constructors
 
-        public ProviderTests()
+        public CoreTests()
         {
             // Arrange
             this.Provider = new CuteProvider(Substitute.For<IServiceProvider>());

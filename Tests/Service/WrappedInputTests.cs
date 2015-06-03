@@ -5,7 +5,7 @@
     using Microsoft.Xrm.Sdk;
     using Xunit;
 
-    public class WrappedInputTests : ServiceTests
+    public class WrappedInputTests : CoreTests
     {
         #region Public Constructors
 

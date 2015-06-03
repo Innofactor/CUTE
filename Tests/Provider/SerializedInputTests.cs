@@ -4,7 +4,7 @@
     using Microsoft.Xrm.Sdk;
     using Xunit;
 
-    public class SerializedInputTests : ProviderTests
+    public class SerializedInputTests : CoreTests
     {
         #region Public Constructors
 
