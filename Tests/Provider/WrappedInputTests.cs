@@ -23,15 +23,14 @@
         [Trait("Provider", "Wrapped Input")]
         public override void Check_Online_Status()
         {
-            // Assert
-            Assert.True(this.Provider.IsOnline);
+            base.Check_Online_Status();
         }
 
         [Fact(DisplayName = "Get Context")]
         [Trait("Module", "Provider")]
         [Trait("Module", "Context")]
         [Trait("Provider", "Wrapped Input")]
-        public new void Get_Context()
+        public override void Get_Context()
         {
             base.Get_Context();
         }
@@ -39,29 +38,24 @@
         [Fact(DisplayName = "Get OriginalProvider")]
         [Trait("Module", "Provider")]
         [Trait("Provider", "Wrapped Input")]
-        public new void Get_OriginalProvider()
+        public override void Get_OriginalProvider()
         {
-            // Assert
-            Assert.IsNotType<CuteProvider>(this.Provider.Original);
+            base.Get_OriginalProvider();
         }
 
         [Fact(DisplayName = "Get TracingService")]
         [Trait("Module", "Provider")]
         [Trait("Provider", "Wrapped Input")]
-        public new void Get_TracingService()
+        public override void Get_TracingService()
         {
-            // Act
-            var service = this.Provider.GetService(typeof(ITracingService));
-
-            // Assert
-            Assert.IsAssignableFrom<ITracingService>(service);
+            base.Get_TracingService();
         }
 
         [Fact(DisplayName = "Get WrappedFactory")]
         [Trait("Module", "Provider")]
         [Trait("Module", "Factory")]
         [Trait("Provider", "Wrapped Input")]
-        public new void Get_WrappedFactory()
+        public override void Get_WrappedFactory()
         {
             base.Get_WrappedFactory();
         }

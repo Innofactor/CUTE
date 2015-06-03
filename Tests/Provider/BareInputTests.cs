@@ -22,10 +22,9 @@
         [Fact(DisplayName = "Check Online Status")]
         [Trait("Module", "Provider")]
         [Trait("Provider", "Bare Input")]
-        public override void Check_Online_Status()
+        public new void Check_Online_Status()
         {
-            // Assert
-            Assert.True(this.Provider.IsOnline);
+            base.Check_Online_Status();
         }
 
         [Fact(DisplayName = "Get Context")]
@@ -40,10 +39,9 @@
         [Fact(DisplayName = "Get OriginalProvider")]
         [Trait("Module", "Provider")]
         [Trait("Provider", "Bare Input")]
-        public override void Get_OriginalProvider()
+        public new void Get_OriginalProvider()
         {
-            // Assert
-            Assert.IsNotType<CuteProvider>(this.Provider.Original);
+            base.Get_OriginalProvider();
         }
 
         [Fact(DisplayName = "Get TracingService")]
@@ -51,11 +49,7 @@
         [Trait("Provider", "Bare Input")]
         public new void Get_TracingService()
         {
-            // Act
-            var service = this.Provider.GetService(typeof(ITracingService));
-
-            // Assert
-            Assert.IsAssignableFrom<ITracingService>(service);
+            base.Get_TracingService();
         }
 
         [Fact(DisplayName = "Get WrappedFactory")]

@@ -83,13 +83,13 @@
 
         #region Public Methods
 
-        public void Invoke_Associate()
+        public virtual void Invoke_Associate()
         {
             // Act
             this.Service.Associate(string.Empty, Guid.Empty, new Relationship(), new EntityReferenceCollection());
         }
 
-        public void Invoke_Create_Check_Cache()
+        public virtual void Invoke_Create_Check_Cache()
         {
             // Act
             var result = Service.Create(new Entity());
@@ -102,19 +102,19 @@
             Assert.Equal(1, this.Provider.Calls.Where(x => x.Message == MessageName.Create).Count());
         }
 
-        public void Invoke_Delete()
+        public virtual void Invoke_Delete()
         {
             // Act
             this.Service.Delete(string.Empty, Guid.Empty);
         }
 
-        public void Invoke_Disassociate()
+        public virtual void Invoke_Disassociate()
         {
             // Act
             this.Service.Disassociate(string.Empty, Guid.Empty, new Relationship(), new EntityReferenceCollection());
         }
 
-        public void Invoke_Execute_Check_Cache()
+        public virtual void Invoke_Execute_Check_Cache()
         {
             // Act
             var result = this.Service.Execute(new OrganizationRequest());
@@ -126,7 +126,7 @@
             Assert.Equal(1, this.Provider.Calls.Where(x => x.Message == MessageName.Execute).Count());
         }
 
-        public void Invoke_Retrieve_Check_Cache()
+        public virtual void Invoke_Retrieve_Check_Cache()
         {
             // Act
             var result = this.Service.Retrieve(string.Empty, Guid.Empty, new ColumnSet());
@@ -139,7 +139,7 @@
             Assert.Equal(1, this.Provider.Calls.Where(x => x.Message == MessageName.Retrieve).Count());
         }
 
-        public void Invoke_RetrieveMultiple_Check_Cache()
+        public virtual void Invoke_RetrieveMultiple_Check_Cache()
         {
             // Act
             var result = this.Service.RetrieveMultiple(new QueryExpression());
@@ -151,7 +151,7 @@
             Assert.Equal(1, this.Provider.Calls.Where(x => x.Message == MessageName.RetrieveMultiple).Count());
         }
 
-        public void Invoke_Update()
+        public virtual void Invoke_Update()
         {
             // Act
             this.Service.Update(new Entity());

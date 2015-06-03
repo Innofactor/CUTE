@@ -34,9 +34,11 @@
 
         public virtual void Check_Online_Status()
         {
+            // Assert
+            Assert.True(this.Provider.IsOnline);
         }
 
-        public void Get_Context()
+        public virtual void Get_Context()
         {
             // Act
             var context = this.Provider.GetService(typeof(IPluginExecutionContext));
@@ -48,13 +50,20 @@
 
         public virtual void Get_OriginalProvider()
         {
+            // Assert
+            Assert.IsNotType<CuteProvider>(this.Provider.Original);
         }
 
         public virtual void Get_TracingService()
         {
+            // Act
+            var service = this.Provider.GetService(typeof(ITracingService));
+
+            // Assert
+            Assert.IsAssignableFrom<ITracingService>(service);
         }
 
-        public void Get_WrappedFactory()
+        public virtual void Get_WrappedFactory()
         {
             // Act
             var factory = Provider.GetService(typeof(IOrganizationServiceFactory));
