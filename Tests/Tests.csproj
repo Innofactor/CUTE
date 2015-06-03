@@ -78,7 +78,8 @@
     <Compile Include="CuteContextTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider\WrappedInputTests.cs" />
-    <Compile Include="Service\ServiceTests.cs" />
+    <Compile Include="Service\SerializedInputTests.cs" />
+    <Compile Include="Service\IServiceTests.cs" />
     <Compile Include="Service\WrappedInputTests.cs" />
   </ItemGroup>
   <ItemGroup>
