@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{FD6F9F6D-D9E8-4A07-B69A-E00F488D8033}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CUTE.Core", "Core\CUTE.Core.csproj", "{FD6F9F6D-D9E8-4A07-B69A-E00F488D8033}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{466FC09F-0557-4FFB-9E94-45B9D04986D6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CUTE.Tests", "Tests\CUTE.Tests.csproj", "{466FC09F-0557-4FFB-9E94-45B9D04986D6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{221B2D42-A066-43FA-B6C8-A24C38A95C60}"
 	ProjectSection(SolutionItems) = preProject
@@ -11,6 +11,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{221B2D
 	EndProjectSection
 EndProject
 Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 2
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://cinteros.visualstudio.com/defaultcollection
+		SccProjectUniqueName0 = Core\\CUTE.Core.csproj
+		SccProjectName0 = Core
+		SccAuxPath0 = https://cinteros.visualstudio.com/defaultcollection
+		SccLocalPath0 = Core
+		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName1 = Tests\\CUTE.Tests.csproj
+		SccProjectName1 = Tests
+		SccAuxPath1 = https://cinteros.visualstudio.com/defaultcollection
+		SccLocalPath1 = Tests
+		SccProvider1 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

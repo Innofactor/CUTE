@@ -11,6 +11,10 @@
     <AssemblyName>CUTE.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -56,6 +60,9 @@
     <Compile Include="Shortcut\CuteExecute.cs" />
     <Compile Include="Shortcut\CuteRetrieve.cs" />
     <Compile Include="Shortcut\CuteRetrieveMultiple.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="xUnit\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

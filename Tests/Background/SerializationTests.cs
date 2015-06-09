@@ -116,6 +116,13 @@
             Assert.IsType<XmlDocument>(result);
         }
 
+
+        [Fact(DisplayName = "Partial Trust")]
+        [Trait("Module", "Partial Trust")]
+        public void Partial_Trust()
+        {
+        }
+
         #endregion Public Methods
     }
 }
