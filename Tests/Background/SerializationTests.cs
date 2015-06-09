@@ -5,14 +5,20 @@
     using Cinteros.Unit.Test.Extensions.Core;
     using Microsoft.Xrm.Sdk;
     using NSubstitute;
-    using Xunit;
+    using NUnit.Framework;
 
     public class SerializationTests
     {
         #region Public Methods
 
-        [Fact(DisplayName = "Serialize + Deserialize")]
-        [Trait("Module", "Serialization")]
+        [Test]
+        [Category("Serialization")]
+        public void Partial_Trust()
+        {
+        }
+
+        [Test]
+        [Category("Serialization")]
         public void Serialize_Deserialize()
         {
             // Arrange
@@ -22,13 +28,11 @@
             var outputProvider = new CuteProvider(inputProvider.ToString());
 
             // Assert
-            Assert.IsType<CuteProvider>(outputProvider);
+            Assert.IsInstanceOf<CuteProvider>(outputProvider);
         }
 
-        [Fact(DisplayName = "Serialize + Deserialize & Check Calls")]
-        [Trait("Module", "Serialization")]
-        [Trait("Module", "Provider")]
-        [Trait("Module", "Call")]
+        [Test]
+        [Category("Serialization")]
         public void Serialize_Deserialize_Check_Calls()
         {
             // Arrange
@@ -41,13 +45,11 @@
 
             // Assert
             Assert.NotNull(outputProvider.Calls);
-            Assert.Equal(inputProvider.Calls.Count, outputProvider.Calls.Count);
+            Assert.AreEqual(inputProvider.Calls.Count, outputProvider.Calls.Count);
         }
 
-        [Fact(DisplayName = "Serialize + Deserialize & Check Context")]
-        [Trait("Module", "Serialization")]
-        [Trait("Module", "Provider")]
-        [Trait("Module", "Context")]
+        [Test]
+        [Category("Serialization")]
         public void Serialize_Deserialize_Check_Context()
         {
             // Arrange
@@ -62,20 +64,19 @@
             // Assert
             Assert.NotNull(outputProvider.Context);
             Assert.NotNull(outputContext);
-            
-            Assert.IsType<CuteContext>(outputProvider.Context);
-            Assert.IsType<CuteContext>(outputContext);
 
-            Assert.Equal("account", outputProvider.Context.PrimaryEntityName);
-            Assert.Equal("Create", outputProvider.Context.MessageName);
+            Assert.IsInstanceOf<CuteContext>(outputProvider.Context);
+            Assert.IsInstanceOf<CuteContext>(outputContext);
 
-            Assert.Equal("account", outputContext.PrimaryEntityName);
-            Assert.Equal("Create", outputContext.MessageName);
+            Assert.AreEqual("account", outputProvider.Context.PrimaryEntityName);
+            Assert.AreEqual("Create", outputProvider.Context.MessageName);
+
+            Assert.AreEqual("account", outputContext.PrimaryEntityName);
+            Assert.AreEqual("Create", outputContext.MessageName);
         }
 
-        [Fact(DisplayName = "Serialize + Deserialize & Check Original Provider")]
-        [Trait("Module", "Serialization")]
-        [Trait("Module", "Provider")]
+        [Test]
+        [Category("Serialization")]
         public void Serialize_Deserialize_Check_Original_Provider()
         {
             // Arrange
@@ -88,8 +89,8 @@
             Assert.Null(outputProvider.Original);
         }
 
-        [Fact(DisplayName = "Serialize To String")]
-        [Trait("Module", "Serialization")]
+        [Test]
+        [Category("Serialization")]
         public void Serialize_To_String()
         {
             // Arrange
@@ -99,11 +100,11 @@
             var result = provider.ToString();
 
             // Assert
-            Assert.IsType<string>(result);
+            Assert.IsInstanceOf<string>(result);
         }
 
-        [Fact(DisplayName = "Serialize To XML")]
-        [Trait("Module", "Serialization")]
+        [Test]
+        [Category("Serialization")]
         public void Serialize_To_XML()
         {
             // Arrange
@@ -113,14 +114,7 @@
             var result = provider.ToXml();
 
             // Assert
-            Assert.IsType<XmlDocument>(result);
-        }
-
-
-        [Fact(DisplayName = "Partial Trust")]
-        [Trait("Module", "Partial Trust")]
-        public void Partial_Trust()
-        {
+            Assert.IsInstanceOf<XmlDocument>(result);
         }
 
         #endregion Public Methods
