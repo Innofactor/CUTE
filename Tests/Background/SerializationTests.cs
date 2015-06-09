@@ -3,6 +3,7 @@
     using System;
     using System.Xml;
     using Cinteros.Unit.Test.Extensions.Core;
+    using Cinteros.Unit.Test.Extensions.Helpers;
     using Microsoft.Xrm.Sdk;
     using NSubstitute;
     using NUnit.Framework;
@@ -11,7 +12,7 @@
     {
         #region Public Methods
 
-        [Test]
+        [Test, SpecialTrust]
         [Category("Serialization")]
         public void Partial_Trust()
         {

@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{221B2D
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CUTE.Helpers", "Helpers\CUTE.Helpers.csproj", "{02287C1A-8310-40A1-82F6-03EE1E8AC579}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 2
@@ -39,6 +41,10 @@ Global
 		{466FC09F-0557-4FFB-9E94-45B9D04986D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{466FC09F-0557-4FFB-9E94-45B9D04986D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{466FC09F-0557-4FFB-9E94-45B9D04986D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02287C1A-8310-40A1-82F6-03EE1E8AC579}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02287C1A-8310-40A1-82F6-03EE1E8AC579}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02287C1A-8310-40A1-82F6-03EE1E8AC579}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02287C1A-8310-40A1-82F6-03EE1E8AC579}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
