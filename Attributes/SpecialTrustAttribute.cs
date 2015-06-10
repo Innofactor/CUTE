@@ -5,6 +5,7 @@
     using System.Reflection;
     using System.Security;
     using System.Security.Policy;
+    using Cinteros.Unit.Testing.Extensions.Attributes.Internals;
     using NUnit.Framework;
 
     [AttributeUsage(AttributeTargets.Method)]

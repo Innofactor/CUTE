@@ -1,4 +1,4 @@
-﻿namespace Cinteros.Unit.Testing.Extensions.Attributes
+﻿namespace Cinteros.Unit.Testing.Extensions.Attributes.Internals
 {
     using System;
     using System.Reflection;
