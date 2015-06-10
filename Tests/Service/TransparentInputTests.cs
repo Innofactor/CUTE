@@ -9,6 +9,20 @@
 
     public class TransparentInputTests : CoreTests, ICoreTests
     {
+        public TransparentInputTests()
+            : base()
+        {
+            var originalService = Substitute.For<IOrganizationService>();
+            originalService.Create(Arg.Any<Entity>()).Returns(this.expectedResultCreate);
+            originalService.Retrieve(Arg.Any<string>(), Arg.Any<Guid>(), Arg.Any<ColumnSet>()).Returns(this.expectedResultRetrieve);
+            originalService.RetrieveMultiple(Arg.Any<QueryBase>()).Returns(this.expectedResultRetrieveMultiple);
+            originalService.Execute(Arg.Any<OrganizationRequest>()).Returns(this.expectedResultExecute);
+
+            this.Provider = new CuteProvider(originalService);
+
+            this.Service = ((IOrganizationServiceFactory)this.Provider.GetService(typeof(IOrganizationServiceFactory))).CreateOrganizationService(Guid.Empty);
+        }
+
         #region Public Methods
 
         [Test]
@@ -73,20 +87,6 @@
         public override void Invoke_Update()
         {
             base.Invoke_Update();
-        }
-
-        [SetUp]
-        public void Setup()
-        {
-            var originalService = Substitute.For<IOrganizationService>();
-            originalService.Create(Arg.Any<Entity>()).Returns(this.expectedResultCreate);
-            originalService.Retrieve(Arg.Any<string>(), Arg.Any<Guid>(), Arg.Any<ColumnSet>()).Returns(this.expectedResultRetrieve);
-            originalService.RetrieveMultiple(Arg.Any<QueryBase>()).Returns(this.expectedResultRetrieveMultiple);
-            originalService.Execute(Arg.Any<OrganizationRequest>()).Returns(this.expectedResultExecute);
-
-            this.Provider = new CuteProvider(originalService);
-
-            this.Service = ((IOrganizationServiceFactory)this.Provider.GetService(typeof(IOrganizationServiceFactory))).CreateOrganizationService(Guid.Empty);
         }
 
         #endregion Public Methods
