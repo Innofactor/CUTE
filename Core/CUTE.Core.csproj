@@ -50,7 +50,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Background\MessageName.cs" />
-    <Compile Include="CuteMode.cs" />
     <Compile Include="Shortcut\CuteCreate.cs" />
     <Compile Include="CuteService.cs" />
     <Compile Include="Background\Serialization.cs" />
