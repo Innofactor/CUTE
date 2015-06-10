@@ -1,7 +1,7 @@
-﻿namespace Cinteros.Unit.Test.Extensions.Tests.Provider
+﻿namespace Cinteros.Unit.Testing.Extensions.Tests.Provider
 {
     using System;
-    using Cinteros.Unit.Test.Extensions.Core;
+    using Cinteros.Unit.Testing.Extensions.Core;
     using Microsoft.Xrm.Sdk;
     using NSubstitute;
     using Xunit;

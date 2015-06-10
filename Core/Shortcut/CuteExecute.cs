@@ -1,6 +1,6 @@
-﻿namespace Cinteros.Unit.Test.Extensions.Core.Shortcut
+﻿namespace Cinteros.Unit.Testing.Extensions.Core.Shortcut
 {
-    using Cinteros.Unit.Test.Extensions.Core.Background;
+    using Cinteros.Unit.Testing.Extensions.Core.Background;
     using Microsoft.Xrm.Sdk;
 
     public class CuteExecute : CuteCall

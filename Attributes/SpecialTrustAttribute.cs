@@ -1,4 +1,4 @@
-﻿namespace Cinteros.Unit.Test.Extensions.Helpers
+﻿namespace Cinteros.Unit.Testing.Extensions.Attributes
 {
     using System;
     using System.IO;

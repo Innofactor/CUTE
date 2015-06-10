@@ -1,4 +1,4 @@
-namespace Cinteros.Unit.Test.Extensions.Core
+namespace Cinteros.Unit.Testing.Extensions.Core
 {
     using System;
     using System.Runtime.Serialization;

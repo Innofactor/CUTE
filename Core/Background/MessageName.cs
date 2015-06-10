@@ -1,4 +1,4 @@
-﻿namespace Cinteros.Unit.Test.Extensions.Core.Background
+﻿namespace Cinteros.Unit.Testing.Extensions.Core.Background
 {
     public struct MessageName
     {

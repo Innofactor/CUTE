@@ -1,27 +1,26 @@
-﻿namespace Cinteros.Unit.Test.Extensions.Tests
+﻿namespace Cinteros.Unit.Testing.Extensions.Tests
 {
     using System;
-    using System.Linq;
-    using Cinteros.Unit.Test.Extensions.Core;
-    using Cinteros.Unit.Test.Extensions.Core.Background;
-    using Cinteros.Unit.Test.Extensions.Core.Shortcut;
+    using Cinteros.Unit.Testing.Extensions.Attributes;
+    using Cinteros.Unit.Testing.Extensions.Core;
+    using Cinteros.Unit.Testing.Extensions.Core.Background;
+    using Cinteros.Unit.Testing.Extensions.Core.Shortcut;
     using Microsoft.Xrm.Sdk;
     using Microsoft.Xrm.Sdk.Query;
-    using Xunit;
+    using NUnit.Framework;
 
     public class ShortcutTests
     {
+        #region Private Fields
+
         private CuteProvider provider;
-        public ShortcutTests()
-        {
-            // Arrange
-            this.provider = new CuteProvider();
-        }
+
+        #endregion Private Fields
 
         #region Public Methods
 
-        [Fact(DisplayName = "Create Call Shortcut")]
-        [Trait("Module", "Call")]
+        [Test, SpecialTrust]
+        [Category("Call")]
         public void Create_Call_Shortcut()
         {
             // Act
@@ -30,43 +29,13 @@
             this.provider.Calls.Add(dressedCall);
 
             // Assert
-            Assert.Equal(MessageName.Create, dressedCall.Message);
-            Assert.Equal(1, this.provider.Calls.Count);
+            Assert.AreEqual(MessageName.Create, dressedCall.Message);
+            Assert.AreEqual(1, this.provider.Calls.Count);
             Assert.True(dressedCall.Equals(nakedCall));
         }
 
-        [Fact(DisplayName = "Retrieve Call Shortcut")]
-        [Trait("Module", "Call")]
-        public void Retrieve_Call_Shortcut()
-        {
-            // Act
-            var dressedCall = new CuteRetrieve(string.Empty, Guid.Empty, new ColumnSet());
-            var nakedCall = new CuteCall(MessageName.Retrieve, new object[] { string.Empty, Guid.Empty, new ColumnSet() }, null);
-            this.provider.Calls.Add(dressedCall);
-
-            // Assert
-            Assert.Equal(MessageName.Retrieve, dressedCall.Message);
-            Assert.Equal(1, this.provider.Calls.Count);
-            Assert.True(dressedCall.Equals(nakedCall));
-        }
-
-        [Fact(DisplayName = "RetrieveMultiple Call Shortcut")]
-        [Trait("Module", "Call")]
-        public void RetrieveMultiple_Call_Shortcut()
-        {
-            // Act
-            var dressedCall = new CuteRetrieveMultiple(new QueryExpression());
-            var nakedCall = new CuteCall(MessageName.RetrieveMultiple, new object[] { new QueryExpression() }, null);
-            provider.Calls.Add(dressedCall);
-
-            // Assert
-            Assert.Equal(MessageName.RetrieveMultiple, dressedCall.Message);
-            Assert.Equal(1, provider.Calls.Count);
-            Assert.True(dressedCall.Equals(nakedCall));
-        }
-
-        [Fact(DisplayName = "Execute Call Shortcut")]
-        [Trait("Module", "Call")]
+        [Test]
+        [Category("Call")]
         public void Execute_Call_Shortcut()
         {
             // Act
@@ -75,9 +44,46 @@
             provider.Calls.Add(dressedCall);
 
             // Assert
-            Assert.Equal(MessageName.Execute, dressedCall.Message);
-            Assert.Equal(1, provider.Calls.Count);
+            Assert.AreEqual(MessageName.Execute, dressedCall.Message);
+            Assert.AreEqual(1, provider.Calls.Count);
             Assert.True(dressedCall.Equals(nakedCall));
+        }
+
+        [Test]
+        [Category("Call")]
+        public void Retrieve_Call_Shortcut()
+        {
+            // Act
+            var dressedCall = new CuteRetrieve(string.Empty, Guid.Empty, new ColumnSet());
+            var nakedCall = new CuteCall(MessageName.Retrieve, new object[] { string.Empty, Guid.Empty, new ColumnSet() }, null);
+            this.provider.Calls.Add(dressedCall);
+
+            // Assert
+            Assert.AreEqual(MessageName.Retrieve, dressedCall.Message);
+            Assert.AreEqual(1, this.provider.Calls.Count);
+            Assert.True(dressedCall.Equals(nakedCall));
+        }
+
+        [Test]
+        [Category("Call")]
+        public void RetrieveMultiple_Call_Shortcut()
+        {
+            // Act
+            var dressedCall = new CuteRetrieveMultiple(new QueryExpression());
+            var nakedCall = new CuteCall(MessageName.RetrieveMultiple, new object[] { new QueryExpression() }, null);
+            provider.Calls.Add(dressedCall);
+
+            // Assert
+            Assert.AreEqual(MessageName.RetrieveMultiple, dressedCall.Message);
+            Assert.AreEqual(1, provider.Calls.Count);
+            Assert.True(dressedCall.Equals(nakedCall));
+        }
+
+        [SetUp]
+        public void Setup()
+        {
+            // Arrange
+            this.provider = new CuteProvider();
         }
 
         #endregion Public Methods

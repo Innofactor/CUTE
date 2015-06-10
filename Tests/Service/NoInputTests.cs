@@ -1,8 +1,8 @@
-﻿namespace Cinteros.Unit.Test.Extensions.Tests.Service
+﻿namespace Cinteros.Unit.Testing.Extensions.Tests.Service
 {
     using System;
-    using Cinteros.Unit.Test.Extensions.Core;
-    using Cinteros.Unit.Test.Extensions.Core.Background;
+    using Cinteros.Unit.Testing.Extensions.Core;
+    using Cinteros.Unit.Testing.Extensions.Core.Background;
     using Microsoft.Xrm.Sdk;
     using Microsoft.Xrm.Sdk.Query;
     using Xunit;

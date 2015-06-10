@@ -7,7 +7,7 @@
     <ProjectGuid>{FD6F9F6D-D9E8-4A07-B69A-E00F488D8033}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Cinteros.Unit.Test.Extensions.Core</RootNamespace>
+    <RootNamespace>Cinteros.Unit.Testing.Extensions.Core</RootNamespace>
     <AssemblyName>CUTE.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

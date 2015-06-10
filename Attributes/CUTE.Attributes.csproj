@@ -7,8 +7,8 @@
     <ProjectGuid>{02287C1A-8310-40A1-82F6-03EE1E8AC579}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Cinteros.Unit.Test.Extensions.Helpers</RootNamespace>
-    <AssemblyName>CUTE.Helpers</AssemblyName>
+    <RootNamespace>Cinteros.Unit.Testing.Extensions.Attributes</RootNamespace>
+    <AssemblyName>CUTE.Attributes</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

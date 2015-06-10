@@ -1,9 +1,9 @@
-﻿namespace Cinteros.Unit.Test.Extensions.Tests.Background
+﻿namespace Cinteros.Unit.Testing.Extensions.Tests.Background
 {
     using System;
     using System.Xml;
-    using Cinteros.Unit.Test.Extensions.Core;
-    using Cinteros.Unit.Test.Extensions.Helpers;
+    using Cinteros.Unit.Testing.Extensions.Attributes;
+    using Cinteros.Unit.Testing.Extensions.Core;
     using Microsoft.Xrm.Sdk;
     using NSubstitute;
     using NUnit.Framework;

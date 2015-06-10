@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{221B2D
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CUTE.Helpers", "Helpers\CUTE.Helpers.csproj", "{02287C1A-8310-40A1-82F6-03EE1E8AC579}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CUTE.Attributes", "Attributes\CUTE.Attributes.csproj", "{02287C1A-8310-40A1-82F6-03EE1E8AC579}"
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution

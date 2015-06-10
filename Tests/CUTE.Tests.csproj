@@ -8,7 +8,7 @@
     <ProjectGuid>{466FC09F-0557-4FFB-9E94-45B9D04986D6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Cinteros.Unit.Test.Extensions.Tests</RootNamespace>
+    <RootNamespace>Cinteros.Unit.Testing.Extensions.Tests</RootNamespace>
     <AssemblyName>CUTE.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -116,9 +116,9 @@
       <Project>{fd6f9f6d-d9e8-4a07-b69a-e00f488d8033}</Project>
       <Name>CUTE.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Helpers\CUTE.Helpers.csproj">
+    <ProjectReference Include="..\Helpers\CUTE.Attributes.csproj">
       <Project>{02287c1a-8310-40a1-82f6-03ee1e8ac579}</Project>
-      <Name>CUTE.Helpers</Name>
+      <Name>CUTE.Attributes</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

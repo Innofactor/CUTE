@@ -1,10 +1,10 @@
-﻿namespace Cinteros.Unit.Test.Extensions.Core
+﻿namespace Cinteros.Unit.Testing.Extensions.Core
 {
     using System;
     using System.Collections.ObjectModel;
     using System.Runtime.Serialization;
     using System.Xml;
-    using Cinteros.Unit.Test.Extensions.Core.Background;
+    using Cinteros.Unit.Testing.Extensions.Core.Background;
     using Microsoft.Xrm.Sdk;
     using Microsoft.Xrm.Sdk.Query;
 
