@@ -14,19 +14,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CUTE.Attributes", "Attribut
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 2
+		SccNumberOfProjects = 4
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://cinteros.visualstudio.com/defaultcollection
 		SccProjectUniqueName0 = Core\\CUTE.Core.csproj
 		SccProjectName0 = Core
-		SccAuxPath0 = https://cinteros.visualstudio.com/defaultcollection
 		SccLocalPath0 = Core
-		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccProjectUniqueName1 = Tests\\CUTE.Tests.csproj
 		SccProjectName1 = Tests
-		SccAuxPath1 = https://cinteros.visualstudio.com/defaultcollection
 		SccLocalPath1 = Tests
-		SccProvider1 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccLocalPath2 = .
+		SccProjectUniqueName3 = Attributes\\CUTE.Attributes.csproj
+		SccProjectName3 = Attributes
+		SccLocalPath3 = Attributes
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

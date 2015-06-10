@@ -3,6 +3,7 @@
     using System;
     using System.Collections.ObjectModel;
     using System.Runtime.Serialization;
+    using System.ServiceModel.Description;
     using System.Xml;
     using Cinteros.Unit.Testing.Extensions.Core.Background;
     using Microsoft.Xrm.Sdk;
@@ -13,6 +14,10 @@
     {
         #region Public Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CuteProvider"/> class.
+        /// </summary>
+        /// <param name="data">Serialized data that used to re-create provider</param>
         public CuteProvider(string data)
             : this()
         {
@@ -21,6 +26,10 @@
             this.Calls = saved.Calls;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CuteProvider"/> class.
+        /// </summary>
+        /// <param name="provider">Provider that will be acting as a back-end for current one</param>
         public CuteProvider(IServiceProvider provider)
             : this()
         {
@@ -34,10 +43,18 @@
             }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CuteProvider"/> class.
+        /// </summary>
         public CuteProvider()
         {
             this.Context = new CuteContext();
             this.Calls = new Collection<CuteCall>();
+        }
+
+        public CuteProvider(ClientCredentials credentials, Uri url)
+            : this()
+        {
         }
 
         #endregion Public Constructors
@@ -73,6 +90,12 @@
 
         [DataMember]
         public CuteContext Context
+        {
+            get;
+            private set;
+        }
+
+        public string Endpoint
         {
             get;
             private set;
