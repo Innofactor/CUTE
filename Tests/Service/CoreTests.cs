@@ -9,7 +9,7 @@
     using NSubstitute;
     using Xunit;
 
-    public class CoreTests
+    public class CoreTests : ICoreTests
     {
         #region Protected Fields
 
@@ -26,6 +26,44 @@
         #region Public Constructors
 
         public CoreTests()
+        {
+            var originalProvider = Substitute.For<IServiceProvider>();
+            var originalFactory = Substitute.For<IOrganizationServiceFactory>();
+            var originalService = Substitute.For<IOrganizationService>();
+
+            this.expectedResultCreate = Guid.NewGuid();
+
+            this.expectedResultRetrieve = new Entity()
+            {
+                Id = Guid.NewGuid()
+            };
+
+            this.expectedResultRetrieveMultiple = new EntityCollection();
+            this.expectedResultRetrieveMultiple.Entities.Add(new Entity());
+            this.expectedResultRetrieveMultiple.Entities.Add(new Entity());
+            this.expectedResultRetrieveMultiple.Entities.Add(new Entity());
+            this.expectedResultRetrieveMultiple.Entities.Add(new Entity());
+            this.expectedResultRetrieveMultiple.Entities.Add(new Entity());
+
+            this.expectedResultExecute = new OrganizationResponse()
+            {
+                ResponseName = "Test"
+            };
+
+            originalService.Create(Arg.Any<Entity>()).Returns(this.expectedResultCreate);
+            originalService.Retrieve(Arg.Any<string>(), Arg.Any<Guid>(), Arg.Any<ColumnSet>()).Returns(this.expectedResultRetrieve);
+            originalService.RetrieveMultiple(Arg.Any<QueryBase>()).Returns(this.expectedResultRetrieveMultiple);
+            originalService.Execute(Arg.Any<OrganizationRequest>()).Returns(this.expectedResultExecute);
+
+            originalFactory.CreateOrganizationService(Arg.Any<Guid?>()).Returns(originalService);
+
+            originalProvider.GetService(typeof(IOrganizationServiceFactory)).Returns(originalFactory);
+
+            this.Provider = new CuteProvider(originalProvider);
+            this.Service = ((IOrganizationServiceFactory)this.Provider.GetService(typeof(IOrganizationServiceFactory))).CreateOrganizationService(Guid.Empty);
+        }
+
+        public void Setup()
         {
             var originalProvider = Substitute.For<IServiceProvider>();
             var originalFactory = Substitute.For<IOrganizationServiceFactory>();

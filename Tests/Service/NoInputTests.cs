@@ -7,7 +7,7 @@
     using Microsoft.Xrm.Sdk.Query;
     using Xunit;
 
-    public class NoInputTests : CoreTests
+    public class NoInputTests : CoreTests, ICoreTests
     {
         #region Public Constructors
 

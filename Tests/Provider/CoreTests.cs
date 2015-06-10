@@ -4,19 +4,11 @@
     using Cinteros.Unit.Testing.Extensions.Core;
     using Microsoft.Xrm.Sdk;
     using NSubstitute;
-    using Xunit;
+    using NUnit.Framework;
 
     public class CoreTests : ICoreTests
     {
         #region Public Constructors
-
-        public CoreTests()
-        {
-            // Arrange
-            this.Provider = new CuteProvider(Substitute.For<IServiceProvider>());
-            this.Provider.GetService(typeof(IPluginExecutionContext)).Returns(Substitute.For<IPluginExecutionContext>());
-            this.Provider.GetService(typeof(ITracingService)).Returns(Substitute.For<ITracingService>());
-        }
 
         #endregion Public Constructors
 
@@ -52,14 +44,14 @@
             var context = this.Provider.GetService(typeof(IPluginExecutionContext));
 
             // Assert
-            Assert.IsAssignableFrom<IPluginExecutionContext>(context);
-            Assert.IsNotType<CuteContext>(context);
+            Assert.IsInstanceOf<IPluginExecutionContext>(context);
+            Assert.IsNotAssignableFrom<CuteContext>(context);
         }
 
         public virtual void Get_OriginalProvider()
         {
             // Assert
-            Assert.IsNotType<CuteProvider>(this.Provider.Original);
+            Assert.IsNotInstanceOf<CuteProvider>(this.Provider.Original);
         }
 
         public virtual void Get_TracingService()
@@ -68,7 +60,7 @@
             var service = this.Provider.GetService(typeof(ITracingService));
 
             // Assert
-            Assert.IsAssignableFrom<ITracingService>(service);
+            Assert.IsInstanceOf<ITracingService>(service);
         }
 
         public virtual void Get_WrappedFactory()
@@ -77,8 +69,8 @@
             var factory = Provider.GetService(typeof(IOrganizationServiceFactory));
 
             // Assert
-            Assert.IsAssignableFrom<IOrganizationServiceFactory>(factory);
-            Assert.IsType<CuteFactory>(factory);
+            Assert.IsInstanceOf<IOrganizationServiceFactory>(factory);
+            Assert.IsAssignableFrom<CuteFactory>(factory);
         }
 
         #endregion Public Methods

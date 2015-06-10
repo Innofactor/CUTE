@@ -7,7 +7,7 @@
     using NSubstitute;
     using Xunit;
 
-    public class SerializedInputTests : CoreTests
+    public class SerializedInputTests : CoreTests, ICoreTests
     {
         #region Public Constructors
 

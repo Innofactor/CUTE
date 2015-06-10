@@ -9,7 +9,7 @@
     using NSubstitute;
     using Xunit;
 
-    public class BareInputTests : CoreTests
+    public class BareInputTests : CoreTests, ICoreTests
     {
         #region Public Methods
 

@@ -6,16 +6,6 @@
 
     public class SerializedInputTests : CoreTests, ICoreTests
     {
-        #region Public Constructors
-
-        public SerializedInputTests()
-            : base()
-        {
-            this.Provider = new CuteProvider(this.Provider.ToString());
-        }
-
-        #endregion Public Constructors
-
         #region Public Methods
 
         [Test]

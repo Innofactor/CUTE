@@ -97,6 +97,8 @@
     <Compile Include="Background\SerializationTests.cs" />
     <Compile Include="Provider\ICoreTests.cs" />
     <Compile Include="Provider\TransparentInputTests.cs" />
+    <Compile Include="Service\ICoreTests.cs" />
+    <Compile Include="Service\TransparentInputTests.cs" />
     <Compile Include="ShortcutTests.cs" />
     <Compile Include="Provider\NoInputTests.cs" />
     <Compile Include="Service\BareInputTests.cs" />
