@@ -4,15 +4,15 @@
     using Cinteros.Unit.Testing.Extensions.Core;
     using Microsoft.Xrm.Sdk;
     using NSubstitute;
-    using Xunit;
+    using NUnit.Framework;
 
     public class CuteFactoryTests
     {
         #region Public Methods
 
-        [Fact(DisplayName = "Get OrganizationService")]
-        [Trait("Module", "Factory")]
-        [Trait("Provider", "Bare Input")]
+        [Test]
+        [Category("Factory")]
+        [Category("Bare Input")]
         public void Get_OrganizationService()
         {
             // Arrange
@@ -33,9 +33,9 @@
 
             // Assert
             Assert.NotNull(service);
-            Assert.IsAssignableFrom<IOrganizationService>(service);
-            Assert.IsType<CuteService>(service);
-            Assert.Equal(userId, ((CuteService)service).UserId);
+            Assert.IsInstanceOf<IOrganizationService>(service);
+            Assert.IsInstanceOf<CuteService>(service);
+            Assert.AreEqual(userId, ((CuteService)service).UserId);
         }
 
         #endregion Public Methods

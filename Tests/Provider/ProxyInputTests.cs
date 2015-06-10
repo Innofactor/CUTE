@@ -14,30 +14,10 @@
         [Test]
         [Category("Provider")]
         [Category("Proxy Input")]
-        public void Check_Uri_Format([Values("", "http://", "|")] string url)
-        {
-            // Arrange
-            // Act
-            var test = new TestDelegate(() =>
-                {
-                    var provider = new CuteProvider(new ClientCredentials(), new Uri(url));
-                });
-            
-            // Assert
-            Assert.Throws<UriFormatException>(test);
-        }
-
-        [Test]
-        [Category("Provider")]
-        [Category("Proxy Input")]
-        public void Check_Uri_Values(
+        public void Check_Endpoint(
             [Values(
                 "https://server/organization", 
-                "https://server/organization/", 
-                "https://server/organization/XRMServices",
-                "https://server/organization/XRMServices/",
-                "https://server/organization/XRMServices/2011",
-                "https://server/organization/XRMServices/2011/",
+                "https://server/organization/",
                 "https://server/organization/XRMServices/2011/Organization.svc")] string url)
         {
             // Arrange
@@ -46,6 +26,22 @@
 
             // Assert
             Assert.AreEqual("https://server/organization/XRMServices/2011/Organization.svc", provider.Endpoint);
+        }
+
+        [Test]
+        [Category("Provider")]
+        [Category("Proxy Input")]
+        public void Check_User()
+        {
+            // Arrange
+            var credentials = new ClientCredentials();
+            credentials.UserName.UserName = "domain\\user";
+
+            // Act
+            var provider = new CuteProvider(credentials, new Uri("https://server/organization/XRMServices/2011/Organization.svc"));
+
+            // Assert
+            Assert.AreEqual("domain\\user", provider.User);
         }
     }
 }
