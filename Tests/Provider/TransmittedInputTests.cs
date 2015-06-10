@@ -9,7 +9,7 @@
     using Cinteros.Unit.Testing.Extensions.Core;
     using NUnit.Framework;
 
-    public class ProxyInputTests
+    public class TransmittedInputTests
     {
         [Test]
         [Category("Provider")]

@@ -19,7 +19,7 @@
 
         #region Public Methods
 
-        [Test, SpecialTrust]
+        [Test]
         [Category("Call")]
         public void Create_Call_Shortcut()
         {
