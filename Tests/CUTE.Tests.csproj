@@ -95,6 +95,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Background\SerializationTests.cs" />
+    <Compile Include="Factory\BareInputTests.cs" />
+    <Compile Include="Factory\ICoreTests.cs" />
+    <Compile Include="Factory\TransparentInputTests.cs" />
     <Compile Include="Provider\ICoreTests.cs" />
     <Compile Include="Provider\TransparentInputTests.cs" />
     <Compile Include="Service\ICoreTests.cs" />
@@ -102,7 +105,7 @@
     <Compile Include="ShortcutTests.cs" />
     <Compile Include="Provider\NoInputTests.cs" />
     <Compile Include="Service\BareInputTests.cs" />
-    <Compile Include="CuteFactoryTests.cs" />
+    <Compile Include="Factory\CoreTests.cs" />
     <Compile Include="Provider\BareInputTests.cs" />
     <Compile Include="Provider\CoreTests.cs" />
     <Compile Include="Provider\SerializedInputTests.cs" />

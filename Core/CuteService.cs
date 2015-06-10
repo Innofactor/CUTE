@@ -14,7 +14,6 @@
         #region Private Fields
 
         private CuteProvider provider;
-        private IOrganizationService service;
 
         #endregion Private Fields
 
@@ -25,18 +24,28 @@
             this.provider = provider;
             this.UserId = userId;
 
-            // Sign that provider was deserialized
-            if (this.provider.IsOnline)
+            if (this.provider.Original != null)
             {
                 var factory = (IOrganizationServiceFactory)provider.Original.GetService(typeof(IOrganizationServiceFactory));
 
-                this.service = factory.CreateOrganizationService(userId);
+                this.Original = factory.CreateOrganizationService(userId);
+            }
+
+            if (this.provider.Proxy != null)
+            {
+                this.Original = this.provider.Proxy;
             }
         }
 
         #endregion Public Constructors
 
         #region Public Properties
+
+        public IOrganizationService Original
+        {
+            get;
+            private set;
+        }
 
         public Guid? UserId
         {
@@ -59,7 +68,7 @@
         {
             if (this.provider.IsOnline)
             {
-                this.service.Associate(entityName, entityId, relationship, relatedEntities);
+                this.Original.Associate(entityName, entityId, relationship, relatedEntities);
             }
         }
 
@@ -74,7 +83,7 @@
 
             if (this.provider.IsOnline)
             {
-                call.Output = this.service.Create(entity);
+                call.Output = this.Original.Create(entity);
 
                 this.provider.Calls.Add(call);
 
@@ -95,7 +104,7 @@
         {
             if (this.provider.IsOnline)
             {
-                this.service.Delete(entityName, id);
+                this.Original.Delete(entityName, id);
             }
         }
 
@@ -110,7 +119,7 @@
         {
             if (this.provider.IsOnline)
             {
-                this.service.Disassociate(entityName, entityId, relationship, relatedEntities);
+                this.Original.Disassociate(entityName, entityId, relationship, relatedEntities);
             }
         }
 
@@ -123,7 +132,7 @@
         {
             if (this.provider.IsOnline)
             {
-                var result = this.service.Execute(request);
+                var result = this.Original.Execute(request);
 
                 this.provider.Calls.Add(new CuteCall(MessageName.Execute, new[] { request }, result));
 
@@ -150,7 +159,7 @@
 
             if (this.provider.IsOnline)
             {
-                call.Output = this.service.Retrieve(entityName, id, columnSet);
+                call.Output = this.Original.Retrieve(entityName, id, columnSet);
 
                 this.provider.Calls.Add(call);
 
@@ -173,7 +182,7 @@
 
             if (this.provider.IsOnline)
             {
-                call.Output = this.service.RetrieveMultiple(query);
+                call.Output = this.Original.RetrieveMultiple(query);
 
                 this.provider.Calls.Add(call);
 
@@ -193,7 +202,7 @@
         {
             if (this.provider.IsOnline)
             {
-                this.service.Update(entity);
+                this.Original.Update(entity);
             }
         }
 

@@ -130,7 +130,7 @@
         public virtual void Invoke_Create_Check_Cache()
         {
             // Act
-            var result = Service.Create(new Entity());
+            var result = this.Service.Create(new Entity());
 
             // Assert
             Assert.NotNull(result);

@@ -1,10 +1,12 @@
 ﻿namespace Cinteros.Unit.Testing.Extensions.Tests.Provider
 {
+    using Cinteros.Unit.Testing.Extensions.Core;
+
     internal interface ICoreTests
     {
         #region Public Properties
 
-        Cinteros.Unit.Testing.Extensions.Core.CuteProvider Provider { get; }
+        CuteProvider Provider { get; }
 
         #endregion Public Properties
 
