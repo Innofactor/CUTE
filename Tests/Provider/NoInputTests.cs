@@ -7,50 +7,52 @@
     using System.Threading.Tasks;
     using Cinteros.Unit.Testing.Extensions.Core;
     using Microsoft.Xrm.Sdk;
-    using Xunit;
+    using NUnit.Framework;
 
-    public class NoInputTests : CoreTests
+    public class NoInputTests : CoreTests, ICoreTests
     {
-        public NoInputTests()
+        [SetUp]
+        public void Setup()
         {
+            base.Setup();
             this.Provider = new CuteProvider();
         }
 
-        [Fact(DisplayName = "Check Online Status")]
-        [Trait("Module", "Provider")]
-        [Trait("Provider", "No Input")]
+        [Test]
+        [Category("Provider")]
+        [Category("No Input")]
         public new void Check_Online_Status()
         {
             // Assert
             Assert.False(this.Provider.IsOnline);
         }
 
-        [Fact(DisplayName = "Get Context")]
-        [Trait("Module", "Provider")]
-        [Trait("Module", "Context")]
-        [Trait("Provider", "No Input")]
+        [Test]
+        [Category("Provider")]
+        [Category("No Input")]
+        [Category("Context")]
         public new void Get_Context()
         {
             // Act
             var context = this.Provider.GetService(typeof(IPluginExecutionContext));
 
             // Assert
-            Assert.IsAssignableFrom<IPluginExecutionContext>(context);
-            Assert.IsType<CuteContext>(context);
+            Assert.IsInstanceOf<IPluginExecutionContext>(context);
+            Assert.IsAssignableFrom<CuteContext>(context);
         }
 
-        [Fact(DisplayName = "Get OriginalProvider")]
-        [Trait("Module", "Provider")]
-        [Trait("Provider", "No Input")]
+        [Test]
+        [Category("Provider")]
+        [Category("No Input")]
         public new void Get_OriginalProvider()
         {
             // Assert
             Assert.Null(this.Provider.Original);
         }
 
-        [Fact(DisplayName = "Get TracingService")]
-        [Trait("Module", "Provider")]
-        [Trait("Provider", "No Input")]
+        [Test]
+        [Category("Provider")]
+        [Category("No Input")]
         public new void Get_TracingService()
         {
             // Act
@@ -60,10 +62,10 @@
             Assert.NotNull(service);
         }
 
-        [Fact(DisplayName = "Get WrappedFactory")]
-        [Trait("Module", "Provider")]
-        [Trait("Module", "Factory")]
-        [Trait("Provider", "No Input")]
+        [Test]
+        [Category("Provider")]
+        [Category("No Input")]
+        [Category("Factory")]
         public override void Get_WrappedFactory()
         {
             base.Get_WrappedFactory();

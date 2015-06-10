@@ -4,9 +4,9 @@
     using Cinteros.Unit.Testing.Extensions.Core;
     using Microsoft.Xrm.Sdk;
     using NSubstitute;
-    using Xunit;
+    using NUnit.Framework;
 
-    public class BareInputTests : CoreTests
+    public class BareInputTests : CoreTests, ICoreTests
     {
         #region Public Constructors
 
@@ -19,43 +19,49 @@
 
         #region Public Methods
 
-        [Fact(DisplayName = "Check Online Status")]
-        [Trait("Module", "Provider")]
-        [Trait("Provider", "Bare Input")]
+        [SetUp]
+        public void Setup()
+        {
+            base.Setup();
+        }
+
+        [Test]
+        [Category("Provider")]
+        [Category("Bare Input")]
         public new void Check_Online_Status()
         {
             base.Check_Online_Status();
         }
 
-        [Fact(DisplayName = "Get Context")]
-        [Trait("Module", "Provider")]
-        [Trait("Module", "Context")]
-        [Trait("Provider", "Bare Input")]
+        [Test]
+        [Category("Provider")]
+        [Category("Bare Input")]
+        [Category("Context")]
         public new void Get_Context()
         {
             base.Get_Context();
         }
 
-        [Fact(DisplayName = "Get OriginalProvider")]
-        [Trait("Module", "Provider")]
-        [Trait("Provider", "Bare Input")]
+        [Test]
+        [Category("Provider")]
+        [Category("Bare Input")]
         public new void Get_OriginalProvider()
         {
             base.Get_OriginalProvider();
         }
 
-        [Fact(DisplayName = "Get TracingService")]
-        [Trait("Module", "Provider")]
-        [Trait("Provider", "Bare Input")]
+        [Test]
+        [Category("Provider")]
+        [Category("Bare Input")]
         public new void Get_TracingService()
         {
             base.Get_TracingService();
         }
 
-        [Fact(DisplayName = "Get WrappedFactory")]
-        [Trait("Module", "Provider")]
-        [Trait("Module", "Factory")]
-        [Trait("Provider", "Bare Input")]
+        [Test]
+        [Category("Provider")]
+        [Category("Bare Input")]
+        [Category("Factory")]
         public new void Get_WrappedFactory()
         {
             base.Get_WrappedFactory();

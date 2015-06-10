@@ -1,6 +1,6 @@
-﻿namespace Cinteros.Unit.Testing.Extensions.Core.Background
+﻿namespace Cinteros.Unit.Testing.Extensions.Core
 {
-    internal enum ProviderMode
+    public enum CuteMode
     {
         /// <summary>
         /// Provider that was created from no input, locally. Usually happens when running local

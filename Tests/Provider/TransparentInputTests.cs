@@ -1,49 +1,35 @@
-﻿namespace Cinteros.Unit.Testing.Extensions.Tests.Provider
+﻿using Cinteros.Unit.Testing.Extensions.Core;
+using Microsoft.Xrm.Sdk;
+using NSubstitute;
+using NUnit.Framework;
+namespace Cinteros.Unit.Testing.Extensions.Tests.Provider
 {
-    using Cinteros.Unit.Testing.Extensions.Core;
-    using Microsoft.Xrm.Sdk;
-    using NUnit.Framework;
-
-    public class SerializedInputTests : CoreTests, ICoreTests
+    public class TransparentInputTests : CoreTests, ICoreTests
     {
-        #region Public Constructors
-
-        public SerializedInputTests()
-            : base()
-        {
-            this.Provider = new CuteProvider(this.Provider.ToString());
-        }
-
-        #endregion Public Constructors
-
-        #region Public Methods
-
         [Test]
         [Category("Provider")]
-        [Category("Serialized Input")]
+        [Category("Transparent Input")]
         public new void Check_Online_Status()
         {
             // Assert
-            Assert.False(this.Provider.IsOnline);
+            Assert.True(this.Provider.IsOnline);
         }
 
         [Test]
         [Category("Provider")]
-        [Category("Serialized Input")]
-        [Category("Context")]
+        [Category("Transparent Input")]
         public new void Get_Context()
         {
             // Act
             var context = this.Provider.GetService(typeof(IPluginExecutionContext));
 
             // Assert
-            Assert.IsInstanceOf<IPluginExecutionContext>(context);
             Assert.IsAssignableFrom<CuteContext>(context);
         }
 
         [Test]
         [Category("Provider")]
-        [Category("Serialized Input")]
+        [Category("Transparent Input")]
         public new void Get_OriginalProvider()
         {
             // Assert
@@ -52,7 +38,7 @@
 
         [Test]
         [Category("Provider")]
-        [Category("Serialized Input")]
+        [Category("Transparent Input")]
         public new void Get_TracingService()
         {
             // Act
@@ -64,20 +50,17 @@
 
         [Test]
         [Category("Provider")]
-        [Category("Serialized Input")]
-        [Category("Factory")]
-        public override void Get_WrappedFactory()
+        [Category("Transparent Input")]
+        public new void Get_WrappedFactory()
         {
             base.Get_WrappedFactory();
         }
 
         [SetUp]
-        public void Setup()
+        public new void Setup()
         {
             base.Setup();
-            this.Provider = new CuteProvider(this.Provider.ToString());
+            this.Provider = new CuteProvider(Substitute.For<IOrganizationService>());
         }
-
-        #endregion Public Methods
     }
 }

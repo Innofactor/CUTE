@@ -95,7 +95,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Background\SerializationTests.cs" />
-    <Compile Include="Provider\TransmittedInputTests.cs" />
+    <Compile Include="Provider\ICoreTests.cs" />
+    <Compile Include="Provider\TransparentInputTests.cs" />
     <Compile Include="ShortcutTests.cs" />
     <Compile Include="Provider\NoInputTests.cs" />
     <Compile Include="Service\BareInputTests.cs" />

@@ -6,7 +6,7 @@
     using NSubstitute;
     using Xunit;
 
-    public class CoreTests
+    public class CoreTests : ICoreTests
     {
         #region Public Constructors
 
@@ -31,6 +31,14 @@
         #endregion Public Properties
 
         #region Public Methods
+
+        public void Setup()
+        {
+            // Arrange
+            this.Provider = new CuteProvider(Substitute.For<IServiceProvider>());
+            this.Provider.GetService(typeof(IPluginExecutionContext)).Returns(Substitute.For<IPluginExecutionContext>());
+            this.Provider.GetService(typeof(ITracingService)).Returns(Substitute.For<ITracingService>());
+        }
 
         public virtual void Check_Online_Status()
         {

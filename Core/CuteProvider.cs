@@ -3,8 +3,6 @@
     using System;
     using System.Collections.ObjectModel;
     using System.Runtime.Serialization;
-    using System.ServiceModel.Description;
-    using System.Text;
     using System.Xml;
     using Cinteros.Unit.Testing.Extensions.Core.Background;
     using Microsoft.Xrm.Sdk;
@@ -56,29 +54,11 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="CuteProvider"/> class.
         /// </summary>
-        /// <param name="userCredentials">User credentials that connects to <paramref name="serviceUri"/></param>
-        /// <param name="serviceUri">
-        /// Address of the IOrganizationService endpoint, should end with
-        /// '/XRMServices/2011/Organization.svc' string, otherwise system will try to substitute
-        /// correct part of address
-        /// </param>
-        public CuteProvider(ClientCredentials userCredentials, Uri serviceUri)
+        /// <param name="proxy"></param>
+        public CuteProvider(IOrganizationService proxy)
             : this()
         {
-            var builder = new StringBuilder(serviceUri.ToString());
-
-            if (!builder.ToString().EndsWith("XRMServices/2011/Organization.svc"))
-            {
-                if (!builder.ToString().EndsWith("/"))
-                {
-                    builder.Append("/");
-                }
-
-                builder.Append("XRMServices/2011/Organization.svc");
-            }
-
-            this.Endpoint = builder.ToString();
-            this.User = userCredentials.UserName.UserName;
+            this.Proxy = proxy;
         }
 
         #endregion Public Constructors
@@ -119,12 +99,6 @@
             private set;
         }
 
-        public string Endpoint
-        {
-            get;
-            private set;
-        }
-
         /// <summary>
         /// Gets value shouwing could calls be made to real CRM itself, or not
         /// </summary>
@@ -132,7 +106,7 @@
         {
             get
             {
-                return (this.Original != null);
+                return !(this.Original == null && this.Proxy == null);
             }
         }
 
@@ -142,7 +116,7 @@
             private set;
         }
 
-        public object User
+        public IOrganizationService Proxy
         {
             get;
             private set;
@@ -156,9 +130,9 @@
         {
             if (serviceType == typeof(IPluginExecutionContext))
             {
-                // Sign that provider was deserialized
-                if (!this.IsOnline)
+                if (this.Original == null)
                 {
+                    // Original IServiceProvider is not available, so use cached version of the object
                     return this.Context;
                 }
             }
@@ -168,7 +142,7 @@
                 return new CuteFactory(this);
             }
 
-            if (this.IsOnline)
+            if (this.Original != null)
             {
                 return this.Original.GetService(serviceType);
             }
