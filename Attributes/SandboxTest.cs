@@ -6,11 +6,11 @@
     using System.Reflection;
     using NUnit.Framework;
 
-    public class SpecialTrustTest : MarshalByRefObject
+    internal class SandboxTest : MarshalByRefObject
     {
         #region Public Constructors
 
-        public SpecialTrustTest(TestDetails testDetails)
+        public SandboxTest(TestDetails testDetails)
         {
             this.MainMethod = testDetails.Method;
 

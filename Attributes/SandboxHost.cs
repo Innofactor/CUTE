@@ -3,7 +3,7 @@
     using System;
     using System.Reflection;
 
-    public class SpecialTrustSandbox : MarshalByRefObject
+    internal class SandboxHost : MarshalByRefObject
     {
         //#region Private Fields
 
@@ -27,7 +27,7 @@
 
         #region Internal Methods
 
-        internal Exception Execute(SpecialTrustTest test)
+        internal Exception Execute(SandboxTest test)
         {
             // Forward this data from the outside application domain
             //Console.SetOut(testMethodInfo.OutputStream);

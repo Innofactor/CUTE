@@ -19,16 +19,16 @@
 
             var setup = new AppDomainSetup
             {
-                ApplicationBase = Path.GetDirectoryName(Assembly.GetAssembly(typeof(SpecialTrustSandbox)).Location)
+                ApplicationBase = Path.GetDirectoryName(Assembly.GetAssembly(typeof(SandboxHost)).Location)
             };
 
             var domain = AppDomain.CreateDomain(testDetails.FullName, evidence, setup, permissions, null);
 
-            var type = typeof(SpecialTrustSandbox);
+            var type = typeof(SandboxHost);
 
-            var sandbox = (SpecialTrustSandbox)domain.CreateInstanceAndUnwrap(type.Assembly.FullName, type.FullName);
+            var sandbox = (SandboxHost)domain.CreateInstanceAndUnwrap(type.Assembly.FullName, type.FullName);
 
-            var exception = sandbox.Execute(new SpecialTrustTest(testDetails));
+            var exception = sandbox.Execute(new SandboxTest(testDetails));
 
             if (exception == null)
             {

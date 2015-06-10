@@ -116,7 +116,7 @@
       <Project>{fd6f9f6d-d9e8-4a07-b69a-e00f488d8033}</Project>
       <Name>CUTE.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Helpers\CUTE.Attributes.csproj">
+    <ProjectReference Include="..\Attributes\CUTE.Attributes.csproj">
       <Project>{02287c1a-8310-40a1-82f6-03ee1e8ac579}</Project>
       <Name>CUTE.Attributes</Name>
     </ProjectReference>
