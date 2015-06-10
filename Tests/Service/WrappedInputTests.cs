@@ -4,7 +4,6 @@
     using Cinteros.Unit.Testing.Extensions.Core;
     using Microsoft.Xrm.Sdk;
     using NUnit.Framework;
-    using Xunit;
 
     public class WrappedInputTests : CoreTests, ICoreTests
     {

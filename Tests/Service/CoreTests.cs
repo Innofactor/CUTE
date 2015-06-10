@@ -4,10 +4,12 @@
     using System.Linq;
     using Cinteros.Unit.Testing.Extensions.Core;
     using Cinteros.Unit.Testing.Extensions.Core.Background;
+    using FluentAssertions;
+    using FluentAssertions.Equivalency;
     using Microsoft.Xrm.Sdk;
     using Microsoft.Xrm.Sdk.Query;
     using NSubstitute;
-    using Xunit;
+    using MatchPath = FluentAssertions.Equivalency.EquivalencyAssertionOptionsBase<FluentAssertions.Equivalency.EquivalencyAssertionOptions<Microsoft.Xrm.Sdk.EntityCollection>>;
 
     public class CoreTests : ICoreTests
     {
@@ -95,11 +97,11 @@
             var result = this.Service.Create(new Entity());
 
             // Assert
-            Assert.NotNull(result);
-            Assert.IsType<Guid>(result);
-            Assert.NotEqual<Guid>(Guid.Empty, result);
-            Assert.Equal<Guid>(this.expectedResultCreate, result);
-            Assert.Equal(1, this.Provider.Calls.Where(x => x.Message == MessageName.Create).Count());
+            result.GetType().Should().Be<Guid>(because: "Create should return id of record created.");
+            result.Should().NotBe(Guid.Empty, because: "Record Id cannot be empty Guid.");
+            result.Should().Be(this.expectedResultCreate);
+
+            this.Provider.Calls.Where(x => x.Message == MessageName.Create).Count().Should().Be(1, because: "Should be only one cached Create call");
         }
 
         public virtual void Invoke_Delete()
@@ -120,10 +122,11 @@
             var result = this.Service.Execute(new OrganizationRequest());
 
             // Assert
-            Assert.NotNull(result);
-            Assert.IsType<OrganizationResponse>(result);
-            Assert.Equal(this.expectedResultExecute.ResponseName, result.ResponseName);
-            Assert.Equal(1, this.Provider.Calls.Where(x => x.Message == MessageName.Execute).Count());
+            result.Should().NotBe(null);
+            result.GetType().Should().Be<OrganizationResponse>();
+            result.ShouldBeEquivalentTo(this.expectedResultExecute, options => options.Excluding(x => x.ExtensionData));
+
+            this.Provider.Calls.Where(x => x.Message == MessageName.Execute).Count().Should().Be(1, because: "Should be only one cached Execute call");
         }
 
         public virtual void Invoke_Retrieve_Check_Cache()
@@ -132,11 +135,10 @@
             var result = this.Service.Retrieve(string.Empty, Guid.Empty, new ColumnSet());
 
             // Assert
-            Assert.NotNull(result);
-            Assert.IsType<Entity>(result);
-            Assert.NotEqual<Guid>(Guid.Empty, result.Id);
-            Assert.Equal<Guid>(this.expectedResultRetrieve.Id, result.Id);
-            Assert.Equal(1, this.Provider.Calls.Where(x => x.Message == MessageName.Retrieve).Count());
+            result.Should().NotBe(null);
+            result.ShouldBeEquivalentTo(this.expectedResultRetrieve, options => options.Excluding(x => x.ExtensionData));
+
+            this.Provider.Calls.Where(x => x.Message == MessageName.Retrieve).Count().Should().Be(1);
         }
 
         public virtual void Invoke_RetrieveMultiple_Check_Cache()
@@ -145,10 +147,11 @@
             var result = this.Service.RetrieveMultiple(new QueryExpression());
 
             // Assert
-            Assert.NotNull(result);
-            Assert.IsType<EntityCollection>(result);
-            Assert.Equal(this.expectedResultRetrieveMultiple.Entities.Count, result.Entities.Count);
-            Assert.Equal(1, this.Provider.Calls.Where(x => x.Message == MessageName.RetrieveMultiple).Count());
+            result.Should().NotBe(null);
+            result.GetType().Should().Be<EntityCollection>();
+            result.ShouldBeEquivalentTo<EntityCollection>(this.expectedResultRetrieveMultiple, options => ((MatchPath)options).Excluding(x => x.SelectedMemberPath.EndsWith("ExtensionData")));
+
+            this.Provider.Calls.Where(x => x.Message == MessageName.RetrieveMultiple).Count().Should().Be(1);
         }
 
         public virtual void Invoke_Update()

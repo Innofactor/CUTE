@@ -6,7 +6,6 @@
     using Microsoft.Xrm.Sdk.Query;
     using NSubstitute;
     using NUnit.Framework;
-    using Xunit;
 
     public class SerializedInputTests : CoreTests, ICoreTests
     {

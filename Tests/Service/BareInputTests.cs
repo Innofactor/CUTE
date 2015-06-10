@@ -8,7 +8,6 @@
     using Microsoft.Xrm.Sdk.Query;
     using NSubstitute;
     using NUnit.Framework;
-    using Xunit;
 
     public class BareInputTests : CoreTests, ICoreTests
     {
