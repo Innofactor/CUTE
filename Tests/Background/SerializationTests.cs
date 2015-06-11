@@ -4,6 +4,7 @@
     using System.Xml;
     using Cinteros.Unit.Testing.Extensions.Attributes;
     using Cinteros.Unit.Testing.Extensions.Core;
+    using FluentAssertions;
     using Microsoft.Xrm.Sdk;
     using NSubstitute;
     using NUnit.Framework;
@@ -29,7 +30,7 @@
             var outputProvider = new CuteProvider(inputProvider.ToString());
 
             // Assert
-            Assert.IsInstanceOf<CuteProvider>(outputProvider);
+            outputProvider.Should().BeAssignableTo<CuteProvider>();
         }
 
         [Test]
@@ -45,8 +46,8 @@
             var outputProvider = new CuteProvider(inputProvider.ToString());
 
             // Assert
-            Assert.NotNull(outputProvider.Calls);
-            Assert.AreEqual(inputProvider.Calls.Count, outputProvider.Calls.Count);
+            outputProvider.Calls.Should().NotBeNull();
+            outputProvider.Calls.Count.Should().Be(inputProvider.Calls.Count);
         }
 
         [Test]
@@ -63,17 +64,17 @@
             var outputContext = (IPluginExecutionContext)outputProvider.GetService(typeof(IPluginExecutionContext));
 
             // Assert
-            Assert.NotNull(outputProvider.Context);
-            Assert.NotNull(outputContext);
+            outputProvider.Context.Should().NotBeNull();
+            outputContext.Should().NotBeNull();
 
-            Assert.IsInstanceOf<CuteContext>(outputProvider.Context);
-            Assert.IsInstanceOf<CuteContext>(outputContext);
+            outputProvider.Context.Should().BeAssignableTo<CuteContext>();
+            outputContext.Should().BeAssignableTo<CuteContext>();
 
-            Assert.AreEqual("account", outputProvider.Context.PrimaryEntityName);
-            Assert.AreEqual("Create", outputProvider.Context.MessageName);
+            outputProvider.Context.PrimaryEntityName.Should().Be("account");
+            outputProvider.Context.MessageName.Should().Be("Create");
 
-            Assert.AreEqual("account", outputContext.PrimaryEntityName);
-            Assert.AreEqual("Create", outputContext.MessageName);
+            outputContext.PrimaryEntityName.Should().Be("account");
+            outputContext.MessageName.Should().Be("Create");
         }
 
         [Test]
@@ -87,7 +88,7 @@
             var outputProvider = new CuteProvider(inputProvider.ToString());
 
             // Assert
-            Assert.Null(outputProvider.Original);
+            outputProvider.Original.Should().BeNull();
         }
 
         [Test]
@@ -101,7 +102,7 @@
             var result = provider.ToString();
 
             // Assert
-            Assert.IsInstanceOf<string>(result);
+            result.Should().BeAssignableTo<string>();
         }
 
         [Test]
@@ -115,7 +116,7 @@
             var result = provider.ToXml();
 
             // Assert
-            Assert.IsInstanceOf<XmlDocument>(result);
+            result.Should().BeAssignableTo<XmlDocument>();
         }
 
         #endregion Public Methods

@@ -47,16 +47,12 @@
 
             // Assert
             service.Should().NotBeNull();
+
             ((CuteService)service).Original.Should().NotBeNull();
             ((CuteService)service).UserId.Should().Be(userId);
+            
             service.GetType().Should().BeAssignableTo<CuteService>();
             service.GetType().Should().BeAssignableTo<IOrganizationService>();
-
-            //Assert.NotNull(service);
-            //Assert.NotNull(((CuteService)service).Original);
-            //Assert.IsInstanceOf<IOrganizationService>(service);
-            //Assert.IsInstanceOf<CuteService>(service);
-            //Assert.AreEqual(userId, ((CuteService)service).UserId);
         }
 
         #endregion Public Methods

@@ -12,8 +12,6 @@
 
         #region Public Methods
 
-        void Check_Online_Status();
-
         void Get_Context();
 
         void Get_OriginalProvider();
@@ -21,8 +19,6 @@
         void Get_TracingService();
 
         void Get_WrappedFactory();
-
-        void Setup();
 
         #endregion Public Methods
     }

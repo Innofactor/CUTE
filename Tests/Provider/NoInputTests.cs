@@ -7,16 +7,17 @@
 
     public class NoInputTests : CoreTests, ICoreTests
     {
-        #region Public Methods
+        #region Public Constructors
 
-        [Test]
-        [Category("Provider"), Category("No Input")]
-        public new void Check_Online_Status()
+        public NoInputTests()
+            : base()
         {
-            // Assert
-            this.Provider.IsOnline.Should().BeFalse();
-            // Assert.False(this.Provider.IsOnline);
+            this.Provider = new CuteProvider();
         }
+
+        #endregion Public Constructors
+
+        #region Public Methods
 
         [Test]
         [Category("Provider"), Category("No Input"), Category("Context")]
@@ -56,13 +57,6 @@
         public override void Get_WrappedFactory()
         {
             base.Get_WrappedFactory();
-        }
-
-        [SetUp]
-        public void Setup()
-        {
-            base.Setup();
-            this.Provider = new CuteProvider();
         }
 
         #endregion Public Methods

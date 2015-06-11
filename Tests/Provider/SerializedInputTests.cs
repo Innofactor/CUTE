@@ -7,15 +7,17 @@
 
     public class SerializedInputTests : CoreTests, ICoreTests
     {
-        #region Public Methods
+        #region Public Constructors
 
-        [Test]
-        [Category("Provider"), Category("Serialized Input")]
-        public new void Check_Online_Status()
+        public SerializedInputTests()
+            : base()
         {
-            // Assert
-            this.Provider.IsOnline.Should().BeFalse();
+            this.Provider = new CuteProvider(this.Provider.ToString());
         }
+
+        #endregion Public Constructors
+
+        #region Public Methods
 
         [Test]
         [Category("Provider"), Category("Serialized Input"), Category("Context")]
@@ -56,13 +58,6 @@
         public override void Get_WrappedFactory()
         {
             base.Get_WrappedFactory();
-        }
-
-        [SetUp]
-        public void Setup()
-        {
-            base.Setup();
-            this.Provider = new CuteProvider(this.Provider.ToString());
         }
 
         #endregion Public Methods

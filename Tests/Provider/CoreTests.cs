@@ -8,6 +8,18 @@
 
     public class CoreTests : ICoreTests
     {
+        #region Public Constructors
+
+        public CoreTests()
+        {
+            // Arrange
+            this.Provider = new CuteProvider(Substitute.For<IServiceProvider>());
+            this.Provider.GetService(typeof(IPluginExecutionContext)).Returns(Substitute.For<IPluginExecutionContext>());
+            this.Provider.GetService(typeof(ITracingService)).Returns(Substitute.For<ITracingService>());
+        }
+
+        #endregion Public Constructors
+
         #region Public Properties
 
         public CuteProvider Provider
@@ -19,12 +31,6 @@
         #endregion Public Properties
 
         #region Public Methods
-
-        public virtual void Check_Online_Status()
-        {
-            // Assert
-            this.Provider.IsOnline.Should().BeTrue();
-        }
 
         public virtual void Get_Context()
         {
@@ -59,14 +65,6 @@
             // Assert
             factory.GetType().Should().BeAssignableTo<IOrganizationServiceFactory>();
             factory.GetType().Should().BeAssignableTo<CuteFactory>();
-        }
-
-        public void Setup()
-        {
-            // Arrange
-            this.Provider = new CuteProvider(Substitute.For<IServiceProvider>());
-            this.Provider.GetService(typeof(IPluginExecutionContext)).Returns(Substitute.For<IPluginExecutionContext>());
-            this.Provider.GetService(typeof(ITracingService)).Returns(Substitute.For<ITracingService>());
         }
 
         #endregion Public Methods

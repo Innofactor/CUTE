@@ -5,14 +5,17 @@
 
     public class WrappedInputTests : CoreTests
     {
-        #region Public Methods
+        #region Public Constructors
 
-        [Test]
-        [Category("Provider"), Category("Wrapped Input")]
-        public override void Check_Online_Status()
+        public WrappedInputTests()
+            : base()
         {
-            base.Check_Online_Status();
+            this.Provider = new CuteProvider(this.Provider);
         }
+
+        #endregion Public Constructors
+
+        #region Public Methods
 
         [Test]
         [Category("Provider"), Category("Wrapped Input"), Category("Context")]
@@ -40,13 +43,6 @@
         public override void Get_WrappedFactory()
         {
             base.Get_WrappedFactory();
-        }
-
-        [SetUp]
-        public void Setup()
-        {
-            base.Setup();
-            this.Provider = new CuteProvider(this.Provider);
         }
 
         #endregion Public Methods

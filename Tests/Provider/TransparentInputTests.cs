@@ -1,21 +1,24 @@
 ﻿namespace Cinteros.Unit.Testing.Extensions.Tests.Provider
 {
     using Cinteros.Unit.Testing.Extensions.Core;
+    using FluentAssertions;
     using Microsoft.Xrm.Sdk;
     using NSubstitute;
     using NUnit.Framework;
 
     public class TransparentInputTests : CoreTests, ICoreTests
     {
-        #region Public Methods
+        #region Public Constructors
 
-        [Test]
-        [Category("Provider"), Category("Transparent Input")]
-        public new void Check_Online_Status()
+        public TransparentInputTests()
+            : base()
         {
-            // Assert
-            Assert.True(this.Provider.IsOnline);
+            this.Provider = new CuteProvider(Substitute.For<IOrganizationService>());
         }
+
+        #endregion Public Constructors
+
+        #region Public Methods
 
         [Test]
         [Category("Provider"), Category("Transparent Input")]
@@ -25,7 +28,7 @@
             var context = this.Provider.GetService(typeof(IPluginExecutionContext));
 
             // Assert
-            Assert.IsAssignableFrom<CuteContext>(context);
+            context.GetType().Should().BeAssignableTo<CuteContext>();
         }
 
         [Test]
@@ -33,7 +36,7 @@
         public new void Get_OriginalProvider()
         {
             // Assert
-            Assert.Null(this.Provider.Original);
+            this.Provider.Original.Should().BeNull();
         }
 
         [Test]
@@ -44,7 +47,7 @@
             var service = this.Provider.GetService(typeof(ITracingService));
 
             // Assert
-            Assert.NotNull(service);
+            service.Should().NotBeNull();
         }
 
         [Test]
@@ -52,13 +55,6 @@
         public new void Get_WrappedFactory()
         {
             base.Get_WrappedFactory();
-        }
-
-        [SetUp]
-        public new void Setup()
-        {
-            base.Setup();
-            this.Provider = new CuteProvider(Substitute.For<IOrganizationService>());
         }
 
         #endregion Public Methods

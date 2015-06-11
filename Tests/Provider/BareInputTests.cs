@@ -16,13 +16,6 @@
         #region Public Methods
 
         [Test]
-        [Category("Provider"), Category("Bare Input")]
-        public new void Check_Online_Status()
-        {
-            base.Check_Online_Status();
-        }
-
-        [Test]
         [Category("Provider"), Category("Bare Input"), Category("Context")]
         public new void Get_Context()
         {
@@ -48,12 +41,6 @@
         public new void Get_WrappedFactory()
         {
             base.Get_WrappedFactory();
-        }
-
-        [SetUp]
-        public void Setup()
-        {
-            base.Setup();
         }
 
         #endregion Public Methods

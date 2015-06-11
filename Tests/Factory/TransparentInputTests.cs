@@ -27,12 +27,6 @@
         public override void Get_OrganizationService()
         {
             base.Get_OrganizationService();
-
-            //Assert.NotNull(service);
-            //Assert.NotNull(((CuteService)service).Original);
-            //Assert.IsInstanceOf<IOrganizationService>(service);
-            //Assert.IsInstanceOf<CuteService>(service);
-            //Assert.AreEqual(userId, ((CuteService)service).UserId);
         }
 
         #endregion Public Methods
