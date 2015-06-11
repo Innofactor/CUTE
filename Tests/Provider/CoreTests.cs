@@ -5,6 +5,7 @@
     using Microsoft.Xrm.Sdk;
     using NSubstitute;
     using NUnit.Framework;
+    using FluentAssertions;
 
     public class CoreTests : ICoreTests
     {
@@ -35,7 +36,7 @@
         public virtual void Check_Online_Status()
         {
             // Assert
-            Assert.True(this.Provider.IsOnline);
+            this.Provider.IsOnline.Should().BeTrue();
         }
 
         public virtual void Get_Context()
@@ -44,14 +45,14 @@
             var context = this.Provider.GetService(typeof(IPluginExecutionContext));
 
             // Assert
-            Assert.IsInstanceOf<IPluginExecutionContext>(context);
-            Assert.IsNotAssignableFrom<CuteContext>(context);
+            context.Should().BeAssignableTo<IPluginExecutionContext>();
+            context.GetType().Should().NotBe<CuteContext>();
         }
 
         public virtual void Get_OriginalProvider()
         {
             // Assert
-            Assert.IsNotInstanceOf<CuteProvider>(this.Provider.Original);
+            this.Provider.Original.GetType().Should().NotBe<CuteProvider>();
         }
 
         public virtual void Get_TracingService()
@@ -60,7 +61,7 @@
             var service = this.Provider.GetService(typeof(ITracingService));
 
             // Assert
-            Assert.IsInstanceOf<ITracingService>(service);
+            service.GetType().Should().BeAssignableTo<ITracingService>();
         }
 
         public virtual void Get_WrappedFactory()
@@ -69,8 +70,8 @@
             var factory = Provider.GetService(typeof(IOrganizationServiceFactory));
 
             // Assert
-            Assert.IsInstanceOf<IOrganizationServiceFactory>(factory);
-            Assert.IsAssignableFrom<CuteFactory>(factory);
+            factory.GetType().Should().BeAssignableTo<IOrganizationServiceFactory>();
+            factory.GetType().Should().BeAssignableTo<CuteFactory>();
         }
 
         #endregion Public Methods

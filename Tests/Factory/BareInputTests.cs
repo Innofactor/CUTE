@@ -10,8 +10,7 @@
     class BareInputTests : CoreTests, ICoreTests
     {
         [Test]
-        [Category("Factory")]
-        [Category("Bare Input")]
+        [Category("Factory"), Category("Bare Input")]
         public override void Get_OrganizationService()
         {
             base.Get_OrganizationService();
