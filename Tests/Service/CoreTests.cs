@@ -101,7 +101,7 @@
             result.Should().NotBe(Guid.Empty, because: "record's Id cannot be empty Guid.");
             result.Should().Be(this.expectedResultCreate);
 
-            this.Provider.Calls.Where(x => x.Message == MessageName.Create).Count().Should().Be(1, because: "Should be only one cached Create call");
+            ((CuteService)this.Service).Provider.Calls.Where(x => x.Message == MessageName.Create).Count().Should().Be(1, because: "should be only one cached Create call");
         }
 
         public virtual void Invoke_Delete()
@@ -126,7 +126,7 @@
             result.GetType().Should().Be<OrganizationResponse>();
             result.ShouldBeEquivalentTo(this.expectedResultExecute, options => options.Excluding(x => x.ExtensionData));
 
-            this.Provider.Calls.Where(x => x.Message == MessageName.Execute).Count().Should().Be(1, because: "Should be only one cached Execute call");
+            ((CuteService)this.Service).Provider.Calls.Where(x => x.Message == MessageName.Execute).Count().Should().Be(1, because: "Should be only one cached Execute call");
         }
 
         public virtual void Invoke_Retrieve_Check_Cache()
@@ -138,7 +138,7 @@
             result.Should().NotBe(null);
             result.ShouldBeEquivalentTo(this.expectedResultRetrieve, options => options.Excluding(x => x.ExtensionData));
 
-            this.Provider.Calls.Where(x => x.Message == MessageName.Retrieve).Count().Should().Be(1);
+            ((CuteService)this.Service).Provider.Calls.Where(x => x.Message == MessageName.Retrieve).Count().Should().Be(1);
         }
 
         public virtual void Invoke_RetrieveMultiple_Check_Cache()
@@ -151,7 +151,7 @@
             result.GetType().Should().Be<EntityCollection>();
             result.ShouldBeEquivalentTo<EntityCollection>(this.expectedResultRetrieveMultiple, options => ((MatchPath)options).Excluding(x => x.SelectedMemberPath.EndsWith("ExtensionData")));
 
-            this.Provider.Calls.Where(x => x.Message == MessageName.RetrieveMultiple).Count().Should().Be(1);
+            ((CuteService)this.Service).Provider.Calls.Where(x => x.Message == MessageName.RetrieveMultiple).Count().Should().Be(1);
         }
 
         public virtual void Invoke_Update()

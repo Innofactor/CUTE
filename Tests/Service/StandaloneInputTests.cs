@@ -7,12 +7,11 @@
     using NSubstitute;
     using NUnit.Framework;
 
-    public class TransparentInputTests : CoreTests, ICoreTests
+    public class StandaloneInputTests : CoreTests, ICoreTests
     {
         #region Public Constructors
 
-        public TransparentInputTests()
-            : base()
+        public StandaloneInputTests()
         {
             var originalService = Substitute.For<IOrganizationService>();
             originalService.Create(Arg.Any<Entity>()).Returns(this.expectedResultCreate);
@@ -20,9 +19,7 @@
             originalService.RetrieveMultiple(Arg.Any<QueryBase>()).Returns(this.expectedResultRetrieveMultiple);
             originalService.Execute(Arg.Any<OrganizationRequest>()).Returns(this.expectedResultExecute);
 
-            this.Provider = new CuteProvider(originalService);
-
-            this.Service = ((IOrganizationServiceFactory)this.Provider.GetService(typeof(IOrganizationServiceFactory))).CreateOrganizationService(Guid.Empty);
+            this.Service = new CuteService(originalService);
         }
 
         #endregion Public Constructors
@@ -30,59 +27,56 @@
         #region Public Methods
 
         [Test]
-        [Category("Service"), Category("Transparent Input")]
+        [Category("Service"), Category("Standalone Input")]
         public override void Invoke_Associate()
         {
             base.Invoke_Associate();
         }
 
         [Test]
-        [Category("Service"), Category("Transparent Input")]
+        [Category("Service"), Category("Standalone Input")]
         public override void Invoke_Create_Check_Cache()
         {
             base.Invoke_Create_Check_Cache();
         }
 
         [Test]
-        [Category("Service"), Category("Transparent Input")]
+        [Category("Service"), Category("Standalone Input")]
         public override void Invoke_Delete()
         {
             base.Invoke_Delete();
         }
 
         [Test]
-        [Category("Service"), Category("Transparent Input")]
+        [Category("Service"), Category("Standalone Input")]
         public override void Invoke_Disassociate()
         {
             base.Invoke_Disassociate();
         }
 
         [Test]
-        [Category("Service"), Category("Transparent Input")]
-        [Category("Transparent Input")]
+        [Category("Service"), Category("Standalone Input")]
         public override void Invoke_Execute_Check_Cache()
         {
             base.Invoke_Execute_Check_Cache();
         }
 
         [Test]
-        [Category("Service"), Category("Transparent Input")]
-        [Category("Transparent Input")]
+        [Category("Service"), Category("Standalone Input")]
         public override void Invoke_Retrieve_Check_Cache()
         {
             base.Invoke_Retrieve_Check_Cache();
         }
 
         [Test]
-        [Category("Service"), Category("Transparent Input")]
-        [Category("Transparent Input")]
+        [Category("Service"), Category("Standalone Input")]
         public override void Invoke_RetrieveMultiple_Check_Cache()
         {
             base.Invoke_RetrieveMultiple_Check_Cache();
         }
 
         [Test]
-        [Category("Service"), Category("Transparent Input")]
+        [Category("Service"), Category("Standalone Input")]
         public override void Invoke_Update()
         {
             base.Invoke_Update();

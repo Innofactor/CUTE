@@ -11,30 +11,30 @@
     /// </summary>
     public class CuteService : IOrganizationService
     {
-        #region Private Fields
-
-        private CuteProvider provider;
-
-        #endregion Private Fields
-
         #region Public Constructors
 
         public CuteService(CuteProvider provider, Guid? userId)
         {
-            this.provider = provider;
+            this.Provider = provider;
             this.UserId = userId;
 
-            if (this.provider.Original != null)
+            if (this.Provider.Original != null)
             {
                 var factory = (IOrganizationServiceFactory)provider.Original.GetService(typeof(IOrganizationServiceFactory));
 
                 this.Original = factory.CreateOrganizationService(userId);
             }
 
-            if (this.provider.Proxy != null)
+            if (this.Provider.Proxy != null)
             {
-                this.Original = this.provider.Proxy;
+                this.Original = this.Provider.Proxy;
             }
+        }
+
+        public CuteService(IOrganizationService service)
+        {
+            this.Provider = new CuteProvider();
+            this.Original = service;
         }
 
         #endregion Public Constructors
@@ -42,6 +42,12 @@
         #region Public Properties
 
         public IOrganizationService Original
+        {
+            get;
+            private set;
+        }
+
+        public CuteProvider Provider
         {
             get;
             private set;
@@ -66,7 +72,7 @@
         /// <exception cref="NotImplementedException"></exception>
         public void Associate(string entityName, Guid entityId, Relationship relationship, EntityReferenceCollection relatedEntities)
         {
-            if (this.provider.IsOnline)
+            if (this.Original != null)
             {
                 this.Original.Associate(entityName, entityId, relationship, relatedEntities);
             }
@@ -81,17 +87,17 @@
         {
             var call = new CuteCall(MessageName.Create, new object[] { entity });
 
-            if (this.provider.IsOnline)
+            if (this.Original != null)
             {
                 call.Output = this.Original.Create(entity);
 
-                this.provider.Calls.Add(call);
+                this.Provider.Calls.Add(call);
 
                 return (Guid)call.Output;
             }
             else
             {
-                return this.provider.Calls.Where(x => x.Equals(call)).Select(x => (Guid)x.Output).FirstOrDefault();
+                return this.Provider.Calls.Where(x => x.Equals(call)).Select(x => (Guid)x.Output).FirstOrDefault();
             }
         }
 
@@ -102,7 +108,7 @@
         /// <exception cref="NotImplementedException"></exception>
         public void Delete(string entityName, Guid id)
         {
-            if (this.provider.IsOnline)
+            if (this.Original != null)
             {
                 this.Original.Delete(entityName, id);
             }
@@ -117,7 +123,7 @@
         /// <exception cref="NotImplementedException"></exception>
         public void Disassociate(string entityName, Guid entityId, Relationship relationship, EntityReferenceCollection relatedEntities)
         {
-            if (this.provider.IsOnline)
+            if (this.Original != null)
             {
                 this.Original.Disassociate(entityName, entityId, relationship, relatedEntities);
             }
@@ -130,11 +136,11 @@
         /// <exception cref="NotImplementedException"></exception>
         public OrganizationResponse Execute(OrganizationRequest request)
         {
-            if (this.provider.IsOnline)
+            if (this.Original != null)
             {
                 var result = this.Original.Execute(request);
 
-                this.provider.Calls.Add(new CuteCall(MessageName.Execute, new[] { request }, result));
+                this.Provider.Calls.Add(new CuteCall(MessageName.Execute, new[] { request }, result));
 
                 return result;
             }
@@ -142,7 +148,7 @@
             {
                 var call = new CuteCall(MessageName.Execute, new[] { request });
 
-                return this.provider.Calls.Where(x => x.Equals(call)).Select(x => (OrganizationResponse)x.Output).FirstOrDefault();
+                return this.Provider.Calls.Where(x => x.Equals(call)).Select(x => (OrganizationResponse)x.Output).FirstOrDefault();
             }
         }
 
@@ -157,17 +163,17 @@
         {
             var call = new CuteCall(MessageName.Retrieve, new object[] { entityName, id, columnSet });
 
-            if (this.provider.IsOnline)
+            if (this.Original != null)
             {
                 call.Output = this.Original.Retrieve(entityName, id, columnSet);
 
-                this.provider.Calls.Add(call);
+                this.Provider.Calls.Add(call);
 
                 return (Entity)call.Output;
             }
             else
             {
-                return this.provider.Calls.Where(x => x.Equals(call)).Select(x => (Entity)x.Output).FirstOrDefault();
+                return this.Provider.Calls.Where(x => x.Equals(call)).Select(x => (Entity)x.Output).FirstOrDefault();
             }
         }
 
@@ -180,17 +186,17 @@
         {
             var call = new CuteCall(MessageName.RetrieveMultiple, new[] { query });
 
-            if (this.provider.IsOnline)
+            if (this.Original != null)
             {
                 call.Output = this.Original.RetrieveMultiple(query);
 
-                this.provider.Calls.Add(call);
+                this.Provider.Calls.Add(call);
 
                 return (EntityCollection)call.Output;
             }
             else
             {
-                return this.provider.Calls.Where(x => x.Equals(call)).Select(x => (EntityCollection)x.Output).FirstOrDefault();
+                return this.Provider.Calls.Where(x => x.Equals(call)).Select(x => (EntityCollection)x.Output).FirstOrDefault();
             }
         }
 
@@ -200,7 +206,7 @@
         /// <exception cref="NotImplementedException"></exception>
         public void Update(Entity entity)
         {
-            if (this.provider.IsOnline)
+            if (this.Original != null)
             {
                 this.Original.Update(entity);
             }

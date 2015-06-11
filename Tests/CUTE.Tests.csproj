@@ -99,6 +99,7 @@
     <Compile Include="Provider\ICoreTests.cs" />
     <Compile Include="Provider\TransparentInputTests.cs" />
     <Compile Include="Service\ICoreTests.cs" />
+    <Compile Include="Service\StandaloneInputTests.cs" />
     <Compile Include="Service\TransparentInputTests.cs" />
     <Compile Include="ShortcutTests.cs" />
     <Compile Include="Provider\NoInputTests.cs" />
