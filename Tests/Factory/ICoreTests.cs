@@ -14,8 +14,6 @@
 
         void Get_OrganizationService();
 
-        void Setup();
-
         #endregion Public Methods
     }
 }

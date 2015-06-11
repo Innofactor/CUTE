@@ -92,7 +92,10 @@
     <Compile Include="Background\SerializationTests.cs" />
     <Compile Include="Factory\BareInputTests.cs" />
     <Compile Include="Factory\ICoreTests.cs" />
+    <Compile Include="Factory\NoInputTests.cs" />
+    <Compile Include="Factory\SerializedInputTests.cs" />
     <Compile Include="Factory\TransparentInputTests.cs" />
+    <Compile Include="Factory\WrappedInputTests.cs" />
     <Compile Include="Provider\ICoreTests.cs" />
     <Compile Include="Provider\TransparentInputTests.cs" />
     <Compile Include="Service\ICoreTests.cs" />

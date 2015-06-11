@@ -16,11 +16,5 @@
         {
             base.Get_OrganizationService();
         }
-
-        [SetUp]
-        public override void Setup()
-        {
-            base.Setup();
-        }
     }
 }

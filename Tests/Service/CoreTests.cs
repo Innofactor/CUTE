@@ -5,10 +5,10 @@
     using Cinteros.Unit.Testing.Extensions.Core;
     using Cinteros.Unit.Testing.Extensions.Core.Background;
     using FluentAssertions;
-    using FluentAssertions.Equivalency;
     using Microsoft.Xrm.Sdk;
     using Microsoft.Xrm.Sdk.Query;
     using NSubstitute;
+
     using MatchPath = FluentAssertions.Equivalency.EquivalencyAssertionOptionsBase<FluentAssertions.Equivalency.EquivalencyAssertionOptions<Microsoft.Xrm.Sdk.EntityCollection>>;
 
     public class CoreTests : ICoreTests
@@ -97,8 +97,8 @@
             var result = this.Service.Create(new Entity());
 
             // Assert
-            result.GetType().Should().Be<Guid>(because: "Create should return id of record created.");
-            result.Should().NotBe(Guid.Empty, because: "Record Id cannot be empty Guid.");
+            result.GetType().Should().Be<Guid>(because: "message `Create` should always return Id of record created");
+            result.Should().NotBe(Guid.Empty, because: "record's Id cannot be empty Guid.");
             result.Should().Be(this.expectedResultCreate);
 
             this.Provider.Calls.Where(x => x.Message == MessageName.Create).Count().Should().Be(1, because: "Should be only one cached Create call");

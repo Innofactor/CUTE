@@ -4,18 +4,16 @@
     using Cinteros.Unit.Testing.Extensions.Core;
     using FluentAssertions;
     using Microsoft.Xrm.Sdk;
-    using NSubstitute;
     using NUnit.Framework;
 
-    internal class TransparentInputTests : CoreTests, ICoreTests
+    internal class NoInputTests : CoreTests, ICoreTests
     {
         #region Public Constructors
 
-        public TransparentInputTests()
-            : base()
+        public NoInputTests()
         {
             // Arrange
-            var provider = new CuteProvider(Substitute.For<IOrganizationService>());
+            var provider = new CuteProvider();
             this.Factory = (IOrganizationServiceFactory)provider.GetService(typeof(IOrganizationServiceFactory));
         }
 
@@ -25,16 +23,19 @@
 
         [Test]
         [Category("Factory")]
-        [Category("Transparent Input")]
+        [Category("No Input")]
         public override void Get_OrganizationService()
         {
-            base.Get_OrganizationService();
+            // Act
+            var userId = Guid.NewGuid();
+            var service = this.Factory.CreateOrganizationService(userId);
 
-            //Assert.NotNull(service);
-            //Assert.NotNull(((CuteService)service).Original);
-            //Assert.IsInstanceOf<IOrganizationService>(service);
-            //Assert.IsInstanceOf<CuteService>(service);
-            //Assert.AreEqual(userId, ((CuteService)service).UserId);
+            // Assert
+            service.Should().NotBeNull();
+            ((CuteService)service).Original.Should().BeNull();
+            ((CuteService)service).UserId.Should().Be(userId);
+            service.GetType().Should().BeAssignableTo<CuteService>();
+            service.GetType().Should().BeAssignableTo<IOrganizationService>();
         }
 
         #endregion Public Methods

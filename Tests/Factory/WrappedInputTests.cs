@@ -7,15 +7,24 @@
     using NSubstitute;
     using NUnit.Framework;
 
-    internal class TransparentInputTests : CoreTests, ICoreTests
+    public class WrappedInputTests : CoreTests, ICoreTests
     {
         #region Public Constructors
 
-        public TransparentInputTests()
-            : base()
+        public WrappedInputTests()
         {
             // Arrange
-            var provider = new CuteProvider(Substitute.For<IOrganizationService>());
+            var originalProvider = Substitute.For<IServiceProvider>();
+            var originalFactory = Substitute.For<IOrganizationServiceFactory>();
+            var originalService = Substitute.For<IOrganizationService>();
+
+            originalFactory.CreateOrganizationService(Arg.Any<Guid?>()).Returns(originalService);
+
+            originalProvider.GetService(typeof(IOrganizationServiceFactory)).Returns(originalFactory);
+
+            var provider = new CuteProvider(originalProvider);
+            
+            provider = new CuteProvider(provider);
             this.Factory = (IOrganizationServiceFactory)provider.GetService(typeof(IOrganizationServiceFactory));
         }
 
@@ -25,16 +34,10 @@
 
         [Test]
         [Category("Factory")]
-        [Category("Transparent Input")]
+        [Category("Wrapped Input")]
         public override void Get_OrganizationService()
         {
             base.Get_OrganizationService();
-
-            //Assert.NotNull(service);
-            //Assert.NotNull(((CuteService)service).Original);
-            //Assert.IsInstanceOf<IOrganizationService>(service);
-            //Assert.IsInstanceOf<CuteService>(service);
-            //Assert.AreEqual(userId, ((CuteService)service).UserId);
         }
 
         #endregion Public Methods
