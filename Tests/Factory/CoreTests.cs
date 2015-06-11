@@ -2,10 +2,9 @@
 {
     using System;
     using Cinteros.Unit.Testing.Extensions.Core;
+    using FluentAssertions;
     using Microsoft.Xrm.Sdk;
     using NSubstitute;
-    using NUnit.Framework;
-    using FluentAssertions;
 
     public class CoreTests : ICoreTests
     {

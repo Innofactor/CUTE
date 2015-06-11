@@ -126,6 +126,11 @@
 
         #region Public Methods
 
+        /// <summary>
+        /// Creates instance of service of type set by <paramref name="serviceType"/>
+        /// </summary>
+        /// <param name="serviceType">Type of the service to spawn</param>
+        /// <returns>Service instance</returns>
         public object GetService(Type serviceType)
         {
             if (serviceType == typeof(IPluginExecutionContext))
@@ -139,17 +144,25 @@
 
             if (serviceType == typeof(IOrganizationServiceFactory))
             {
+                // Always returning wrapped version of the IOrganizationServiceFactory
                 return new CuteFactory(this);
+            }
+
+            if (serviceType == typeof(ITracingService))
+            {
+                if (this.Original == null)
+                {
+                    // Original IServiceProvider is not available, so use cached version of the object
+                    return new CuteTracing();
+                }
             }
 
             if (this.Original != null)
             {
                 return this.Original.GetService(serviceType);
             }
-            else
-            {
-                return new object();
-            }
+
+            throw new NotImplementedException(string.Format("Behavior for service of type '{0}' is not defined yet.", serviceType.ToString()));
         }
 
         /// <summary>

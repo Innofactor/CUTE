@@ -9,6 +9,8 @@
 
     public class TransparentInputTests : CoreTests, ICoreTests
     {
+        #region Public Constructors
+
         public TransparentInputTests()
             : base()
         {
@@ -22,6 +24,8 @@
 
             this.Service = ((IOrganizationServiceFactory)this.Provider.GetService(typeof(IOrganizationServiceFactory))).CreateOrganizationService(Guid.Empty);
         }
+
+        #endregion Public Constructors
 
         #region Public Methods
 

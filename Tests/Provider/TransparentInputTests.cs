@@ -1,14 +1,16 @@
-﻿using Cinteros.Unit.Testing.Extensions.Core;
-using Microsoft.Xrm.Sdk;
-using NSubstitute;
-using NUnit.Framework;
-namespace Cinteros.Unit.Testing.Extensions.Tests.Provider
+﻿namespace Cinteros.Unit.Testing.Extensions.Tests.Provider
 {
+    using Cinteros.Unit.Testing.Extensions.Core;
+    using Microsoft.Xrm.Sdk;
+    using NSubstitute;
+    using NUnit.Framework;
+
     public class TransparentInputTests : CoreTests, ICoreTests
     {
+        #region Public Methods
+
         [Test]
-        [Category("Provider")]
-        [Category("Transparent Input")]
+        [Category("Provider"), Category("Transparent Input")]
         public new void Check_Online_Status()
         {
             // Assert
@@ -16,8 +18,7 @@ namespace Cinteros.Unit.Testing.Extensions.Tests.Provider
         }
 
         [Test]
-        [Category("Provider")]
-        [Category("Transparent Input")]
+        [Category("Provider"), Category("Transparent Input")]
         public new void Get_Context()
         {
             // Act
@@ -28,8 +29,7 @@ namespace Cinteros.Unit.Testing.Extensions.Tests.Provider
         }
 
         [Test]
-        [Category("Provider")]
-        [Category("Transparent Input")]
+        [Category("Provider"), Category("Transparent Input")]
         public new void Get_OriginalProvider()
         {
             // Assert
@@ -37,8 +37,7 @@ namespace Cinteros.Unit.Testing.Extensions.Tests.Provider
         }
 
         [Test]
-        [Category("Provider")]
-        [Category("Transparent Input")]
+        [Category("Provider"), Category("Transparent Input")]
         public new void Get_TracingService()
         {
             // Act
@@ -49,8 +48,7 @@ namespace Cinteros.Unit.Testing.Extensions.Tests.Provider
         }
 
         [Test]
-        [Category("Provider")]
-        [Category("Transparent Input")]
+        [Category("Provider"), Category("Transparent Input")]
         public new void Get_WrappedFactory()
         {
             base.Get_WrappedFactory();
@@ -62,5 +60,7 @@ namespace Cinteros.Unit.Testing.Extensions.Tests.Provider
             base.Setup();
             this.Provider = new CuteProvider(Substitute.For<IOrganizationService>());
         }
+
+        #endregion Public Methods
     }
 }

@@ -4,7 +4,6 @@
     using Cinteros.Unit.Testing.Extensions.Core;
     using Microsoft.Xrm.Sdk;
     using Microsoft.Xrm.Sdk.Query;
-    using NSubstitute;
     using NUnit.Framework;
 
     public class SerializedInputTests : CoreTests, ICoreTests
@@ -12,7 +11,7 @@
         #region Public Constructors
 
         public SerializedInputTests()
-            : base ()
+            : base()
         {
             // Calling methods to fill calls stack
             this.Service.Create(new Entity());

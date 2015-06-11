@@ -1,6 +1,7 @@
 ﻿namespace Cinteros.Unit.Testing.Extensions.Tests.Provider
 {
     using Cinteros.Unit.Testing.Extensions.Core;
+    using FluentAssertions;
     using Microsoft.Xrm.Sdk;
     using NUnit.Framework;
 
@@ -9,53 +10,49 @@
         #region Public Methods
 
         [Test]
-        [Category("Provider")]
-        [Category("Serialized Input")]
+        [Category("Provider"), Category("Serialized Input")]
         public new void Check_Online_Status()
         {
             // Assert
-            Assert.False(this.Provider.IsOnline);
+            this.Provider.IsOnline.Should().BeFalse();
         }
 
         [Test]
-        [Category("Provider")]
-        [Category("Serialized Input")]
-        [Category("Context")]
+        [Category("Provider"), Category("Serialized Input"), Category("Context")]
         public new void Get_Context()
         {
             // Act
             var context = this.Provider.GetService(typeof(IPluginExecutionContext));
 
             // Assert
-            Assert.IsInstanceOf<IPluginExecutionContext>(context);
-            Assert.IsAssignableFrom<CuteContext>(context);
+            context.Should().NotBeNull();
+            context.Should().BeAssignableTo<IPluginExecutionContext>();
+            context.Should().BeAssignableTo<CuteContext>();
         }
 
         [Test]
-        [Category("Provider")]
-        [Category("Serialized Input")]
+        [Category("Provider"), Category("Serialized Input")]
         public new void Get_OriginalProvider()
         {
             // Assert
-            Assert.Null(this.Provider.Original);
+            this.Provider.Original.Should().BeNull();
         }
 
         [Test]
-        [Category("Provider")]
-        [Category("Serialized Input")]
+        [Category("Provider"), Category("Serialized Input")]
         public new void Get_TracingService()
         {
             // Act
             var service = this.Provider.GetService(typeof(ITracingService));
 
             // Assert
-            Assert.NotNull(service);
+            service.Should().NotBeNull();
+            service.Should().BeAssignableTo<ITracingService>();
+            service.Should().BeAssignableTo<CuteTracing>();
         }
 
         [Test]
-        [Category("Provider")]
-        [Category("Serialized Input")]
-        [Category("Factory")]
+        [Category("Provider"), Category("Serialized Input"), Category("Factory")]
         public override void Get_WrappedFactory()
         {
             base.Get_WrappedFactory();

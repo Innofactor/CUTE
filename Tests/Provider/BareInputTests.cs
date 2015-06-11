@@ -1,9 +1,5 @@
 ﻿namespace Cinteros.Unit.Testing.Extensions.Tests.Provider
 {
-    using System;
-    using Cinteros.Unit.Testing.Extensions.Core;
-    using Microsoft.Xrm.Sdk;
-    using NSubstitute;
     using NUnit.Framework;
 
     public class BareInputTests : CoreTests, ICoreTests
@@ -18,12 +14,6 @@
         #endregion Public Constructors
 
         #region Public Methods
-
-        [SetUp]
-        public void Setup()
-        {
-            base.Setup();
-        }
 
         [Test]
         [Category("Provider"), Category("Bare Input")]
@@ -58,6 +48,12 @@
         public new void Get_WrappedFactory()
         {
             base.Get_WrappedFactory();
+        }
+
+        [SetUp]
+        public void Setup()
+        {
+            base.Setup();
         }
 
         #endregion Public Methods

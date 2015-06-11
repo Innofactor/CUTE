@@ -1,16 +1,13 @@
 ﻿namespace Cinteros.Unit.Testing.Extensions.Core.Shortcut
 {
-    using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Cinteros.Unit.Testing.Extensions.Core.Background;
-using Microsoft.Xrm.Sdk;
-using Microsoft.Xrm.Sdk.Query;
+    using Cinteros.Unit.Testing.Extensions.Core.Background;
+    using Microsoft.Xrm.Sdk;
+    using Microsoft.Xrm.Sdk.Query;
 
     public class CuteRetrieveMultiple : CuteCall
     {
+        #region Public Constructors
+
         public CuteRetrieveMultiple(QueryExpression query)
             : base(MessageName.RetrieveMultiple, new[] { query })
         {
@@ -20,5 +17,7 @@ using Microsoft.Xrm.Sdk.Query;
             : base(MessageName.RetrieveMultiple, new[] { query }, collection)
         {
         }
+
+        #endregion Public Constructors
     }
 }

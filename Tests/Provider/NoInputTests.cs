@@ -1,23 +1,13 @@
 ﻿namespace Cinteros.Unit.Testing.Extensions.Tests.Provider
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using Cinteros.Unit.Testing.Extensions.Core;
+    using FluentAssertions;
     using Microsoft.Xrm.Sdk;
     using NUnit.Framework;
-    using FluentAssertions;
 
     public class NoInputTests : CoreTests, ICoreTests
     {
-        [SetUp]
-        public void Setup()
-        {
-            base.Setup();
-            this.Provider = new CuteProvider();
-        }
+        #region Public Methods
 
         [Test]
         [Category("Provider"), Category("No Input")]
@@ -58,6 +48,7 @@
             // Assert
             service.Should().NotBeNull();
             service.Should().BeAssignableTo<ITracingService>();
+            service.Should().BeAssignableTo<CuteTracing>();
         }
 
         [Test]
@@ -67,5 +58,13 @@
             base.Get_WrappedFactory();
         }
 
+        [SetUp]
+        public void Setup()
+        {
+            base.Setup();
+            this.Provider = new CuteProvider();
+        }
+
+        #endregion Public Methods
     }
 }

@@ -2,7 +2,6 @@
 {
     using System;
     using Cinteros.Unit.Testing.Extensions.Core;
-    using FluentAssertions;
     using Microsoft.Xrm.Sdk;
     using NSubstitute;
     using NUnit.Framework;
@@ -23,7 +22,7 @@
             originalProvider.GetService(typeof(IOrganizationServiceFactory)).Returns(originalFactory);
 
             var provider = new CuteProvider(originalProvider);
-            
+
             provider = new CuteProvider(provider);
             this.Factory = (IOrganizationServiceFactory)provider.GetService(typeof(IOrganizationServiceFactory));
         }
