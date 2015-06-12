@@ -8,7 +8,7 @@
     using Microsoft.Xrm.Sdk;
     using Microsoft.Xrm.Sdk.Query;
     using NSubstitute;
-    using NUnit.Framework;
+
     using MatchPath = FluentAssertions.Equivalency.EquivalencyAssertionOptionsBase<FluentAssertions.Equivalency.EquivalencyAssertionOptions<Microsoft.Xrm.Sdk.EntityCollection>>;
 
     public class CoreTests : ICoreTests
@@ -54,6 +54,8 @@
 
             originalService.Create(Arg.Is<Entity>(x => x.LogicalName != "fail")).Returns(this.expectedResultCreate);
             originalService.Create(Arg.Is<Entity>(x => x.LogicalName == "fail")).Returns(x => { throw new InvalidPluginExecutionException(); });
+
+            originalService.When(x => x.Delete(Arg.Is<string>(y => y == "fail"), Arg.Any<Guid>())).Do(x => { throw new InvalidPluginExecutionException(); });
 
             originalService.Retrieve(Arg.Any<string>(), Arg.Any<Guid>(), Arg.Any<ColumnSet>()).Returns(this.expectedResultRetrieve);
             originalService.RetrieveMultiple(Arg.Any<QueryBase>()).Returns(this.expectedResultRetrieveMultiple);
@@ -116,8 +118,19 @@
 
         public virtual void Invoke_Delete()
         {
+            // Arrange
+            Action fail = () =>
+            {
+                this.Service.Delete("fail", Guid.Empty);
+            };
+
             // Act
             this.Service.Delete(string.Empty, Guid.Empty);
+
+            // Assert
+            fail.ShouldThrow<InvalidPluginExecutionException>();
+
+            ((CuteService)this.Service).Provider.Calls.Where(x => x.Message == MessageName.Delete).Count().Should().Be(2, because: "two `Delete` call was executed already");
         }
 
         public virtual void Invoke_Disassociate()

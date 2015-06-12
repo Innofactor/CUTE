@@ -125,9 +125,35 @@
         /// <exception cref="NotImplementedException"></exception>
         public void Delete(string entityName, Guid id)
         {
+            var call = new CuteCall(MessageName.Delete, new object[] { entityName, id });
+
             if (this.Original != null)
             {
-                this.Original.Delete(entityName, id);
+                try
+                {
+                    this.Original.Delete(entityName, id);
+                }
+                catch (Exception ex)
+                {
+                    call.Output = ex;
+                    this.Provider.Calls.Add(call);
+
+                    throw;
+                }
+
+                this.Provider.Calls.Add(call);
+            }
+            else
+            {
+                var result = this.Provider.Calls.Where(x => x.Equals(call)).FirstOrDefault();
+
+                if (result != null && result.Output != null)
+                {
+                    if (result.Output.GetType().BaseType == typeof(Exception))
+                    {
+                        throw (Exception)result.Output;
+                    }
+                }
             }
         }
 

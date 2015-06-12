@@ -23,6 +23,15 @@
             {
             }
 
+            this.Service.Delete(string.Empty, Guid.Empty);
+            try
+            {
+                this.Service.Delete("fail", Guid.Empty);
+            }
+            catch (Exception)
+            {
+            }
+
             this.Service.Retrieve(string.Empty, Guid.Empty, new ColumnSet());
             this.Service.RetrieveMultiple(new QueryExpression());
             this.Service.Execute(new OrganizationRequest());

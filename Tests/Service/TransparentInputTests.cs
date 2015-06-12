@@ -19,6 +19,8 @@
             originalService.Create(Arg.Is<Entity>(x => x.LogicalName != "fail")).Returns(this.expectedResultCreate);
             originalService.Create(Arg.Is<Entity>(x => x.LogicalName == "fail")).Returns(x => { throw new InvalidPluginExecutionException(); });
 
+            originalService.When(x => x.Delete(Arg.Is<string>(y => y == "fail"), Arg.Any<Guid>())).Do(x => { throw new InvalidPluginExecutionException(); });
+
             originalService.Retrieve(Arg.Any<string>(), Arg.Any<Guid>(), Arg.Any<ColumnSet>()).Returns(this.expectedResultRetrieve);
             originalService.RetrieveMultiple(Arg.Any<QueryBase>()).Returns(this.expectedResultRetrieveMultiple);
             originalService.Execute(Arg.Any<OrganizationRequest>()).Returns(this.expectedResultExecute);
