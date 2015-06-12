@@ -15,6 +15,14 @@
         {
             // Calling methods to fill calls stack
             this.Service.Create(new Entity());
+            try
+            {
+                this.Service.Create(new Entity("fail"));
+            }
+            catch (Exception)
+            {
+            }
+
             this.Service.Retrieve(string.Empty, Guid.Empty, new ColumnSet());
             this.Service.RetrieveMultiple(new QueryExpression());
             this.Service.Execute(new OrganizationRequest());

@@ -13,7 +13,7 @@
     {
         #region Public Methods
 
-        [Test, SpecialTrust]
+        [Test]
         [Category("Serialization")]
         public void Partial_Trust()
         {

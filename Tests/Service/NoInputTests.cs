@@ -17,6 +17,8 @@
             this.Provider = new CuteProvider();
 
             this.Provider.Calls.Add(new CuteCall(MessageName.Create, new[] { new Entity() }, this.expectedResultCreate));
+            this.Provider.Calls.Add(new CuteCall(MessageName.Create, new[] { new Entity("fail") }, new InvalidPluginExecutionException()));
+
             this.Provider.Calls.Add(new CuteCall(MessageName.Retrieve, new object[] { string.Empty, Guid.Empty, new ColumnSet() }, this.expectedResultRetrieve));
             this.Provider.Calls.Add(new CuteCall(MessageName.RetrieveMultiple, new object[] { new QueryExpression() }, this.expectedResultRetrieveMultiple));
             this.Provider.Calls.Add(new CuteCall(MessageName.Execute, new object[] { new OrganizationRequest() }, this.expectedResultExecute));

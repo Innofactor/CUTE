@@ -8,7 +8,7 @@
     using Microsoft.Xrm.Sdk;
     using Microsoft.Xrm.Sdk.Query;
     using NSubstitute;
-
+    using NUnit.Framework;
     using MatchPath = FluentAssertions.Equivalency.EquivalencyAssertionOptionsBase<FluentAssertions.Equivalency.EquivalencyAssertionOptions<Microsoft.Xrm.Sdk.EntityCollection>>;
 
     public class CoreTests : ICoreTests
@@ -52,7 +52,9 @@
                 ResponseName = "Test"
             };
 
-            originalService.Create(Arg.Any<Entity>()).Returns(this.expectedResultCreate);
+            originalService.Create(Arg.Is<Entity>(x => x.LogicalName != "fail")).Returns(this.expectedResultCreate);
+            originalService.Create(Arg.Is<Entity>(x => x.LogicalName == "fail")).Returns(x => { throw new InvalidPluginExecutionException(); });
+
             originalService.Retrieve(Arg.Any<string>(), Arg.Any<Guid>(), Arg.Any<ColumnSet>()).Returns(this.expectedResultRetrieve);
             originalService.RetrieveMultiple(Arg.Any<QueryBase>()).Returns(this.expectedResultRetrieveMultiple);
             originalService.Execute(Arg.Any<OrganizationRequest>()).Returns(this.expectedResultExecute);
@@ -93,15 +95,23 @@
 
         public virtual void Invoke_Create_Check_Cache()
         {
+            // Arrange
+            Action fail = () =>
+                {
+                    this.Service.Create(new Entity("fail"));
+                };
+
             // Act
             var result = this.Service.Create(new Entity());
 
             // Assert
             result.GetType().Should().Be<Guid>(because: "message `Create` should always return Id of record created");
-            result.Should().NotBe(Guid.Empty, because: "record's Id cannot be empty Guid.");
+            result.Should().NotBe(Guid.Empty, because: "record's Id cannot be empty Guid");
             result.Should().Be(this.expectedResultCreate);
 
-            ((CuteService)this.Service).Provider.Calls.Where(x => x.Message == MessageName.Create).Count().Should().Be(1, because: "should be only one cached Create call");
+            fail.ShouldThrow<InvalidPluginExecutionException>();
+
+            ((CuteService)this.Service).Provider.Calls.Where(x => x.Message == MessageName.Create).Count().Should().Be(2, because: "two `Create` call was executed already");
         }
 
         public virtual void Invoke_Delete()

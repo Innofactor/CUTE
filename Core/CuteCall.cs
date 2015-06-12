@@ -123,7 +123,9 @@
                     break;
             }
 
-            return Serialization.Hash<object[]>(call.Input, CuteProvider.Types) == Serialization.Hash<object[]>(this.Input, CuteProvider.Types);
+            var types = new CuteProvider().Types;
+
+            return Serialization.Hash<object[]>(call.Input, types) == Serialization.Hash<object[]>(this.Input, types);
         }
 
         /// <summary>

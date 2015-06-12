@@ -20,7 +20,7 @@
         public CuteProvider(string data)
             : this()
         {
-            var saved = Serialization.Inflate<CuteProvider>(data, CuteProvider.Types);
+            var saved = Serialization.Inflate<CuteProvider>(data, new CuteProvider().Types);
             this.Context = saved.Context;
             this.Calls = saved.Calls;
         }
@@ -49,6 +49,19 @@
         {
             this.Context = new CuteContext();
             this.Calls = new Collection<CuteCall>();
+
+            this.Types = new Type[]
+                {
+                    typeof(object),
+                    typeof(Entity),
+                    typeof(EntityCollection),
+                    typeof(QueryExpression),
+                    typeof(ColumnSet),
+                    typeof(OrganizationRequest),
+                    typeof(OrganizationResponse),
+                    typeof(InvalidPluginExecutionException),
+                    typeof(OperationStatus)
+                };
         }
 
         /// <summary>
@@ -68,21 +81,10 @@
         /// <summary>
         /// Types used by <see cref="CuteProvider"/> and all subsidiary objects
         /// </summary>
-        public static Type[] Types
+        public Type[] Types
         {
-            get
-            {
-                return new[]
-                {
-                    typeof(object),
-                    typeof(Entity),
-                    typeof(EntityCollection),
-                    typeof(QueryExpression),
-                    typeof(ColumnSet),
-                    typeof(OrganizationRequest),
-                    typeof(OrganizationResponse)
-                };
-            }
+            get;
+            private set;
         }
 
         [DataMember]
@@ -160,7 +162,7 @@
         /// <returns></returns>
         public override string ToString()
         {
-            return Serialization.Deflate<CuteProvider>(this, CuteProvider.Types);
+            return Serialization.Deflate<CuteProvider>(this, this.Types);
         }
 
         /// <summary>
@@ -170,7 +172,7 @@
         public XmlDocument ToXml()
         {
             var document = new XmlDocument();
-            document.LoadXml(Serialization.Serialize<CuteProvider>(this, CuteProvider.Types));
+            document.LoadXml(Serialization.Serialize<CuteProvider>(this, this.Types));
 
             return document;
         }

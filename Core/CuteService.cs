@@ -89,7 +89,17 @@
 
             if (this.Original != null)
             {
-                call.Output = this.Original.Create(entity);
+                try
+                {
+                    call.Output = this.Original.Create(entity);
+                }
+                catch (Exception ex)
+                {
+                    call.Output = ex;
+                    this.Provider.Calls.Add(call);
+                    
+                    throw;
+                }
 
                 this.Provider.Calls.Add(call);
 
@@ -97,7 +107,14 @@
             }
             else
             {
-                return this.Provider.Calls.Where(x => x.Equals(call)).Select(x => (Guid)x.Output).FirstOrDefault();
+                var result = this.Provider.Calls.Where(x => x.Equals(call)).FirstOrDefault();
+
+                if (result.Output.GetType().BaseType == typeof(Exception))
+                {
+                    throw (Exception)result.Output;
+                }
+
+                return (Guid)result.Output;
             }
         }
 
