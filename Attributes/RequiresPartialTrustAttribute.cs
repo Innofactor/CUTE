@@ -9,7 +9,7 @@
     using NUnit.Framework;
 
     [AttributeUsage(AttributeTargets.Method)]
-    public class PartialTrustAttribute : TestActionAttribute
+    public class RequiresPartialTrustAttribute : TestActionAttribute
     {
         #region Public Methods
 

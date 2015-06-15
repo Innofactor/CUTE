@@ -15,16 +15,12 @@
 
         [Test]
         [Category("Serialization")]
-        public void Partial_Trust()
-        {
-        }
-
-        [Test]
-        [Category("Serialization")]
         public void Serialize_Deserialize()
         {
             // Arrange
-            var inputProvider = new CuteProvider(Substitute.For<IServiceProvider>());
+            //var initial = Substitute.For<IServiceProvider>();
+            var initial = new CuteProvider();
+            var inputProvider = new CuteProvider(initial);
 
             // Act
             var outputProvider = new CuteProvider(inputProvider.ToString());

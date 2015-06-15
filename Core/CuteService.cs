@@ -17,6 +17,7 @@
         {
             this.Provider = provider;
             this.UserId = userId;
+            this.Type = provider.Type;
 
             if (this.Provider.Original != null)
             {
@@ -35,6 +36,7 @@
         {
             this.Provider = new CuteProvider();
             this.Original = service;
+            this.Type = InstanceType.StandaloneInput;
         }
 
         #endregion Public Constructors
@@ -48,6 +50,12 @@
         }
 
         public CuteProvider Provider
+        {
+            get;
+            private set;
+        }
+
+        public InstanceType Type
         {
             get;
             private set;
@@ -97,7 +105,7 @@
                 {
                     call.Output = ex;
                     this.Provider.Calls.Add(call);
-                    
+
                     throw;
                 }
 
@@ -253,6 +261,11 @@
             {
                 this.Original.Update(entity);
             }
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0}Service", this.Type.ToString());
         }
 
         #endregion Public Methods

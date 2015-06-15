@@ -2,7 +2,7 @@
 {
     using NUnit.Framework;
 
-    public class SpecialTrustAttribute : TestActionAttribute
+    public class RequiresFullTrustAttribute : TestActionAttribute
     {
     }
 }

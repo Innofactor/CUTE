@@ -23,6 +23,7 @@
             var saved = Serialization.Inflate<CuteProvider>(data, new CuteProvider().Types);
             this.Context = saved.Context;
             this.Calls = saved.Calls;
+            this.Type = InstanceType.SerializedInput;
         }
 
         /// <summary>
@@ -35,10 +36,12 @@
             if (provider.GetType() == typeof(CuteProvider))
             {
                 this.Original = ((CuteProvider)provider).Original;
+                this.Type = InstanceType.WrappedInput;
             }
             else
             {
                 this.Original = provider;
+                this.Type = InstanceType.BareInput;
             }
         }
 
@@ -49,6 +52,7 @@
         {
             this.Context = new CuteContext();
             this.Calls = new Collection<CuteCall>();
+            this.Type = InstanceType.NoInput;
 
             this.Types = new Type[]
                 {
@@ -72,20 +76,12 @@
             : this()
         {
             this.Proxy = proxy;
+            this.Type = InstanceType.TransparentInput;
         }
 
         #endregion Public Constructors
 
         #region Public Properties
-
-        /// <summary>
-        /// Types used by <see cref="CuteProvider"/> and all subsidiary objects
-        /// </summary>
-        public Type[] Types
-        {
-            get;
-            private set;
-        }
 
         [DataMember]
         public Collection<CuteCall> Calls
@@ -108,6 +104,21 @@
         }
 
         public IOrganizationService Proxy
+        {
+            get;
+            private set;
+        }
+
+        public InstanceType Type
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// Types used by <see cref="CuteProvider"/> and all subsidiary objects
+        /// </summary>
+        public Type[] Types
         {
             get;
             private set;

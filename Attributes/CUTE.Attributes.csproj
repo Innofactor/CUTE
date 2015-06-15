@@ -47,10 +47,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FullTrustAttribute.cs" />
-    <Compile Include="PartialTrustAttribute.cs" />
+    <Compile Include="RequiresFullTrustAttribute.cs" />
+    <Compile Include="RequiresPartialTrustAttribute.cs" />
     <Compile Include="Internals\SandboxHost.cs" />
-    <Compile Include="SpecialTrustAttribute.cs" />
+    <Compile Include="RequiresSpecialTrustAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Internals\SandboxTest.cs" />
   </ItemGroup>

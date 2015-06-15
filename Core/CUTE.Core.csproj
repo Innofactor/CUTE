@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Background\InstanceType.cs" />
     <Compile Include="Background\MessageName.cs" />
     <Compile Include="CuteTracing.cs" />
     <Compile Include="Shortcut\CuteCreate.cs" />
