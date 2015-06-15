@@ -43,6 +43,8 @@
                 this.Original = provider;
                 this.Type = InstanceType.BareInput;
             }
+
+            this.Context = CuteContext.Copy((IPluginExecutionContext)this.Original.GetService(typeof(IPluginExecutionContext)));
         }
 
         /// <summary>

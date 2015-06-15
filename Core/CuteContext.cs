@@ -266,7 +266,10 @@ namespace Cinteros.Unit.Testing.Extensions.Core
 
         public static CuteContext Copy(IPluginExecutionContext context)
         {
-            if (context == null) return null;
+            if (context == null)
+            {
+                return null;
+            }
 
             var copy = new CuteContext(context);
             if (context.ParentContext != null)

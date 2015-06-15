@@ -2,7 +2,6 @@
 {
     using System;
     using System.Xml;
-    using Cinteros.Unit.Testing.Extensions.Attributes;
     using Cinteros.Unit.Testing.Extensions.Core;
     using FluentAssertions;
     using Microsoft.Xrm.Sdk;
@@ -13,14 +12,12 @@
     {
         #region Public Methods
 
-        [Test, RequiresIsolation]
+        [Test]
         [Category("Serialization")]
         public void Serialize_Deserialize()
         {
             // Arrange
-            //var initial = Substitute.For<IServiceProvider>();
-            var initial = new CuteProvider();
-            var inputProvider = new CuteProvider(initial);
+            var inputProvider = new CuteProvider(Substitute.For<IServiceProvider>());
 
             // Act
             var outputProvider = new CuteProvider(inputProvider.ToBase64String());
@@ -51,7 +48,13 @@
         public void Serialize_Deserialize_Check_Context()
         {
             // Arrange
-            var inputProvider = new CuteProvider(Substitute.For<IServiceProvider>());
+            var context = Substitute.For<IPluginExecutionContext>();
+            context.ParentContext.Returns(new CuteContext());
+
+            var originalProvider = Substitute.For<IServiceProvider>();
+            originalProvider.GetService(typeof(IPluginExecutionContext)).Returns(context);
+
+            var inputProvider = new CuteProvider(originalProvider);
             inputProvider.Context.PrimaryEntityName = "account";
             inputProvider.Context.MessageName = "Create";
 
