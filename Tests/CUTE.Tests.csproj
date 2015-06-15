@@ -89,7 +89,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Background\SerializationTests.cs" />
+    <Compile Include="SerializationTests.cs" />
     <Compile Include="FactoryTestsCases.cs" />
     <Compile Include="Provider\ICoreTests.cs" />
     <Compile Include="Provider\TransparentInputTests.cs" />

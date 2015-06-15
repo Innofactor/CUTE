@@ -1,4 +1,4 @@
-﻿namespace Cinteros.Unit.Testing.Extensions.Tests.Background
+﻿namespace Cinteros.Unit.Testing.Extensions.Tests
 {
     using System;
     using System.Xml;
