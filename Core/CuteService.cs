@@ -247,6 +247,11 @@
             }
         }
 
+        public override string ToString()
+        {
+            return string.Format("{0}Service", this.Provider.Type.ToString());
+        }
+
         /// <summary>
         /// </summary>
         /// <param name="entity"></param>
@@ -257,11 +262,6 @@
             {
                 this.Original.Update(entity);
             }
-        }
-
-        public override string ToString()
-        {
-            return string.Format("{0}Service", this.Provider.Type.ToString());
         }
 
         #endregion Public Methods

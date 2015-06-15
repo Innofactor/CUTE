@@ -174,7 +174,7 @@
             var result = service.RetrieveMultiple(new QueryExpression());
 
             // Assert 
-            result.Should().NotBe(null); 
+            result.Should().NotBe(null);
             result.GetType().Should().Be<EntityCollection>();
             result.ShouldBeEquivalentTo<EntityCollection>(ServiceTestCases.expectedResultRetrieveMultiple, options => ((MatchPath)options).Excluding(x => x.SelectedMemberPath.EndsWith("ExtensionData")));
 
@@ -216,7 +216,7 @@
 
         private static IOrganizationService CreateNoInputService()
         {
-            // Creating Provider from scratch
+            // Creating provider from scratch
             var originalProvider = new CuteProvider();
 
             originalProvider.Calls.Add(new CuteCall(MessageName.Create, new[] { new Entity() }, ServiceTestCases.expectedResultCreate));
@@ -259,8 +259,8 @@
             service.RetrieveMultiple(new QueryExpression());
             service.Execute(new OrganizationRequest());
 
-            // Recreating Provider from serialized one
-            var provider = new CuteProvider(((CuteService)service).Provider.ToString());
+            // Recreating provider from serialized one
+            var provider = new CuteProvider(((CuteService)service).Provider.ToBase64String());
             return ((IOrganizationServiceFactory)provider.GetService(typeof(IOrganizationServiceFactory))).CreateOrganizationService(Guid.Empty);
         }
 

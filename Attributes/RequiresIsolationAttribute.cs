@@ -6,10 +6,11 @@
     using System.Security;
     using System.Security.Policy;
     using Cinteros.Unit.Testing.Extensions.Attributes.Internals;
+    using Microsoft.Xrm.Sdk;
     using NUnit.Framework;
 
     [AttributeUsage(AttributeTargets.Method)]
-    public class RequiresPartialTrustAttribute : TestActionAttribute
+    public class RequiresIsolationAttribute : TestActionAttribute
     {
         #region Public Methods
 
@@ -25,11 +26,19 @@
                 ApplicationBase = Path.GetDirectoryName(Assembly.GetAssembly(typeof(SandboxHost)).Location)
             };
 
-            var domain = AppDomain.CreateDomain(testDetails.FullName, evidence, setup, permissions, null);
+            var fullTrustAssemblies = new StrongName[] 
+            {
+                typeof(SandboxHost).Assembly.Evidence.GetHostEvidence<StrongName>(),
+                typeof(Entity).Assembly.Evidence.GetHostEvidence<StrongName>()
+            };
+
+            var domain = AppDomain.CreateDomain(testDetails.FullName, evidence, setup, permissions, fullTrustAssemblies);
 
             var type = typeof(SandboxHost);
 
-            var sandbox = (SandboxHost)domain.CreateInstanceAndUnwrap(type.Assembly.FullName, type.FullName);
+            var handle = Activator.CreateInstanceFrom(domain, type.Assembly.ManifestModule.FullyQualifiedName, type.FullName);
+
+            var sandbox = (SandboxHost)handle.Unwrap();
 
             var exception = sandbox.Execute(new SandboxTest(testDetails));
 

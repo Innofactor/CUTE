@@ -13,7 +13,7 @@
     {
         #region Public Methods
 
-        [Test]
+        [Test, RequiresIsolation]
         [Category("Serialization")]
         public void Serialize_Deserialize()
         {
@@ -23,7 +23,7 @@
             var inputProvider = new CuteProvider(initial);
 
             // Act
-            var outputProvider = new CuteProvider(inputProvider.ToString());
+            var outputProvider = new CuteProvider(inputProvider.ToBase64String());
 
             // Assert
             outputProvider.Should().BeAssignableTo<CuteProvider>();
@@ -39,7 +39,7 @@
             inputProvider.Calls.Add(new CuteCall("Update"));
 
             // Act
-            var outputProvider = new CuteProvider(inputProvider.ToString());
+            var outputProvider = new CuteProvider(inputProvider.ToBase64String());
 
             // Assert
             outputProvider.Calls.Should().NotBeNull();
@@ -56,7 +56,7 @@
             inputProvider.Context.MessageName = "Create";
 
             // Act
-            var outputProvider = new CuteProvider(inputProvider.ToString());
+            var outputProvider = new CuteProvider(inputProvider.ToBase64String());
             var outputContext = (IPluginExecutionContext)outputProvider.GetService(typeof(IPluginExecutionContext));
 
             // Assert
@@ -81,7 +81,7 @@
             var inputProvider = new CuteProvider(Substitute.For<IServiceProvider>());
 
             // Act
-            var outputProvider = new CuteProvider(inputProvider.ToString());
+            var outputProvider = new CuteProvider(inputProvider.ToBase64String());
 
             // Assert
             outputProvider.Original.Should().BeNull();
@@ -89,13 +89,13 @@
 
         [Test]
         [Category("Serialization")]
-        public void Serialize_To_String()
+        public void Serialize_To_Base64String()
         {
             // Arrange
             var provider = new CuteProvider(Substitute.For<IServiceProvider>());
 
             // Act
-            var result = provider.ToString();
+            var result = provider.ToBase64String();
 
             // Assert
             result.Should().BeAssignableTo<string>();

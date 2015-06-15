@@ -2,6 +2,7 @@
 {
     using System;
     using System.Reflection;
+    using System.Security;
 
     internal class SandboxHost : MarshalByRefObject
     {

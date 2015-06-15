@@ -89,18 +89,12 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="ProviderTestCases.cs" />
     <Compile Include="SerializationTests.cs" />
     <Compile Include="FactoryTestsCases.cs" />
-    <Compile Include="Provider\ICoreTests.cs" />
-    <Compile Include="Provider\TransparentInputTests.cs" />
     <Compile Include="ServiceTestCases.cs" />
     <Compile Include="ShortcutTests.cs" />
-    <Compile Include="Provider\NoInputTests.cs" />
-    <Compile Include="Provider\BareInputTests.cs" />
-    <Compile Include="Provider\CoreTests.cs" />
-    <Compile Include="Provider\SerializedInputTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Provider\WrappedInputTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

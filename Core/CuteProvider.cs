@@ -171,9 +171,14 @@
         /// Serializes object into deflated and compressed string
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
+        public string ToBase64String()
         {
             return Serialization.Deflate<CuteProvider>(this, this.Types);
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0}Provider", this.Type.ToString());
         }
 
         /// <summary>

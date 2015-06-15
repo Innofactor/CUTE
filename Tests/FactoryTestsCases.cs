@@ -1,4 +1,4 @@
-﻿namespace Cinteros.Unit.Testing.Extensions.Tests.Factory
+﻿namespace Cinteros.Unit.Testing.Extensions.Tests
 {
     using System;
     using Cinteros.Unit.Testing.Extensions.Core;
@@ -93,7 +93,7 @@
 
         private static IOrganizationServiceFactory CreateSerializedInputFactory()
         {
-            return (IOrganizationServiceFactory)new CuteProvider(new CuteProvider().ToString()).GetService(typeof(IOrganizationServiceFactory));
+            return (IOrganizationServiceFactory)new CuteProvider(new CuteProvider().ToBase64String()).GetService(typeof(IOrganizationServiceFactory));
         }
 
         private static IOrganizationServiceFactory CreateStandaloneInputFactory()
