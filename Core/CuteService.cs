@@ -17,7 +17,6 @@
         {
             this.Provider = provider;
             this.UserId = userId;
-            this.Type = provider.Type;
 
             if (this.Provider.Original != null)
             {
@@ -34,9 +33,12 @@
 
         public CuteService(IOrganizationService service)
         {
-            this.Provider = new CuteProvider();
+            this.Provider = new CuteProvider
+            {
+                Type = InstanceType.StandaloneInput
+            };
+
             this.Original = service;
-            this.Type = InstanceType.StandaloneInput;
         }
 
         #endregion Public Constructors
@@ -50,12 +52,6 @@
         }
 
         public CuteProvider Provider
-        {
-            get;
-            private set;
-        }
-
-        public InstanceType Type
         {
             get;
             private set;
@@ -265,7 +261,7 @@
 
         public override string ToString()
         {
-            return string.Format("{0}Service", this.Type.ToString());
+            return string.Format("{0}Service", this.Provider.Type.ToString());
         }
 
         #endregion Public Methods

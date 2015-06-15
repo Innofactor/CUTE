@@ -5,26 +5,35 @@
 
     public class CuteFactory : IOrganizationServiceFactory
     {
-        #region Private Fields
-
-        private CuteProvider provider;
-
-        #endregion Private Fields
-
         #region Public Constructors
 
         public CuteFactory(CuteProvider provider)
         {
-            this.provider = provider;
+            this.Provider = provider;
         }
 
         #endregion Public Constructors
+
+        #region Public Properties
+
+        public CuteProvider Provider
+        {
+            get;
+            private set;
+        }
+
+        #endregion Public Properties
 
         #region Public Methods
 
         IOrganizationService IOrganizationServiceFactory.CreateOrganizationService(Guid? userId)
         {
-            return new CuteService(this.provider, userId);
+            return new CuteService(this.Provider, userId);
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0}Factory", this.Provider.Type.ToString());
         }
 
         #endregion Public Methods

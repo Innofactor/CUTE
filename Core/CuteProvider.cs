@@ -16,7 +16,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="CuteProvider"/> class.
         /// </summary>
-        /// <param name="data">Serialized data that used to re-create provider</param>
+        /// <param name="data">Serialized data that used to re-create Provider</param>
         public CuteProvider(string data)
             : this()
         {
@@ -29,7 +29,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="CuteProvider"/> class.
         /// </summary>
-        /// <param name="provider">Provider that will be acting as a back-end for current one</param>
+        /// <param name="Provider">Provider that will be acting as a back-end for current one</param>
         public CuteProvider(IServiceProvider provider)
             : this()
         {
@@ -112,7 +112,7 @@
         public InstanceType Type
         {
             get;
-            private set;
+            internal set;
         }
 
         /// <summary>

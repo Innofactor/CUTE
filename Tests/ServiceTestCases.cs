@@ -83,7 +83,7 @@
         public void Check_Service_Type(IOrganizationService service, InstanceType expected)
         {
             // Assert
-            ((CuteService)service).Type.Should().Be(expected);
+            ((CuteService)service).Provider.Type.Should().Be(expected);
         }
 
         [TestCaseSource("services"), Category("Service")]
@@ -146,7 +146,8 @@
             // Act
             var result = service.Execute(new OrganizationRequest());
 
-            // Assert result.Should().NotBe(null);
+            // Assert 
+            result.Should().NotBe(null);
             result.GetType().Should().Be<OrganizationResponse>();
             result.ShouldBeEquivalentTo(ServiceTestCases.expectedResultExecute, options => options.Excluding(x => x.ExtensionData));
 
@@ -172,7 +173,9 @@
             // Act
             var result = service.RetrieveMultiple(new QueryExpression());
 
-            // Assert result.Should().NotBe(null); result.GetType().Should().Be<EntityCollection>();
+            // Assert 
+            result.Should().NotBe(null); 
+            result.GetType().Should().Be<EntityCollection>();
             result.ShouldBeEquivalentTo<EntityCollection>(ServiceTestCases.expectedResultRetrieveMultiple, options => ((MatchPath)options).Excluding(x => x.SelectedMemberPath.EndsWith("ExtensionData")));
 
             ((CuteService)service).Provider.Calls.Where(x => x.Message == MessageName.RetrieveMultiple).Count().Should().Be(1);
@@ -213,7 +216,7 @@
 
         private static IOrganizationService CreateNoInputService()
         {
-            // Creating provider from scratch
+            // Creating Provider from scratch
             var originalProvider = new CuteProvider();
 
             originalProvider.Calls.Add(new CuteCall(MessageName.Create, new[] { new Entity() }, ServiceTestCases.expectedResultCreate));
@@ -256,7 +259,7 @@
             service.RetrieveMultiple(new QueryExpression());
             service.Execute(new OrganizationRequest());
 
-            // Recreating provider from serialized one
+            // Recreating Provider from serialized one
             var provider = new CuteProvider(((CuteService)service).Provider.ToString());
             return ((IOrganizationServiceFactory)provider.GetService(typeof(IOrganizationServiceFactory))).CreateOrganizationService(Guid.Empty);
         }
