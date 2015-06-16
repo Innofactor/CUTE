@@ -35,34 +35,41 @@
             //Console.SetError(testMethodInfo.ErrorStream);
 
             Type typeUnderTest = test.MainMethod.DeclaringType;
-
-            object instance = Activator.CreateInstance(typeUnderTest);
-
+            object instance = null;
             Exception exceptionCaught = null;
 
             try
             {
-                // mark this test as being in the app domain.  As soon as we're done, we're going to tear down
-                // the app domain, so there is no need to set this back to false.
-                //AppDomainRunner.IsInTestAppDomain = true;
+                instance = Activator.CreateInstance(typeUnderTest);
 
-                foreach (var method in test.SetupMethods)
+                try
                 {
-                    method.Invoke(instance, null);
+                    // mark this test as being in the app domain.  As soon as we're done, we're going to tear down
+                    // the app domain, so there is no need to set this back to false.
+                    //AppDomainRunner.IsInTestAppDomain = true;
+
+                    foreach (var method in test.SetupMethods)
+                    {
+                        method.Invoke(instance, null);
+                    }
+
+                    test.MainMethod.Invoke(instance, new object[] { });
+
+                    foreach (var method in test.TeardownMethods)
+                    {
+                        method.Invoke(instance, null);
+                    }
                 }
-
-                test.MainMethod.Invoke(instance, new object[] { });
-
-                foreach (var method in test.TeardownMethods)
+                catch (TargetInvocationException e)
                 {
-                    method.Invoke(instance, null);
+                    // TODO when moving to .NET 4.5, find out if using ExceptionDispatchInfo.Capture
+                    // helps at all.
+                    exceptionCaught = e.InnerException;
                 }
             }
-            catch (TargetInvocationException e)
+            catch (Exception e)
             {
-                // TODO when moving to .NET 4.5, find out if using ExceptionDispatchInfo.Capture
-                // helps at all.
-                exceptionCaught = e.InnerException;
+                exceptionCaught = e;
             }
 
             return exceptionCaught;

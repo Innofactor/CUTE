@@ -2,6 +2,7 @@
 {
     using System;
     using System.Xml;
+    using Cinteros.Unit.Testing.Extensions.Attributes;
     using Cinteros.Unit.Testing.Extensions.Core;
     using FluentAssertions;
     using Microsoft.Xrm.Sdk;
@@ -12,57 +13,34 @@
     {
         #region Public Methods
 
-        [Test]
+        [Test, RequiresIsolation]
         [Category("Serialization")]
         public void Serialize_Deserialize()
         {
             // Arrange
-            var inputProvider = new CuteProvider(Substitute.For<IServiceProvider>());
+            var inputContext = Substitute.For<IPluginExecutionContext>();
+            inputContext.ParentContext.Returns(new CuteContext());
+            inputContext.PrimaryEntityName.Returns("account");
+            inputContext.MessageName.Returns("Create");
 
-            // Act
-            var outputProvider = new CuteProvider(inputProvider.ToBase64String());
+            var provider = Substitute.For<IServiceProvider>();
+            provider.GetService(typeof(IPluginExecutionContext)).Returns(inputContext);
 
-            // Assert
-            outputProvider.Should().BeAssignableTo<CuteProvider>();
-        }
-
-        [Test]
-        [Category("Serialization")]
-        public void Serialize_Deserialize_Check_Calls()
-        {
-            // Arrange
-            var inputProvider = new CuteProvider(Substitute.For<IServiceProvider>());
+            var inputProvider = new CuteProvider(provider);
             inputProvider.Calls.Add(new CuteCall("Create"));
             inputProvider.Calls.Add(new CuteCall("Update"));
-
-            // Act
-            var outputProvider = new CuteProvider(inputProvider.ToBase64String());
-
-            // Assert
-            outputProvider.Calls.Should().NotBeNull();
-            outputProvider.Calls.Count.Should().Be(inputProvider.Calls.Count);
-        }
-
-        [Test]
-        [Category("Serialization")]
-        public void Serialize_Deserialize_Check_Context()
-        {
-            // Arrange
-            var context = Substitute.For<IPluginExecutionContext>();
-            context.ParentContext.Returns(new CuteContext());
-
-            var originalProvider = Substitute.For<IServiceProvider>();
-            originalProvider.GetService(typeof(IPluginExecutionContext)).Returns(context);
-
-            var inputProvider = new CuteProvider(originalProvider);
-            inputProvider.Context.PrimaryEntityName = "account";
-            inputProvider.Context.MessageName = "Create";
 
             // Act
             var outputProvider = new CuteProvider(inputProvider.ToBase64String());
             var outputContext = (IPluginExecutionContext)outputProvider.GetService(typeof(IPluginExecutionContext));
 
             // Assert
+            outputProvider.Should().NotBeNull();
+            outputProvider.Should().BeAssignableTo<CuteProvider>();
+
+            outputProvider.Calls.Should().NotBeNull();
+            outputProvider.Calls.Count.Should().Be(inputProvider.Calls.Count);
+
             outputProvider.Context.Should().NotBeNull();
             outputContext.Should().NotBeNull();
 
@@ -74,19 +52,7 @@
 
             outputContext.PrimaryEntityName.Should().Be("account");
             outputContext.MessageName.Should().Be("Create");
-        }
 
-        [Test]
-        [Category("Serialization")]
-        public void Serialize_Deserialize_Check_Original_Provider()
-        {
-            // Arrange
-            var inputProvider = new CuteProvider(Substitute.For<IServiceProvider>());
-
-            // Act
-            var outputProvider = new CuteProvider(inputProvider.ToBase64String());
-
-            // Assert
             outputProvider.Original.Should().BeNull();
         }
 

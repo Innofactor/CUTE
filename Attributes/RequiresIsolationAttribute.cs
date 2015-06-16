@@ -26,10 +26,11 @@
                 ApplicationBase = Path.GetDirectoryName(Assembly.GetAssembly(typeof(SandboxHost)).Location)
             };
 
-            var fullTrustAssemblies = new StrongName[] 
+            var fullTrustAssemblies = new StrongName[]
             {
                 typeof(SandboxHost).Assembly.Evidence.GetHostEvidence<StrongName>(),
-                typeof(Entity).Assembly.Evidence.GetHostEvidence<StrongName>()
+                typeof(Entity).Assembly.Evidence.GetHostEvidence<StrongName>(),
+                testDetails.Method.DeclaringType.Assembly.Evidence.GetHostEvidence<StrongName>()
             };
 
             var domain = AppDomain.CreateDomain(testDetails.FullName, evidence, setup, permissions, fullTrustAssemblies);
