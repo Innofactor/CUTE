@@ -56,7 +56,7 @@
             outputProvider.Original.Should().BeNull();
         }
 
-        [Test]
+        [Test, RequiresIsolation]
         [Category("Serialization")]
         public void Serialize_To_Base64String()
         {
@@ -70,7 +70,7 @@
             result.Should().BeAssignableTo<string>();
         }
 
-        [Test]
+        [Test, RequiresIsolation]
         [Category("Serialization")]
         public void Serialize_To_XML()
         {
