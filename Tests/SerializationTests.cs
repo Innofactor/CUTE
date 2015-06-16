@@ -13,7 +13,7 @@
     {
         #region Public Methods
 
-        [Test, RequiresIsolation]
+        [Test]
         [Category("Serialization")]
         public void Serialize_Deserialize()
         {
@@ -56,7 +56,7 @@
             outputProvider.Original.Should().BeNull();
         }
 
-        [Test, RequiresIsolation]
+        [Test]
         [Category("Serialization")]
         public void Serialize_To_Base64String()
         {
@@ -70,7 +70,7 @@
             result.Should().BeAssignableTo<string>();
         }
 
-        [Test, RequiresIsolation]
+        [Test]
         [Category("Serialization")]
         public void Serialize_To_XML()
         {
