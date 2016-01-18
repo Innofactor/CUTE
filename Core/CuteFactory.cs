@@ -1,7 +1,7 @@
 ﻿namespace Cinteros.Unit.Testing.Extensions.Core
 {
-    using System;
     using Microsoft.Xrm.Sdk;
+    using System;
 
     public class CuteFactory : IOrganizationServiceFactory
     {

@@ -1,13 +1,12 @@
 ﻿namespace Cinteros.Unit.Testing.Extensions.Tests
 {
-    using System;
-    using Cinteros.Unit.Testing.Extensions.Attributes;
     using Cinteros.Unit.Testing.Extensions.Core;
     using Cinteros.Unit.Testing.Extensions.Core.Background;
     using Cinteros.Unit.Testing.Extensions.Core.Shortcut;
     using Microsoft.Xrm.Sdk;
     using Microsoft.Xrm.Sdk.Query;
     using NUnit.Framework;
+    using System;
 
     public class ShortcutTests
     {

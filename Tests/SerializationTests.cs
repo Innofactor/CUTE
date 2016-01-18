@@ -1,13 +1,12 @@
 ﻿namespace Cinteros.Unit.Testing.Extensions.Tests
 {
-    using System;
-    using System.Xml;
-    using Cinteros.Unit.Testing.Extensions.Attributes;
     using Cinteros.Unit.Testing.Extensions.Core;
     using FluentAssertions;
     using Microsoft.Xrm.Sdk;
     using NSubstitute;
     using NUnit.Framework;
+    using System;
+    using System.Xml;
 
     public class SerializationTests
     {

@@ -1,8 +1,8 @@
 ﻿namespace Cinteros.Unit.Testing.Extensions.Core.Shortcut
 {
-    using System;
     using Cinteros.Unit.Testing.Extensions.Core.Background;
     using Microsoft.Xrm.Sdk;
+    using System;
 
     public class CuteCreate : CuteCall
     {

@@ -1,12 +1,12 @@
 ﻿namespace Cinteros.Unit.Testing.Extensions.Core
 {
+    using Cinteros.Unit.Testing.Extensions.Core.Background;
+    using Microsoft.Xrm.Sdk;
+    using Microsoft.Xrm.Sdk.Query;
     using System;
     using System.Collections.ObjectModel;
     using System.Runtime.Serialization;
     using System.Xml;
-    using Cinteros.Unit.Testing.Extensions.Core.Background;
-    using Microsoft.Xrm.Sdk;
-    using Microsoft.Xrm.Sdk.Query;
 
     [DataContract]
     public class CuteProvider : IServiceProvider

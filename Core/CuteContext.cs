@@ -1,8 +1,8 @@
 namespace Cinteros.Unit.Testing.Extensions.Core
 {
+    using Microsoft.Xrm.Sdk;
     using System;
     using System.Runtime.Serialization;
-    using Microsoft.Xrm.Sdk;
 
     /// <summary>
     /// An implementation of IPluginExecutionContext designed to be serializable

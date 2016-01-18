@@ -1,10 +1,10 @@
 ﻿namespace Cinteros.Unit.Testing.Extensions.Core
 {
-    using System;
-    using System.Linq;
     using Cinteros.Unit.Testing.Extensions.Core.Background;
     using Microsoft.Xrm.Sdk;
     using Microsoft.Xrm.Sdk.Query;
+    using System;
+    using System.Linq;
 
     /// <summary>
     /// Service that replaces requests with their cached versions

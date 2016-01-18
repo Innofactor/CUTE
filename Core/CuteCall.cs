@@ -1,9 +1,9 @@
 ﻿namespace Cinteros.Unit.Testing.Extensions.Core
 {
-    using System;
-    using System.Runtime.Serialization;
     using Cinteros.Unit.Testing.Extensions.Core.Background;
     using Microsoft.Xrm.Sdk.Query;
+    using System;
+    using System.Runtime.Serialization;
 
     /// <summary>
     /// Item representing call to <see cref="IOrganizationService"/> and respective response

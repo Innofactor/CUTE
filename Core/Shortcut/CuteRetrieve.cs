@@ -1,9 +1,9 @@
 ﻿namespace Cinteros.Unit.Testing.Extensions.Core.Shortcut
 {
-    using System;
     using Cinteros.Unit.Testing.Extensions.Core.Background;
     using Microsoft.Xrm.Sdk;
     using Microsoft.Xrm.Sdk.Query;
+    using System;
 
     public class CuteRetrieve : CuteCall
     {

@@ -1,12 +1,12 @@
 ﻿namespace Cinteros.Unit.Testing.Extensions.Tests
 {
-    using System;
     using Cinteros.Unit.Testing.Extensions.Core;
     using Cinteros.Unit.Testing.Extensions.Core.Background;
     using FluentAssertions;
     using Microsoft.Xrm.Sdk;
     using NSubstitute;
     using NUnit.Framework;
+    using System;
 
     public class FactoryTestsCases
     {

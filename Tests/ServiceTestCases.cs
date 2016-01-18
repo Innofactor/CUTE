@@ -1,8 +1,5 @@
 ﻿namespace Cinteros.Unit.Testing.Extensions.Tests
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using Cinteros.Unit.Testing.Extensions.Core;
     using Cinteros.Unit.Testing.Extensions.Core.Background;
     using FluentAssertions;
@@ -10,6 +7,8 @@
     using Microsoft.Xrm.Sdk.Query;
     using NSubstitute;
     using NUnit.Framework;
+    using System;
+    using System.Linq;
 
     public class ServiceTestCases
     {
@@ -122,7 +121,7 @@
                 service.Delete("fail", Guid.Empty);
             };
 
-            // Act 
+            // Act
             service.Delete(string.Empty, Guid.Empty);
 
             // Assert
@@ -144,7 +143,7 @@
             // Act
             var result = service.Execute(new OrganizationRequest());
 
-            // Assert 
+            // Assert
             result.Should().NotBe(null);
             result.GetType().Should().Be<OrganizationResponse>();
             result.ShouldBeEquivalentTo(ServiceTestCases.expectedResultExecute, options => options.Excluding(x => x.ExtensionData));
@@ -171,7 +170,7 @@
             // Act
             var result = service.RetrieveMultiple(new QueryExpression());
 
-            // Assert 
+            // Assert
             result.Should().NotBe(null);
             result.GetType().Should().Be<EntityCollection>();
             result.ShouldBeEquivalentTo<EntityCollection>(ServiceTestCases.expectedResultRetrieveMultiple, options => (options).Excluding(x => x.SelectedMemberPath.EndsWith("ExtensionData")));

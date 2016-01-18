@@ -1,13 +1,13 @@
 ﻿namespace Cinteros.Unit.Testing.Extensions.Attributes
 {
+    using Cinteros.Unit.Testing.Extensions.Attributes.Internals;
+    using Microsoft.Xrm.Sdk;
+    using NUnit.Framework;
     using System;
     using System.IO;
     using System.Reflection;
     using System.Security;
     using System.Security.Policy;
-    using Cinteros.Unit.Testing.Extensions.Attributes.Internals;
-    using Microsoft.Xrm.Sdk;
-    using NUnit.Framework;
 
     [AttributeUsage(AttributeTargets.Method)]
     public class RequiresIsolationAttribute : TestActionAttribute
