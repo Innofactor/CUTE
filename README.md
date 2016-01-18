@@ -4,6 +4,7 @@ Despite there are several unit tesing libraries on the market that deal with MS 
 
 ### Currently `CUTE v.1` has following features:
 
+* Support of MS Dynamics CRM 2011/2013/2015/2016;
 * Capture CRM requests and responses during plugin execution, and reuse this information during test run;
 * Proxy all request to existing CRM instance and return real answers to plugin during test run;
 * Manually composing `IPluginExecutionContext` without need of mocking library;
