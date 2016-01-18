@@ -11,8 +11,6 @@
     using NSubstitute;
     using NUnit.Framework;
 
-    using MatchPath = FluentAssertions.Equivalency.EquivalencyAssertionOptionsBase<FluentAssertions.Equivalency.EquivalencyAssertionOptions<Microsoft.Xrm.Sdk.EntityCollection>>;
-
     public class ServiceTestCases
     {
         #region Protected Fields
@@ -176,7 +174,7 @@
             // Assert 
             result.Should().NotBe(null);
             result.GetType().Should().Be<EntityCollection>();
-            result.ShouldBeEquivalentTo<EntityCollection>(ServiceTestCases.expectedResultRetrieveMultiple, options => ((MatchPath)options).Excluding(x => x.SelectedMemberPath.EndsWith("ExtensionData")));
+            result.ShouldBeEquivalentTo<EntityCollection>(ServiceTestCases.expectedResultRetrieveMultiple, options => (options).Excluding(x => x.SelectedMemberPath.EndsWith("ExtensionData")));
 
             ((CuteService)service).Provider.Calls.Where(x => x.Message == MessageName.RetrieveMultiple).Count().Should().Be(1);
         }
