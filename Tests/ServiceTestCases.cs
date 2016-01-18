@@ -28,22 +28,22 @@
 
         private IOrganizationService[] services = new IOrganizationService[]
         {
-            ServiceTestCases.CreateBareInputService(),
-            ServiceTestCases.CreateNoInputService(),
-            ServiceTestCases.CreateSerializedInputService(),
-            ServiceTestCases.CreateStandaloneInputService(),
-            ServiceTestCases.CreateTransparentInputService(),
-            ServiceTestCases.CreateWrappedInputService()
+            CreateBareInputService(),
+            CreateNoInputService(),
+            CreateSerializedInputService(),
+            CreateStandaloneInputService(),
+            CreateTransparentInputService(),
+            CreateWrappedInputService()
         };
 
         private object[][] serviceTypes = new object[][]
         {
-            new object[] { ServiceTestCases.CreateBareInputService(), InstanceType.BareInput },
-            new object[] { ServiceTestCases.CreateNoInputService(), InstanceType.NoInput },
-            new object[] { ServiceTestCases.CreateSerializedInputService(), InstanceType.SerializedInput },
-            new object[] { ServiceTestCases.CreateStandaloneInputService(), InstanceType.StandaloneInput },
-            new object[] { ServiceTestCases.CreateTransparentInputService(), InstanceType.TransparentInput },
-            new object[] { ServiceTestCases.CreateWrappedInputService(), InstanceType.WrappedInput }
+            new object[] { CreateBareInputService(), InstanceType.BareInput },
+            new object[] { CreateNoInputService(), InstanceType.NoInput },
+            new object[] { CreateSerializedInputService(), InstanceType.SerializedInput },
+            new object[] { CreateStandaloneInputService(), InstanceType.StandaloneInput },
+            new object[] { CreateTransparentInputService(), InstanceType.TransparentInput },
+            new object[] { CreateWrappedInputService(), InstanceType.WrappedInput }
         };
 
         #endregion Private Fields
@@ -52,21 +52,21 @@
 
         static ServiceTestCases()
         {
-            ServiceTestCases.expectedResultCreate = Guid.NewGuid();
+            expectedResultCreate = Guid.NewGuid();
 
-            ServiceTestCases.expectedResultRetrieve = new Entity()
+            expectedResultRetrieve = new Entity()
             {
                 Id = Guid.NewGuid()
             };
 
-            ServiceTestCases.expectedResultRetrieveMultiple = new EntityCollection();
-            ServiceTestCases.expectedResultRetrieveMultiple.Entities.Add(new Entity());
-            ServiceTestCases.expectedResultRetrieveMultiple.Entities.Add(new Entity());
-            ServiceTestCases.expectedResultRetrieveMultiple.Entities.Add(new Entity());
-            ServiceTestCases.expectedResultRetrieveMultiple.Entities.Add(new Entity());
-            ServiceTestCases.expectedResultRetrieveMultiple.Entities.Add(new Entity());
+            expectedResultRetrieveMultiple = new EntityCollection();
+            expectedResultRetrieveMultiple.Entities.Add(new Entity());
+            expectedResultRetrieveMultiple.Entities.Add(new Entity());
+            expectedResultRetrieveMultiple.Entities.Add(new Entity());
+            expectedResultRetrieveMultiple.Entities.Add(new Entity());
+            expectedResultRetrieveMultiple.Entities.Add(new Entity());
 
-            ServiceTestCases.expectedResultExecute = new OrganizationResponse()
+            expectedResultExecute = new OrganizationResponse()
             {
                 ResponseName = "Test"
             };
@@ -105,7 +105,7 @@
             // Assert
             result.GetType().Should().Be<Guid>(because: "message `Create` should always return Id of record created");
             result.Should().NotBe(Guid.Empty, because: "record's Id cannot be empty Guid");
-            result.Should().Be(ServiceTestCases.expectedResultCreate);
+            result.Should().Be(expectedResultCreate);
 
             fail.ShouldThrow<InvalidPluginExecutionException>();
 
@@ -146,7 +146,7 @@
             // Assert
             result.Should().NotBe(null);
             result.GetType().Should().Be<OrganizationResponse>();
-            result.ShouldBeEquivalentTo(ServiceTestCases.expectedResultExecute, options => options.Excluding(x => x.ExtensionData));
+            result.ShouldBeEquivalentTo(expectedResultExecute, options => options.Excluding(x => x.ExtensionData));
 
             ((CuteService)service).Provider.Calls.Where(x => x.Message == MessageName.Execute).Count().Should().Be(1, because: "Should be only one cached Execute call");
         }
@@ -159,7 +159,7 @@
 
             // Assert
             result.Should().NotBe(null);
-            result.ShouldBeEquivalentTo(ServiceTestCases.expectedResultRetrieve, options => options.Excluding(x => x.ExtensionData));
+            result.ShouldBeEquivalentTo(expectedResultRetrieve, options => options.Excluding(x => x.ExtensionData));
 
             ((CuteService)service).Provider.Calls.Where(x => x.Message == MessageName.Retrieve).Count().Should().Be(1);
         }

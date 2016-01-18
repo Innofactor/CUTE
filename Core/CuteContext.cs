@@ -274,7 +274,7 @@ namespace Cinteros.Unit.Testing.Extensions.Core
             var copy = new CuteContext(context);
             if (context.ParentContext != null)
             {
-                copy.Parent = CuteContext.Copy(context.ParentContext);
+                copy.Parent = Copy(context.ParentContext);
             }
 
             return copy;

@@ -21,9 +21,9 @@
             : this()
         {
             var saved = Serialization.Inflate<CuteProvider>(data, new CuteProvider().Types);
-            this.Context = saved.Context;
-            this.Calls = saved.Calls;
-            this.Type = InstanceType.SerializedInput;
+            Context = saved.Context;
+            Calls = saved.Calls;
+            Type = InstanceType.SerializedInput;
         }
 
         /// <summary>
@@ -35,16 +35,16 @@
         {
             if (provider.GetType() == typeof(CuteProvider))
             {
-                this.Original = ((CuteProvider)provider).Original;
-                this.Type = InstanceType.WrappedInput;
+                Original = ((CuteProvider)provider).Original;
+                Type = InstanceType.WrappedInput;
             }
             else
             {
-                this.Original = provider;
-                this.Type = InstanceType.BareInput;
+                Original = provider;
+                Type = InstanceType.BareInput;
             }
 
-            this.Context = CuteContext.Copy((IPluginExecutionContext)this.Original.GetService(typeof(IPluginExecutionContext)));
+            Context = CuteContext.Copy((IPluginExecutionContext)this.Original.GetService(typeof(IPluginExecutionContext)));
         }
 
         /// <summary>
@@ -52,11 +52,11 @@
         /// </summary>
         public CuteProvider()
         {
-            this.Context = new CuteContext();
-            this.Calls = new Collection<CuteCall>();
-            this.Type = InstanceType.NoInput;
+            Context = new CuteContext();
+            Calls = new Collection<CuteCall>();
+            Type = InstanceType.NoInput;
 
-            this.Types = new Type[]
+            Types = new Type[]
                 {
                     typeof(object),
                     typeof(Entity),
@@ -77,8 +77,8 @@
         public CuteProvider(IOrganizationService proxy)
             : this()
         {
-            this.Proxy = proxy;
-            this.Type = InstanceType.TransparentInput;
+            Proxy = proxy;
+            Type = InstanceType.TransparentInput;
         }
 
         #endregion Public Constructors
@@ -139,7 +139,7 @@
         {
             if (serviceType == typeof(IPluginExecutionContext))
             {
-                if (this.Original == null)
+                if (Original == null)
                 {
                     // Original IServiceProvider is not available, so use cached version of the object
                     return this.Context;
@@ -154,16 +154,16 @@
 
             if (serviceType == typeof(ITracingService))
             {
-                if (this.Original == null)
+                if (Original == null)
                 {
                     // Original IServiceProvider is not available, so use cached version of the object
                     return new CuteTracing();
                 }
             }
 
-            if (this.Original != null)
+            if (Original != null)
             {
-                return this.Original.GetService(serviceType);
+                return Original.GetService(serviceType);
             }
 
             throw new NotImplementedException(string.Format("Behavior for service of type '{0}' is not defined yet.", serviceType.ToString()));
@@ -175,7 +175,7 @@
         /// <returns></returns>
         public string ToBase64String()
         {
-            return Serialization.Deflate<CuteProvider>(this, this.Types);
+            return Serialization.Deflate(this, Types);
         }
 
         public override string ToString()
@@ -190,7 +190,7 @@
         public XmlDocument ToXml()
         {
             var document = new XmlDocument();
-            document.LoadXml(Serialization.Serialize<CuteProvider>(this, this.Types));
+            document.LoadXml(Serialization.Serialize(this, Types));
 
             return document;
         }

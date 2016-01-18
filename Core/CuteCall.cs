@@ -15,20 +15,20 @@
 
         public CuteCall(string messageName)
         {
-            this.Message = messageName;
+            Message = messageName;
         }
 
         public CuteCall(string messageName, object[] input)
         {
-            this.Message = messageName;
-            this.Input = input;
+            Message = messageName;
+            Input = input;
         }
 
         public CuteCall(string messageName, object[] input, object output)
         {
-            this.Message = messageName;
-            this.Input = input;
-            this.Output = output;
+            Message = messageName;
+            Input = input;
+            Output = output;
         }
 
         #endregion Public Constructors
@@ -87,17 +87,17 @@
             {
                 case MessageName.Retrieve:
                     {
-                        if ((string)this.Input[0] != (string)call.Input[0])
+                        if ((string)Input[0] != (string)call.Input[0])
                         {
                             return false;
                         }
 
-                        if ((Guid)this.Input[1] != (Guid)call.Input[1])
+                        if ((Guid)Input[1] != (Guid)call.Input[1])
                         {
                             return false;
                         }
 
-                        var thisOne = (ColumnSet)this.Input[2];
+                        var thisOne = (ColumnSet)Input[2];
                         var thatOne = (ColumnSet)call.Input[2];
 
                         thisOne.ExtensionData = null;
@@ -108,9 +108,9 @@
 
                 case MessageName.RetrieveMultiple:
                     {
-                        if (this.Input[0] is QueryExpression)
+                        if (Input[0] is QueryExpression)
                         {
-                            var thisOne = (QueryExpression)this.Input[0];
+                            var thisOne = (QueryExpression)Input[0];
                             var thatOne = (QueryExpression)call.Input[0];
 
                             thisOne.PageInfo = null;
@@ -125,7 +125,7 @@
 
             var types = new CuteProvider().Types;
 
-            return Serialization.Hash<object[]>(call.Input, types) == Serialization.Hash<object[]>(this.Input, types);
+            return Serialization.Hash(call.Input, types) == Serialization.Hash(Input, types);
         }
 
         /// <summary>
@@ -134,7 +134,7 @@
         /// <returns></returns>
         public new ulong GetHashCode()
         {
-            return Serialization.Hash<object[]>(this.Input);
+            return Serialization.Hash(Input);
         }
 
         #endregion Public Methods

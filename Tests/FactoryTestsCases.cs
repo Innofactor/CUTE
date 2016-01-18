@@ -14,20 +14,20 @@
 
         private IOrganizationServiceFactory[] factories = new IOrganizationServiceFactory[]
         {
-            FactoryTestsCases.CreateBareInputFactory(),
-            FactoryTestsCases.CreateNoInputFactory(),
-            FactoryTestsCases.CreateSerializedInputFactory(),
-            FactoryTestsCases.CreateTransparentInputFactory(),
-            FactoryTestsCases.CreateWrappedInputFactory()
+            CreateBareInputFactory(),
+            CreateNoInputFactory(),
+            CreateSerializedInputFactory(),
+            CreateTransparentInputFactory(),
+            CreateWrappedInputFactory()
         };
 
         private object[][] factoryTypes = new object[][]
         {
-            new object[] { FactoryTestsCases.CreateBareInputFactory(), InstanceType.BareInput },
-            new object[] { FactoryTestsCases.CreateNoInputFactory(), InstanceType.NoInput },
-            new object[] { FactoryTestsCases.CreateSerializedInputFactory(), InstanceType.SerializedInput },
-            new object[] { FactoryTestsCases.CreateTransparentInputFactory(), InstanceType.TransparentInput },
-            new object[] { FactoryTestsCases.CreateWrappedInputFactory(), InstanceType.WrappedInput }
+            new object[] { CreateBareInputFactory(), InstanceType.BareInput },
+            new object[] { CreateNoInputFactory(), InstanceType.NoInput },
+            new object[] { CreateSerializedInputFactory(), InstanceType.SerializedInput },
+            new object[] { CreateTransparentInputFactory(), InstanceType.TransparentInput },
+            new object[] { CreateWrappedInputFactory(), InstanceType.WrappedInput }
         };
 
         #endregion Private Fields

@@ -15,30 +15,30 @@
 
         public CuteService(CuteProvider provider, Guid? userId)
         {
-            this.Provider = provider;
-            this.UserId = userId;
+            Provider = provider;
+            UserId = userId;
 
-            if (this.Provider.Original != null)
+            if (Provider.Original != null)
             {
                 var factory = (IOrganizationServiceFactory)provider.Original.GetService(typeof(IOrganizationServiceFactory));
 
-                this.Original = factory.CreateOrganizationService(userId);
+                Original = factory.CreateOrganizationService(userId);
             }
 
-            if (this.Provider.Proxy != null)
+            if (Provider.Proxy != null)
             {
-                this.Original = this.Provider.Proxy;
+                Original = this.Provider.Proxy;
             }
         }
 
         public CuteService(IOrganizationService service)
         {
-            this.Provider = new CuteProvider
+            Provider = new CuteProvider
             {
                 Type = InstanceType.StandaloneInput
             };
 
-            this.Original = service;
+            Original = service;
         }
 
         #endregion Public Constructors
@@ -131,25 +131,25 @@
         {
             var call = new CuteCall(MessageName.Delete, new object[] { entityName, id });
 
-            if (this.Original != null)
+            if (Original != null)
             {
                 try
                 {
-                    this.Original.Delete(entityName, id);
+                    Original.Delete(entityName, id);
                 }
                 catch (Exception ex)
                 {
                     call.Output = ex;
-                    this.Provider.Calls.Add(call);
+                    Provider.Calls.Add(call);
 
                     throw;
                 }
 
-                this.Provider.Calls.Add(call);
+                Provider.Calls.Add(call);
             }
             else
             {
-                var result = this.Provider.Calls.Where(x => x.Equals(call)).FirstOrDefault();
+                var result = Provider.Calls.Where(x => x.Equals(call)).FirstOrDefault();
 
                 if (result != null && result.Output != null)
                 {
@@ -170,9 +170,9 @@
         /// <exception cref="NotImplementedException"></exception>
         public void Disassociate(string entityName, Guid entityId, Relationship relationship, EntityReferenceCollection relatedEntities)
         {
-            if (this.Original != null)
+            if (Original != null)
             {
-                this.Original.Disassociate(entityName, entityId, relationship, relatedEntities);
+                Original.Disassociate(entityName, entityId, relationship, relatedEntities);
             }
         }
 
@@ -183,11 +183,11 @@
         /// <exception cref="NotImplementedException"></exception>
         public OrganizationResponse Execute(OrganizationRequest request)
         {
-            if (this.Original != null)
+            if (Original != null)
             {
                 var result = this.Original.Execute(request);
 
-                this.Provider.Calls.Add(new CuteCall(MessageName.Execute, new[] { request }, result));
+                Provider.Calls.Add(new CuteCall(MessageName.Execute, new[] { request }, result));
 
                 return result;
             }
@@ -195,7 +195,7 @@
             {
                 var call = new CuteCall(MessageName.Execute, new[] { request });
 
-                return this.Provider.Calls.Where(x => x.Equals(call)).Select(x => (OrganizationResponse)x.Output).FirstOrDefault();
+                return Provider.Calls.Where(x => x.Equals(call)).Select(x => (OrganizationResponse)x.Output).FirstOrDefault();
             }
         }
 
@@ -210,17 +210,17 @@
         {
             var call = new CuteCall(MessageName.Retrieve, new object[] { entityName, id, columnSet });
 
-            if (this.Original != null)
+            if (Original != null)
             {
-                call.Output = this.Original.Retrieve(entityName, id, columnSet);
+                call.Output = Original.Retrieve(entityName, id, columnSet);
 
-                this.Provider.Calls.Add(call);
+                Provider.Calls.Add(call);
 
                 return (Entity)call.Output;
             }
             else
             {
-                return this.Provider.Calls.Where(x => x.Equals(call)).Select(x => (Entity)x.Output).FirstOrDefault();
+                return Provider.Calls.Where(x => x.Equals(call)).Select(x => (Entity)x.Output).FirstOrDefault();
             }
         }
 
@@ -233,11 +233,11 @@
         {
             var call = new CuteCall(MessageName.RetrieveMultiple, new[] { query });
 
-            if (this.Original != null)
+            if (Original != null)
             {
-                call.Output = this.Original.RetrieveMultiple(query);
+                call.Output = Original.RetrieveMultiple(query);
 
-                this.Provider.Calls.Add(call);
+                Provider.Calls.Add(call);
 
                 return (EntityCollection)call.Output;
             }
@@ -249,7 +249,7 @@
 
         public override string ToString()
         {
-            return string.Format("{0}Service", this.Provider.Type.ToString());
+            return string.Format("{0}Service", Provider.Type.ToString());
         }
 
         /// <summary>
@@ -258,9 +258,9 @@
         /// <exception cref="NotImplementedException"></exception>
         public void Update(Entity entity)
         {
-            if (this.Original != null)
+            if (Original != null)
             {
-                this.Original.Update(entity);
+                Original.Update(entity);
             }
         }
 

@@ -12,15 +12,15 @@
 
         public SandboxTest(TestDetails testDetails)
         {
-            this.MainMethod = testDetails.Method;
+            MainMethod = testDetails.Method;
 
-            this.SetupMethods = this.GetMethodsWith<TestFixtureSetUpAttribute>(testDetails.Method.DeclaringType);
-            this.SetupMethods.AddRange(this.GetMethodsWith<SetUpAttribute>(testDetails.Method.DeclaringType));
+            SetupMethods = GetMethodsWith<TestFixtureSetUpAttribute>(testDetails.Method.DeclaringType);
+            SetupMethods.AddRange(GetMethodsWith<SetUpAttribute>(testDetails.Method.DeclaringType));
 
-            this.SetupMethods.Reverse();
+            SetupMethods.Reverse();
 
-            this.TeardownMethods = this.GetMethodsWith<TestFixtureTearDownAttribute>(testDetails.Method.DeclaringType);
-            this.TeardownMethods.AddRange(this.GetMethodsWith<TearDownAttribute>(testDetails.Method.DeclaringType));
+            TeardownMethods = GetMethodsWith<TestFixtureTearDownAttribute>(testDetails.Method.DeclaringType);
+            TeardownMethods.AddRange(GetMethodsWith<TearDownAttribute>(testDetails.Method.DeclaringType));
         }
 
         #endregion Public Constructors

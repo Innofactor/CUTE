@@ -9,7 +9,7 @@
 
         public CuteFactory(CuteProvider provider)
         {
-            this.Provider = provider;
+            Provider = provider;
         }
 
         #endregion Public Constructors
@@ -28,12 +28,12 @@
 
         IOrganizationService IOrganizationServiceFactory.CreateOrganizationService(Guid? userId)
         {
-            return new CuteService(this.Provider, userId);
+            return new CuteService(Provider, userId);
         }
 
         public override string ToString()
         {
-            return string.Format("{0}Factory", this.Provider.Type.ToString());
+            return string.Format("{0}Factory", Provider.Type.ToString());
         }
 
         #endregion Public Methods

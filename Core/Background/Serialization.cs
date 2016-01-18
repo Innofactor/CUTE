@@ -74,13 +74,13 @@
         /// <param name="serializationObject"></param>
         /// <param name="knownTypes">Array of known types will be serialized</param>
         /// <returns></returns>
-        public static UInt64 Hash<T>(T serializationObject, Type[] knownTypes = null)
+        public static ulong Hash<T>(T serializationObject, Type[] knownTypes = null)
         {
             knownTypes = knownTypes ?? new[] { typeof(object) };
 
-            var serializationString = Serialization.Serialize<T>(serializationObject, knownTypes);
+            var serializationString = Serialize(serializationObject, knownTypes);
 
-            UInt64 hashedValue = 3074457345618258791ul;
+            ulong hashedValue = 3074457345618258791ul;
 
             for (int i = 0; i < serializationString.Length; i++)
             {

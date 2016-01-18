@@ -14,20 +14,20 @@
 
         private IServiceProvider[] providers = new IServiceProvider[]
         {
-            ProviderTestCases.CreateBareInputProvider(),
-            ProviderTestCases.CreateNoInputProvider(),
-            ProviderTestCases.CreateSerializedInputProvider(),
-            ProviderTestCases.CreateTransparentInputProvider(),
-            ProviderTestCases.CreateWrappedInputProvider()
+            CreateBareInputProvider(),
+            CreateNoInputProvider(),
+            CreateSerializedInputProvider(),
+            CreateTransparentInputProvider(),
+            CreateWrappedInputProvider()
         };
 
         private object[][] providerTypes = new object[][]
         {
-            new object[] { ProviderTestCases.CreateBareInputProvider(), InstanceType.BareInput },
-            new object[] { ProviderTestCases.CreateNoInputProvider(), InstanceType.NoInput },
-            new object[] { ProviderTestCases.CreateSerializedInputProvider(), InstanceType.SerializedInput },
-            new object[] { ProviderTestCases.CreateTransparentInputProvider(), InstanceType.TransparentInput },
-            new object[] { ProviderTestCases.CreateWrappedInputProvider(), InstanceType.WrappedInput }
+            new object[] { CreateBareInputProvider(), InstanceType.BareInput },
+            new object[] { CreateNoInputProvider(), InstanceType.NoInput },
+            new object[] { CreateSerializedInputProvider(), InstanceType.SerializedInput },
+            new object[] { CreateTransparentInputProvider(), InstanceType.TransparentInput },
+            new object[] { CreateWrappedInputProvider(), InstanceType.WrappedInput }
         };
 
         #endregion Private Fields
@@ -136,7 +136,7 @@
 
         private static IServiceProvider CreateSerializedInputProvider()
         {
-            var provider = ProviderTestCases.CreateBareInputProvider();
+            var provider = CreateBareInputProvider();
             return new CuteProvider(((CuteProvider)provider).ToBase64String());
         }
 
@@ -153,7 +153,7 @@
 
         private static IServiceProvider CreateWrappedInputProvider()
         {
-            var provider = ProviderTestCases.CreateBareInputProvider();
+            var provider = CreateBareInputProvider();
             return new CuteProvider(provider);
         }
 
