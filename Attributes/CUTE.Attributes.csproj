@@ -57,6 +57,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Version\VersionInfo.cs">
+      <Link>Properties\VersionInfo.cs</Link>
+    </Compile>
     <Compile Include="RequiresIsolationAttribute.cs" />
     <Compile Include="Internals\SandboxHost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

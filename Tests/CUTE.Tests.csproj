@@ -95,6 +95,9 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="..\Version\VersionInfo.cs">
+      <Link>Properties\VersionInfo.cs</Link>
+    </Compile>
     <Compile Include="ProviderTestCases.cs" />
     <Compile Include="SerializationTests.cs" />
     <Compile Include="FactoryTestsCases.cs" />

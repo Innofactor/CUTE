@@ -56,6 +56,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Version\VersionInfo.cs">
+      <Link>Properties\VersionInfo.cs</Link>
+    </Compile>
     <Compile Include="Background\InstanceType.cs" />
     <Compile Include="Background\MessageName.cs" />
     <Compile Include="CuteTracing.cs" />
