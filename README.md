@@ -1,4 +1,4 @@
-## CRM Unit Testing Extensions (CUTE)
+## Cinteros Unit Testing Extensions (CUTE)
 
 Despite there are several unit tesing libraries on the market that deal with MS Dynamics CRM, none of them fully comply with MS CRM developer needs. Without any ambition of creating something either universal or unique we combined several common approaches used into one small library that let you finally kick start unit testing in your Dynamics CRM project.
 
